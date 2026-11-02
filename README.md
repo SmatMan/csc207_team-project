@@ -4,17 +4,15 @@
 
 ### Team Members
 
-- Name
+- Dion Machado 
 
-- Name
+- Alex Davydenko
 
-- Name
+- Arjun Mehandiratta
 
-- Name
+- Michael Bayato
 
-- Name
-
-- Name
+- Saihaan Selim 
 
 ---
 
@@ -22,7 +20,9 @@
 
 ### Domain
 
-[Project description]
+This project is an application where you can input ingredients that you have in your pantry, fridge, 
+or house, and you can get custom recipes based on preferences such as dish type, cultural, dietary restrictions,
+and more. The application also allows you to store, favourite and delete recipes. 
 
 ---
 
@@ -30,17 +30,25 @@
 
 ### User Story 1
 
+As a parent of a family with 2 kids, I want to be able to look up recipes based on what ingredients 
+I have in my house so I can quickly find a meal to cook in less than 2 minutes.
+
 ### User Story 2
 
 ### User Story 3
 
-(Add additional user stories as needed.)
+### User Story 4
+
+### User Story 5
 
 ---
 
 ## Use Cases
 
 ### Use Case 1
+Goal: Get recipes based on the ingredients in the pantry of the user 
+
+Precondition: User must be logged in and User must have at least one item in their pantry 
 
 ### Use Case 2
 
