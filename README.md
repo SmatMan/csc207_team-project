@@ -35,6 +35,9 @@ I have in my house so I can quickly find a meal to cook in less than 2 minutes.
 
 ### User Story 2
 
+As a working professional who is vegetarian and lactose intolerant, I don't really have time to figure out what to eat.
+I also get bored of my meals quickly. I need a tracker for my ingredients that can identify what I can and can't make.
+
 ### User Story 3
 
 ### User Story 4
