@@ -30,12 +30,13 @@ and more. The application also allows you to store, favourite and delete recipes
 
 ### User Story 1
 
-As a parent of a family with 2 kids, I want to be able to look up recipes based on what ingredients 
-I have in my house so I can quickly find a meal to cook in less than 2 minutes.
+As a parent of a family with 2 kids, I want to be able to look up recipes based on what ingredients I have in my house so I can quickly find a meal to cook in less than 2 minutes.
 
 ### User Story 2
 
 ### User Story 3
+
+I am a muslim and so I only eat halal food. I need to create a few ethnic meals to feed my family which is coming over from Kazakstan.
 
 ### User Story 4
 
@@ -54,6 +55,8 @@ Precondition: User must be logged in and User must have at least one item in the
 
 ### Use Case 3
 
+Communiacte clearly what is makeable with user's ingreadeints and diety restrictions making sure the user understands what each recipe is.
+
 (Add additional use cases as needed.)
 
 ---
@@ -62,7 +65,7 @@ Precondition: User must be logged in and User must have at least one item in the
 
 | Team Member | MVP Use Case |
 
-|-------------|--------------|
+| Alexander Davydenko | Produce a front end independent from the data |
 
 | Name | Use Case |
 
@@ -84,6 +87,8 @@ Precondition: User must be logged in and User must have at least one item in the
 ## API Usage
 
 **API Name:**
+
+Spoonocular
 
 **Documentation:** [Link]
 
