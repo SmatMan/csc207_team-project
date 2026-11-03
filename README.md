@@ -2,6 +2,8 @@
 
 ## Team Information
 
+[Project Google Docs Link](https://docs.google.com/document/d/1_SdBBDG2W2mms3sfqU-FKWBU6JN7IfM8zoO38baLJZI/edit?usp=sharing)
+
 ### Team Members
 
 - Dion Machado 
