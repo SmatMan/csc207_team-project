@@ -57,6 +57,10 @@ Precondition: User must be logged in and User must have at least one item in the
 
 ### Use Case 2
 
+Goal: Store and organize pantry ingredients, as well as dietary preferences (allergies, intolerances).
+
+Lead: Arjun
+
 ### Use Case 3
 
 (Add additional use cases as needed.)
