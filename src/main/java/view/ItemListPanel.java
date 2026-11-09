@@ -21,6 +21,39 @@ public class ItemListPanel extends JPanel {
         for (String item : initialItems) {
             items.addElement(item);
         }
-        add(new JScrollPane(new JList<>(items)), BorderLayout.CENTER);
+        list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        add(new JScrollPane(list), BorderLayout.CENTER);
+
+        JButton addButton = new JButton("+");
+        JButton removeButton = new JButton("-");
+        removeButton.setEnabled(false); // nothing is selected yet, so "-" button should be disableda
+
+        addButton.addActionListener(e -> addItem());
+        removeButton.addActionListener(e -> removeSelectedItem());
+        // Only allow "-" when there is something selected to remove.
+        list.addListSelectionListener(e -> removeButton.setEnabled(!list.isSelectionEmpty()));
+
+        JPanel buttons = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        buttons.add(addButton);
+        buttons.add(removeButton);
+        add(buttons, BorderLayout.SOUTH);
+    }
+
+    private void addItem() {
+        String input = JOptionPane.showInputDialog(this, "Add item:");
+        if (input == null) {
+            return; // user pressed Cancel
+        }
+        String item = input.trim();
+        if (!item.isEmpty() && !items.contains(item)) {
+            items.addElement(item);
+        }
+    }
+
+    private void removeSelectedItem() {
+        int index = list.getSelectedIndex();
+        if (index != -1) {
+            items.remove(index);
+        }
     }
 }
