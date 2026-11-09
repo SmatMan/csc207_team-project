@@ -56,6 +56,12 @@ I have a lot of perishable ingredients in my fridge. I want to prioritize recipe
 
 *Expands into use cases: Mark specific ingredients as expiring; Sort recipes by ones that use up the most expiring ingredients*
 
+### User Story 6
+
+I don't want to go through the effort of adding all the ingredients, I just want to use the app as a recipe searcher.
+
+*Expands into use case: Search bar shows "search recipes" when no ingredients are in pantry*
+
 ---
 
 ## Use Cases
