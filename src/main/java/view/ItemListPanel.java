@@ -1,11 +1,15 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JButton;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
 
 /**
  * A scrollable list of text items. Used for both the Pantry and Intolerances tabs,
