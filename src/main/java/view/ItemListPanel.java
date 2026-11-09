@@ -15,6 +15,7 @@ public class ItemListPanel extends JPanel {
 
     // data held by model, JList displays the data from the model.
     private final DefaultListModel<String> items = new DefaultListModel<>();
+    private final JList<String> list = new JList<>(items);
 
     public ItemListPanel(String[] initialItems) {
         super(new BorderLayout());
