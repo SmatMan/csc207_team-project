@@ -22,9 +22,7 @@
 
 ### Domain
 
-This project is an application where you can input ingredients that you have in your pantry, fridge, 
-or house, and you can get custom recipes based on preferences such as dish type, cultural, dietary restrictions,
-and more. The application also allows you to store, favourite and delete recipes. 
+This project is an application where you can input ingredients that you have in your pantry, fridge, or house, and you can get custom recipes based on preferences such as dish type, cultural, dietary restrictions, and more. The application also allows you to store, favourite and delete recipes. 
 
 ---
 
@@ -32,52 +30,75 @@ and more. The application also allows you to store, favourite and delete recipes
 
 ### User Story 1
 
-As a parent of a family with 2 kids, I want to be able to look up recipes based on what ingredients 
-I have in my house so I can quickly find a meal to cook in less than 2 minutes.
+As a student with a half-empty fridge, I want to add, edit and remove the ingredients I have, so that the app knows what I can cook without me retyping everything each time.
+
+*Expands into use cases: Creating items in, and modifying Pantry and Ingredient entities*
 
 ### User Story 2
 
-As a working professional who is vegetarian and lactose intolerant, I don't really have time to figure out what to eat.
-I also get bored of my meals quickly. I need a tracker for my ingredients that can identify what I can and can't make.
+As someone deciding what to cook tonight, I want recipes ranked by how few ingredients they need so I can cook without having to do a grocery run.
+
+*Expands into use case: findByIngredients API call to Spoonacular*
 
 ### User Story 3
 
+As a vegetarian who is lactose intolerant, I want to set my diet and intolerances once so I'm never shown recipes I can't eat.
+
+*Expands into use case: creating a `UserProfile` that saves `Intolerance`*
 ### User Story 4
 
+As someone who found a recipe I liked, I want to favourite it and delete it later, so that I can return to meals I know work for me instead of searching again.
+
+*Expands into use cases: Storing recipes in lists, deleting recipes in lists*
 ### User Story 5
+
+I have a lot of perishable ingredients in my fridge. I want to prioritize recipes that use up my expiring ingredients.
+
+*Expands into use cases: Mark specific ingredients as expiring; Sort recipes by ones that use up the most expiring ingredients*
 
 ---
 
 ## Use Cases
 
 ### Use Case 1
-Goal: Get recipes based on the ingredients in the pantry of the user 
-
-Precondition: User must be logged in and User must have at least one item in their pantry 
-
-### Use Case 2
-
-Goal: Store and organize pantry ingredients, as well as dietary preferences (allergies, intolerances).
+Goal: Manage a `Pantry` entity storing Ingredient entities.
 
 Lead: Arjun
+### Use Case 2
 
+Goal: Filter recipes from spoonacular with a `findByIngredients` API call passing `Ingredient` entities in `Pantry` entity.
+
+Lead: Dio
 ### Use Case 3
 
-(Add additional use cases as needed.)
+Goal: Creating `UserProfile` entities that save both `Ingredient` and `Intolerance` entities (`Intolerance` entity holds list of `Ingredient`'s that get excluded)
+
+### Use Case 4
+
+Goal: Storing/saving/deleting `Recipe` entities in `RecipeList`
+
+### Use Case 5
+
+Goal: Creating/Deleting `RecipeList` entities
+
+### Use Case 6
+
+Goal: Mark `Ingredient` as expiring to prioritize
+
+Lead: Arjun
 
 ---
 
 ## Minimal Viable Product (MVP)
 
-| Team Member | MVP Use Case |
+| Team Member | MVP Use Case           |
+| ----------- | ---------------------- |
+| Arjun       | Use Case 1, Use Case 6 |
+| Dio         | Use Case 2             |
+| Alex        | Produce a              |
+|             |                        |
+|             |                        |
 
-|-------------|--------------|
-
-| Name | Use Case |
-
-| Name | Use Case |
-
-| Name | Use Case |
 
 ---
 
@@ -94,11 +115,9 @@ Lead: Arjun
 
 **API Name:**
 
-**Documentation:** [Link]
+**Documentation:** [Link](https://spoonacular.com/food-api)
 
-**How it is
- 
-used in the program:**
+**How it is used in the program:**
 
 ---
 
