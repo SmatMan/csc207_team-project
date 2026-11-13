@@ -3,10 +3,13 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Rectangle;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.font.TextAttribute;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,6 +27,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JToggleButton;
 import javax.swing.Scrollable;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 
 import interface_adapter.restrictions.RestrictionsController;
 import interface_adapter.restrictions.RestrictionsState;
@@ -124,9 +128,12 @@ public class RestrictionsPanel extends JPanel implements RestrictionsViewModelLi
     }
 
     private JPanel presetChips(List<String> presetNames) {
-        final JPanel chips = new JPanel(new WrapLayout(FlowLayout.LEFT, Theme.GAP_XS + 2, Theme.GAP_XS + 2));
+        final int gap = Theme.GAP_XS + 2;
+        final JPanel chips = new JPanel(new WrapLayout(FlowLayout.LEFT, gap, gap));
         chips.setOpaque(false);
         chips.setAlignmentX(Component.LEFT_ALIGNMENT);
+        // FlowLayout leaves a gap before the first row and chip; cancel it so chips line up with the boxes.
+        chips.setBorder(BorderFactory.createEmptyBorder(-gap, -gap, 0, 0));
         for (String presetName : presetNames) {
             final JToggleButton chip = Styles.clickable(new JToggleButton(presetName));
             // The toggle has already flipped when the action fires, so isSelected() is the new choice.
@@ -143,10 +150,14 @@ public class RestrictionsPanel extends JPanel implements RestrictionsViewModelLi
         box.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         final JLabel header = caption(category.toUpperCase());
-        header.setBorder(BorderFactory.createEmptyBorder(0, 0, Theme.GAP_XS, 0));
+        header.setIcon(UIManager.getIcon("Tree.expandedIcon"));
+        header.setIconTextGap(Theme.GAP_S);
+        header.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        header.setMaximumSize(new Dimension(Integer.MAX_VALUE, header.getPreferredSize().height));
         categoryHeaders.put(category, header);
         box.add(header);
 
+        final List<JCheckBox> boxChecks = new ArrayList<>();
         for (String ingredient : ingredients) {
             final JCheckBox check = Styles.clickable(new JCheckBox(ingredient));
             check.setOpaque(false);
@@ -154,12 +165,35 @@ public class RestrictionsPanel extends JPanel implements RestrictionsViewModelLi
             // Ticked means allowed, so unticking excludes the ingredient.
             check.addActionListener(evt -> restrictionsController.setExcluded(ingredient, !check.isSelected()));
             checkBoxes.computeIfAbsent(ingredient, key -> new ArrayList<>()).add(check);
+            boxChecks.add(check);
             box.add(check);
         }
 
-        // Stop BoxLayout stretching the card taller than its contents.
-        box.setMaximumSize(new Dimension(Integer.MAX_VALUE, box.getPreferredSize().height));
+        // Clicking the header folds the box away; this is display-only, so it isn't saved.
+        header.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent evt) {
+                final boolean expand = !boxChecks.get(0).isVisible();
+                for (JCheckBox check : boxChecks) {
+                    check.setVisible(expand);
+                }
+                header.setIcon(UIManager.getIcon(expand ? "Tree.expandedIcon" : "Tree.collapsedIcon"));
+                fitHeight(box);
+            }
+        });
+
+        fitHeight(box);
         return box;
+    }
+
+    /**
+     * Stops BoxLayout stretching a card taller than its (visible) contents.
+     */
+    private void fitHeight(JPanel box) {
+        box.setMaximumSize(null);
+        box.setMaximumSize(new Dimension(Integer.MAX_VALUE, box.getPreferredSize().height));
+        content.revalidate();
+        content.repaint();
     }
 
     private void update(RestrictionsState state) {
