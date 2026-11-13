@@ -30,12 +30,49 @@ public class UserProfile {
         this.intolerances = Collections.unmodifiableList(new ArrayList<>(intolerances));
     }
 
+    /**
+     * Recreates a saved profile exactly, including manual choices.
+     * @param intolerances the categories of ingredients the user can exclude from
+     * @param activePresets the presets that are turned on
+     * @param manualExcluded ingredients the user excluded by hand
+     * @param manualAllowed ingredients the user allowed despite an active preset
+     */
+    public UserProfile(List<Intolerance> intolerances, Set<DietPreset> activePresets,
+                       Set<Ingredient> manualExcluded, Set<Ingredient> manualAllowed) {
+        this(intolerances);
+        this.activePresets.addAll(activePresets);
+        this.manualExcluded.addAll(manualExcluded);
+        this.manualAllowed.addAll(manualAllowed);
+    }
+
     public List<Intolerance> getIntolerances() {
         return intolerances;
     }
 
     public Set<DietPreset> getActivePresets() {
         return Collections.unmodifiableSet(activePresets);
+    }
+
+    public Set<Ingredient> getManualExcluded() {
+        return Collections.unmodifiableSet(manualExcluded);
+    }
+
+    public Set<Ingredient> getManualAllowed() {
+        return Collections.unmodifiableSet(manualAllowed);
+    }
+
+    /**
+     * Returns whether any category contains the given ingredient.
+     * @param ingredient the ingredient to look for
+     * @return true if the user can exclude it
+     */
+    public boolean contains(Ingredient ingredient) {
+        for (Intolerance intolerance : intolerances) {
+            if (intolerance.contains(ingredient)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -148,11 +185,8 @@ public class UserProfile {
     }
 
     private void requireKnown(Ingredient ingredient) {
-        for (Intolerance intolerance : intolerances) {
-            if (intolerance.contains(ingredient)) {
-                return;
-            }
+        if (!contains(ingredient)) {
+            throw new IllegalArgumentException(ingredient + " is not in any intolerance category");
         }
-        throw new IllegalArgumentException(ingredient + " is not in any intolerance category");
     }
 }

@@ -36,7 +36,11 @@ public class SidebarView extends JPanel {
     private final JPanel tabContent = new JPanel(tabLayout);
     private final JButton addIngredientButton;
 
-    public SidebarView() {
+    /**
+     * Creates the sidebar.
+     * @param restrictionsPanel the content of the Restrictions tab
+     */
+    public SidebarView(RestrictionsPanel restrictionsPanel) {
         super(new BorderLayout(0, Theme.GAP_L));
         setBackground(Theme.SURFACE);
         setBorder(BorderFactory.createCompoundBorder(
@@ -44,12 +48,11 @@ public class SidebarView extends JPanel {
                 BorderFactory.createEmptyBorder(Theme.GAP_XL, Theme.GAP_L, Theme.GAP_L, Theme.GAP_L)));
         setPreferredSize(new Dimension(SIDEBAR_WIDTH, 0));
 
-        // Placeholders until the real tab panels are built.
+        // Placeholder until the Ingredients tab is built.
         tabContent.setOpaque(false);
         tabContent.add(emptyState("Your pantry is empty",
                 "Add what you have and we'll find recipes."), INGREDIENTS_TAB);
-        tabContent.add(emptyState("No restrictions set",
-                "Pick a diet or untick foods you avoid."), RESTRICTIONS_TAB);
+        tabContent.add(restrictionsPanel, RESTRICTIONS_TAB);
 
         addIngredientButton = Styles.clickable(Styles.primaryButton(new JButton("+  Add ingredient")));
 

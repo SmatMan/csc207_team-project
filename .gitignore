@@ -38,3 +38,6 @@ build/
 .DS_Store
 ### Design references (third-party images, keep local) ###
 references/
+
+### Local user data ###
+profile.json

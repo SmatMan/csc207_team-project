@@ -9,7 +9,18 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
+import data_access.FileUserProfileDataAccessObject;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.restrictions.RestrictionsController;
+import interface_adapter.restrictions.RestrictionsPresenter;
+import interface_adapter.restrictions.RestrictionsViewModel;
+import use_case.load_profile.LoadProfileInputBoundary;
+import use_case.load_profile.LoadProfileInteractor;
+import use_case.set_diet_preset.SetDietPresetInputBoundary;
+import use_case.set_diet_preset.SetDietPresetInteractor;
+import use_case.toggle_restriction.ToggleRestrictionInputBoundary;
+import use_case.toggle_restriction.ToggleRestrictionInteractor;
+import view.RestrictionsPanel;
 import view.SidebarView;
 import view.ViewManager;
 import view.theme.Theme;
@@ -29,6 +40,13 @@ public class AppBuilder {
     final ViewManagerModel viewManagerModel = new ViewManagerModel();
     ViewManager viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
 
+    // Restriction catalogue bundled with the app (a placeholder until the API's ingredient
+    // list is available); the user's choices are saved to profile.json.
+    final FileUserProfileDataAccessObject userProfileDataAccessObject =
+            new FileUserProfileDataAccessObject("/restrictions.json", "profile.json");
+
+    private RestrictionsViewModel restrictionsViewModel;
+    private RestrictionsPanel restrictionsPanel;
     private SidebarView sidebarView;
 
     public AppBuilder() {
@@ -37,11 +55,44 @@ public class AppBuilder {
     }
 
     /**
+     * Adds the Restrictions tab. Must be called before {@link #addSidebarView()}.
+     * @return this builder
+     */
+    public AppBuilder addRestrictionsView() {
+        restrictionsViewModel = new RestrictionsViewModel();
+        restrictionsPanel = new RestrictionsPanel(restrictionsViewModel);
+        return this;
+    }
+
+    /**
      * Adds the sidebar (Ingredients and Restrictions tabs) to the application.
      * @return this builder
      */
     public AppBuilder addSidebarView() {
-        sidebarView = new SidebarView();
+        sidebarView = new SidebarView(restrictionsPanel);
+        return this;
+    }
+
+    /**
+     * Adds the dietary profile use cases (load profile, toggle restriction and
+     * set diet preset), then loads the saved profile into the Restrictions tab.
+     * @return this builder
+     */
+    public AppBuilder addRestrictionsUseCases() {
+        final RestrictionsPresenter restrictionsPresenter = new RestrictionsPresenter(restrictionsViewModel);
+
+        final LoadProfileInputBoundary loadProfileInteractor =
+                new LoadProfileInteractor(userProfileDataAccessObject, restrictionsPresenter);
+        final ToggleRestrictionInputBoundary toggleRestrictionInteractor =
+                new ToggleRestrictionInteractor(userProfileDataAccessObject, restrictionsPresenter);
+        final SetDietPresetInputBoundary setDietPresetInteractor =
+                new SetDietPresetInteractor(userProfileDataAccessObject, restrictionsPresenter);
+
+        final RestrictionsController restrictionsController = new RestrictionsController(
+                loadProfileInteractor, toggleRestrictionInteractor, setDietPresetInteractor);
+        restrictionsPanel.setRestrictionsController(restrictionsController);
+
+        restrictionsController.loadProfile();
         return this;
     }
 
