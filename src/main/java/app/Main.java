@@ -4,6 +4,9 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 import view.MainView;
+import API.ApiCall;
+import Class.Ingredient;
+import java.util.List;
 
 /**
  * Entry point of the Recipe Manager. Builds and shows window.
@@ -20,5 +23,8 @@ public class Main {
             frame.setLocationRelativeTo(null); // centre on screen
             frame.setVisible(true);
         });
+        Ingredient apple = new Ingredient("Apple");
+        ApiCall.MakeAPICall(List.of(apple));
+
     }
 }
