@@ -1,5 +1,5 @@
 //This file is for the API call to our Spoonocular APi that will fetch recipes based on the ingredients that we have
-
+package java;
 
 //import Ingredient type class into this file
 
@@ -17,7 +17,7 @@ class Ingredient {
 
 public class ApiCall {
 
-    void MakeIngredientList(Ingredient[] ingredients)  {
+    public void MakeIngredientList(Ingredient[] ingredients)  {
         //Declare a list that is going to be used to store the ingredient names
         List<String> IngredientNames = new ArrayList<>();
         String IngreidentString = "";
@@ -28,9 +28,9 @@ public class ApiCall {
         }
     }
 
-    void MakeAPICall(List<Ingredient> IngredientNames) {
+    public static void MakeAPICall(List<Ingredient> IngredientNames) {
         String url = "https://api.spoonacular.com/recipes/findByIngredients"
-                + "?ingredients=flour,sugar,eggs&number=5&apiKey=YOUR_KEY";
+                + "?ingredients=flour,sugar,eggs&number=5&apiKey=d02f48a0cb8142d286204a067935a6ec";
 
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url))
