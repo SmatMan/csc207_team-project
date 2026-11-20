@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
@@ -15,7 +14,6 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
-import javax.swing.SwingConstants;
 
 import view.theme.Styles;
 import view.theme.Theme;
@@ -38,9 +36,10 @@ public class SidebarView extends JPanel {
 
     /**
      * Creates the sidebar.
+     * @param pantryPanel the content of the Ingredients tab
      * @param restrictionsPanel the content of the Restrictions tab
      */
-    public SidebarView(RestrictionsPanel restrictionsPanel) {
+    public SidebarView(PantryPanel pantryPanel, RestrictionsPanel restrictionsPanel) {
         super(new BorderLayout(0, Theme.GAP_L));
         setBackground(Theme.SURFACE);
         setBorder(BorderFactory.createCompoundBorder(
@@ -48,13 +47,12 @@ public class SidebarView extends JPanel {
                 BorderFactory.createEmptyBorder(Theme.GAP_XL, Theme.GAP_L, Theme.GAP_L, Theme.GAP_L)));
         setPreferredSize(new Dimension(SIDEBAR_WIDTH, 0));
 
-        // Placeholder until the Ingredients tab is built.
         tabContent.setOpaque(false);
-        tabContent.add(emptyState("Your pantry is empty",
-                "Add what you have and we'll find recipes."), INGREDIENTS_TAB);
+        tabContent.add(pantryPanel, INGREDIENTS_TAB);
         tabContent.add(restrictionsPanel, RESTRICTIONS_TAB);
 
         addIngredientButton = Styles.clickable(Styles.primaryButton(new JButton("+  Add ingredient")));
+        addIngredientButton.addActionListener(evt -> pantryPanel.promptAddIngredient());
 
         add(header(), BorderLayout.NORTH);
         add(tabContent, BorderLayout.CENTER);
@@ -103,32 +101,5 @@ public class SidebarView extends JPanel {
         tabLayout.show(tabContent, tab);
         // Adding ingredients only makes sense on the Ingredients tab.
         addIngredientButton.setVisible(INGREDIENTS_TAB.equals(tab));
-    }
-
-    private static JPanel emptyState(String title, String message) {
-        final JLabel titleLabel = new JLabel(title, SwingConstants.CENTER);
-        titleLabel.setFont(Theme.font(Weight.SEMIBOLD, Theme.SIZE_BODY));
-        titleLabel.setForeground(Theme.TEXT);
-        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        // HTML so long messages wrap within the sidebar.
-        final JLabel messageLabel = new JLabel("<html><div style='text-align:center;width:180px'>"
-                + message + "</div></html>", SwingConstants.CENTER);
-        messageLabel.setFont(Theme.font(Weight.REGULAR, Theme.SIZE_CAPTION + 1));
-        messageLabel.setForeground(Theme.TEXT_MUTED);
-        messageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        final JPanel column = new JPanel();
-        column.setOpaque(false);
-        column.setLayout(new BoxLayout(column, BoxLayout.Y_AXIS));
-        column.add(titleLabel);
-        column.add(Box.createVerticalStrut(Theme.GAP_XS));
-        column.add(messageLabel);
-
-        // GridBagLayout with no constraints centres its single child.
-        final JPanel centred = new JPanel(new GridBagLayout());
-        centred.setOpaque(false);
-        centred.add(column);
-        return centred;
     }
 }
