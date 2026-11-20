@@ -238,6 +238,8 @@ public class RestrictionsPanel extends JPanel implements RestrictionsViewModelLi
         label.setFont(Theme.font(Weight.MEDIUM, Theme.SIZE_CAPTION));
         label.setForeground(Theme.TEXT_MUTED);
         label.setAlignmentX(Component.LEFT_ALIGNMENT);
+        // Stretch to the full row; sized to its text, the last glyph gets clipped on HiDPI screens.
+        label.setMaximumSize(new Dimension(Integer.MAX_VALUE, label.getPreferredSize().height));
         return label;
     }
 
