@@ -9,17 +9,28 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
+import data_access.FilePantryDataAccessObject;
 import data_access.FileUserProfileDataAccessObject;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.pantry.PantryController;
+import interface_adapter.pantry.PantryPresenter;
+import interface_adapter.pantry.PantryViewModel;
 import interface_adapter.restrictions.RestrictionsController;
 import interface_adapter.restrictions.RestrictionsPresenter;
 import interface_adapter.restrictions.RestrictionsViewModel;
+import use_case.add_ingredient.AddIngredientInputBoundary;
+import use_case.add_ingredient.AddIngredientInteractor;
+import use_case.load_pantry.LoadPantryInputBoundary;
+import use_case.load_pantry.LoadPantryInteractor;
 import use_case.load_profile.LoadProfileInputBoundary;
 import use_case.load_profile.LoadProfileInteractor;
+import use_case.remove_ingredient.RemoveIngredientInputBoundary;
+import use_case.remove_ingredient.RemoveIngredientInteractor;
 import use_case.set_diet_preset.SetDietPresetInputBoundary;
 import use_case.set_diet_preset.SetDietPresetInteractor;
 import use_case.toggle_restriction.ToggleRestrictionInputBoundary;
 import use_case.toggle_restriction.ToggleRestrictionInteractor;
+import view.PantryPanel;
 import view.RestrictionsPanel;
 import view.SidebarView;
 import view.ViewManager;
@@ -45,6 +56,11 @@ public class AppBuilder {
     final FileUserProfileDataAccessObject userProfileDataAccessObject =
             new FileUserProfileDataAccessObject("/restrictions.json", "profile.json");
 
+    // The user's pantry is saved to pantry.json.
+    final FilePantryDataAccessObject pantryDataAccessObject = new FilePantryDataAccessObject("pantry.json");
+
+    private PantryViewModel pantryViewModel;
+    private PantryPanel pantryPanel;
     private RestrictionsViewModel restrictionsViewModel;
     private RestrictionsPanel restrictionsPanel;
     private SidebarView sidebarView;
@@ -52,6 +68,16 @@ public class AppBuilder {
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
         cardPanel.setBackground(Theme.BACKGROUND);
+    }
+
+    /**
+     * Adds the Ingredients tab. Must be called before {@link #addSidebarView()}.
+     * @return this builder
+     */
+    public AppBuilder addPantryView() {
+        pantryViewModel = new PantryViewModel();
+        pantryPanel = new PantryPanel(pantryViewModel);
+        return this;
     }
 
     /**
@@ -69,7 +95,30 @@ public class AppBuilder {
      * @return this builder
      */
     public AppBuilder addSidebarView() {
-        sidebarView = new SidebarView(restrictionsPanel);
+        sidebarView = new SidebarView(pantryPanel, restrictionsPanel);
+        return this;
+    }
+
+    /**
+     * Adds the pantry use cases (load pantry, add ingredient and remove ingredient),
+     * then loads the saved pantry into the Ingredients tab.
+     * @return this builder
+     */
+    public AppBuilder addPantryUseCases() {
+        final PantryPresenter pantryPresenter = new PantryPresenter(pantryViewModel);
+
+        final LoadPantryInputBoundary loadPantryInteractor =
+                new LoadPantryInteractor(pantryDataAccessObject, pantryPresenter);
+        final AddIngredientInputBoundary addIngredientInteractor =
+                new AddIngredientInteractor(pantryDataAccessObject, pantryPresenter);
+        final RemoveIngredientInputBoundary removeIngredientInteractor =
+                new RemoveIngredientInteractor(pantryDataAccessObject, pantryPresenter);
+
+        final PantryController pantryController = new PantryController(
+                loadPantryInteractor, addIngredientInteractor, removeIngredientInteractor);
+        pantryPanel.setPantryController(pantryController);
+
+        pantryController.loadPantry();
         return this;
     }
 

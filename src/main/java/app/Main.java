@@ -19,9 +19,11 @@ public class Main {
         // not thread safe, all UI work must happen here
         SwingUtilities.invokeLater(() -> {
             final JFrame application = new AppBuilder()
+                    .addPantryView()
                     .addRestrictionsView()
                     .addSidebarView()
                     .addRecipesPlaceholderView()
+                    .addPantryUseCases()
                     .addRestrictionsUseCases()
                     .build();
 
