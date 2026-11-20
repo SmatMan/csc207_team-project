@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <title>Recipe Organizer</title>
+
+  <!-- Tile -->
+  <rect width="512" height="512" rx="112" fill="#FF7043"/>
+
+  <g transform="translate(0 12)">
+  <!-- Fork -->
+  <g fill="#FFFFFF">
+    <rect x="84" y="120" width="10" height="84" rx="5"/>
+    <rect x="101" y="120" width="10" height="84" rx="5"/>
+    <rect x="118" y="120" width="10" height="84" rx="5"/>
+    <path d="M84 186 H128 V202 C128 224 117 234 117 248 H95 C95 234 84 224 84 202 Z"/>
+    <rect x="95" y="236" width="22" height="156" rx="11"/>
+  </g>
+
+  <!-- Knife -->
+  <g fill="#FFFFFF">
+    <path d="M396 120 C424 132 432 186 428 234 C427 248 418 252 418 262 H396 Z"/>
+    <rect x="396" y="240" width="22" height="152" rx="11"/>
+  </g>
+
+  <!-- Recipe card: elevation shadow, sheet, clip -->
+  <rect x="166" y="128" width="180" height="264" rx="24" fill="#E64A19"/>
+  <rect x="166" y="116" width="180" height="264" rx="24" fill="#FFFFFF"/>
+  <rect x="211" y="96" width="90" height="44" rx="14" fill="#BF360C"/>
+  <circle cx="256" cy="110" r="7" fill="#FF7043"/>
+
+  <!-- Recipe lines -->
+  <g fill="#FFAB91">
+    <circle cx="206" cy="196" r="9"/>
+    <rect x="226" y="188" width="86" height="16" rx="8"/>
+    <circle cx="206" cy="240" r="9"/>
+    <rect x="226" y="232" width="86" height="16" rx="8"/>
+    <circle cx="206" cy="284" r="9"/>
+    <rect x="226" y="276" width="58" height="16" rx="8"/>
+  </g>
+  <rect x="196" y="324" width="120" height="16" rx="8" fill="#FFCCBC"/>
+  </g>
+</svg>
