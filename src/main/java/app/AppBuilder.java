@@ -3,7 +3,11 @@ package app;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.GridBagLayout;
+import java.awt.Image;
+import java.awt.Taskbar;
+import java.net.URL;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -45,6 +49,8 @@ public class AppBuilder {
 
     // Temporary main-area card until the recipe views exist.
     private static final String RECIPES_PLACEHOLDER = "recipes placeholder";
+
+    private static final String LOGO_RESOURCE = "/logo.png";
 
     private final JPanel cardPanel = new JPanel();
     private final CardLayout cardLayout = new CardLayout();
@@ -169,6 +175,7 @@ public class AppBuilder {
     public JFrame build() {
         final JFrame application = new JFrame("Leftasty");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setAppIcon(application);
 
         final JPanel root = new JPanel(new BorderLayout());
         root.add(sidebarView, BorderLayout.WEST);
@@ -179,5 +186,24 @@ public class AppBuilder {
         viewManagerModel.notifyViewChanged();
 
         return application;
+    }
+
+    /**
+     * Shows the logo in the window's title bar or taskbar, and in the Dock on macOS.
+     * @param application the application window
+     * @throws RuntimeException if the logo resource is missing
+     */
+    private static void setAppIcon(JFrame application) {
+        final URL logoUrl = AppBuilder.class.getResource(LOGO_RESOURCE);
+        if (logoUrl == null) {
+            throw new RuntimeException("Missing resource: " + LOGO_RESOURCE);
+        }
+        final Image logo = new ImageIcon(logoUrl).getImage();
+        application.setIconImage(logo);
+
+        // The window icon isn't used for the Dock on macOS, so set it there too where supported.
+        if (Taskbar.isTaskbarSupported() && Taskbar.getTaskbar().isSupported(Taskbar.Feature.ICON_IMAGE)) {
+            Taskbar.getTaskbar().setIconImage(logo);
+        }
     }
 }
