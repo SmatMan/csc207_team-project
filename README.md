@@ -95,6 +95,14 @@ Goal: Mark `Ingredient` as expiring to prioritize
 
 Lead: Arjun
 
+### Use Case 7
+
+Goal: Search the known ingredients while adding to the pantry, matching what the user types to a `KnownIngredient` by exact name, prefix, alias (e.g. "prawns" → Shrimp, "basmati rice" → White rice) or misspelling (e.g. "brwn rice" → Brown rice).
+
+Lead: Alex
+
+> **Note:** the ingredient list in `src/main/resources/ingredients.json` is a **placeholder** until Dion's Spoonacular API calls produce the full list of ingredients.
+
 ---
 
 ## Minimal Viable Product (MVP)
@@ -103,7 +111,7 @@ Lead: Arjun
 | ----------- | ---------------------- |
 | Arjun       | Use Case 1, Use Case 6 |
 | Dio         | Use Case 2             |
-| Alex        | Use Case 3; produce a front end independent from the data (theme, sidebar, views) |
+| Alex        | Use Case 7; produce a front end independent from the data (theme, sidebar, views) |
 |             |                        |
 |             |                        |
 
