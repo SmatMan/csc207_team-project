@@ -154,4 +154,9 @@ Lead: Alex
 ## Notes
 
 [Any additional project information.]
+
+### Credits
+
+- Ingredient icons: [Fluent Emoji High Contrast](https://github.com/microsoft/fluentui-emoji) by Microsoft, MIT License (see `src/main/resources/icons/LICENSE.txt`).
+- Font: [Poppins](https://github.com/itfoundry/Poppins), SIL Open Font License (see `src/main/resources/fonts/OFL.txt`).
 Annotations
