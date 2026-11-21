@@ -1,0 +1,38 @@
+{
+  "_note": "PLACEHOLDER catalogue. These categories, ingredients and presets are a hand-written draft so the Restrictions tab can be built and tested. They will be expanded or trimmed to match the full ingredient list that Dion's Spoonacular API calls produce. Ingredient names here should end up matching the names the API uses.",
+  "intolerances": [
+    { "name": "Meat",      "ingredients": ["Beef", "Pork", "Ham", "Bacon", "Lamb", "Chicken", "Turkey", "Duck"] },
+    { "name": "Fish",      "ingredients": ["Salmon", "Tuna", "Cod", "Anchovies"] },
+    { "name": "Shellfish", "ingredients": ["Shrimp", "Crab", "Lobster", "Mussels", "Clams", "Oysters"] },
+    { "name": "Dairy",     "ingredients": ["Milk", "Butter", "Cheese", "Cream", "Yogurt", "Ice cream"] },
+    { "name": "Eggs",      "ingredients": ["Eggs", "Mayonnaise"] },
+    { "name": "Nuts",      "ingredients": ["Peanuts", "Almonds", "Cashews", "Walnuts", "Pecans", "Pistachios", "Hazelnuts"] },
+    { "name": "Gluten",    "ingredients": ["Wheat flour", "Bread", "Pasta", "Barley", "Rye", "Couscous"] },
+    { "name": "Soy",       "ingredients": ["Soy sauce", "Tofu", "Edamame", "Tempeh"] },
+    { "name": "Other",     "ingredients": ["Sesame", "Gelatin", "Honey", "Wine", "Beer"] }
+  ],
+  "presets": [
+    { "name": "Vegetarian",
+      "excludes": ["Beef", "Pork", "Ham", "Bacon", "Lamb", "Chicken", "Turkey", "Duck",
+                   "Salmon", "Tuna", "Cod", "Anchovies",
+                   "Shrimp", "Crab", "Lobster", "Mussels", "Clams", "Oysters", "Gelatin"] },
+    { "name": "Vegan",
+      "excludes": ["Beef", "Pork", "Ham", "Bacon", "Lamb", "Chicken", "Turkey", "Duck",
+                   "Salmon", "Tuna", "Cod", "Anchovies",
+                   "Shrimp", "Crab", "Lobster", "Mussels", "Clams", "Oysters", "Gelatin",
+                   "Milk", "Butter", "Cheese", "Cream", "Yogurt", "Ice cream",
+                   "Eggs", "Mayonnaise", "Honey"] },
+    { "name": "Pescatarian",
+      "excludes": ["Beef", "Pork", "Ham", "Bacon", "Lamb", "Chicken", "Turkey", "Duck", "Gelatin"] },
+    { "name": "Lactose-free",
+      "excludes": ["Milk", "Butter", "Cheese", "Cream", "Yogurt", "Ice cream"] },
+    { "name": "Gluten-free",
+      "excludes": ["Wheat flour", "Bread", "Pasta", "Barley", "Rye", "Couscous"] },
+    { "name": "Nut allergy",
+      "excludes": ["Peanuts", "Almonds", "Cashews", "Walnuts", "Pecans", "Pistachios", "Hazelnuts"] },
+    { "name": "Shellfish allergy",
+      "excludes": ["Shrimp", "Crab", "Lobster", "Mussels", "Clams", "Oysters"] },
+    { "name": "Halal",
+      "excludes": ["Pork", "Ham", "Bacon", "Gelatin", "Wine", "Beer"] }
+  ]
+}
