@@ -10,27 +10,24 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import Class.Ingredient;
 
 
 public class ApiCall {
 
-    public void MakeIngredientList(Ingredient[] ingredients)  {
-        //Declare a list that is going to be used to store the ingredient names
-        List<String> IngredientNames = new ArrayList<>();
-        String IngreidentString = "";
-
-        for (Ingredient item : ingredients) {
-            IngredientNames.add(item.name);
-
+    public static void MakeAPICall(List<Ingredient> Ingredients) {
+        //Create a string to pass into the API call
+        String ingredientstring = "";
+        for (Ingredient item : Ingredients) {
+            ingredientstring += item.name + ",";
         }
-    }
+        //format the string so that it can be passed into the URL
+        String encoded = URLEncoder.encode(ingredientstring, StandardCharsets.UTF_8);
 
-
-
-    public static void MakeAPICall(List<Ingredient> IngredientNames) {
         String url = "https://api.spoonacular.com/recipes/findByIngredients"
-                + "?ingredients=flour,sugar,eggs&number=5&apiKey=0a7b9f34c331474f9b21c68ac8692cb5";
+                + "?ingredients=" + encoded + "&number=5&apiKey=0a7b9f34c331474f9b21c68ac8692cb5";
 
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url))
