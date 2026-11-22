@@ -89,6 +89,8 @@ Goal: Storing/saving/deleting `Recipe` entities in `RecipeList`
 
 Goal: Creating/Deleting `RecipeList` entities
 
+Lead: Michael
+
 ### Use Case 6
 
 Goal: Mark `Ingredient` as expiring to prioritize
@@ -104,7 +106,7 @@ Lead: Arjun
 | Arjun       | Use Case 1, Use Case 6 |
 | Dio         | Use Case 2             |
 | Alex        | Use Case 3; produce a front end independent from the data (theme, sidebar, views) |
-|             |                        |
+| Michael     | Use Case 5             |
 |             |                        |
 
 
