@@ -20,10 +20,12 @@ public class Main {
         SwingUtilities.invokeLater(() -> {
             final JFrame application = new AppBuilder()
                     .addPantryView()
+                    .addAddIngredientView()
                     .addRestrictionsView()
                     .addSidebarView()
                     .addRecipesPlaceholderView()
                     .addPantryUseCases()
+                    .addSearchIngredientsUseCase()
                     .addRestrictionsUseCases()
                     .build();
 
