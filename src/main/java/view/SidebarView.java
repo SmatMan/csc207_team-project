@@ -20,7 +20,7 @@ import view.theme.Theme;
 import view.theme.Theme.Weight;
 
 /**
- * The left sidebar: a switch between the Ingredients and Restrictions tabs,
+ * The left sidebar: a switch between the Ingredients and Profile tabs,
  * the content of the selected tab, and the Add ingredient button pinned at the bottom.
  */
 public class SidebarView extends JPanel {
@@ -28,7 +28,7 @@ public class SidebarView extends JPanel {
     public static final int SIDEBAR_WIDTH = 300;
 
     private static final String INGREDIENTS_TAB = "ingredients";
-    private static final String RESTRICTIONS_TAB = "restrictions";
+    private static final String PROFILE_TAB = "profile";
 
     private final CardLayout tabLayout = new CardLayout();
     private final JPanel tabContent = new JPanel(tabLayout);
@@ -37,9 +37,9 @@ public class SidebarView extends JPanel {
     /**
      * Creates the sidebar.
      * @param pantryPanel the content of the Ingredients tab
-     * @param restrictionsPanel the content of the Restrictions tab
+     * @param createProfilePanel the content of the Profile tab
      */
-    public SidebarView(PantryPanel pantryPanel, RestrictionsPanel restrictionsPanel) {
+    public SidebarView(PantryPanel pantryPanel, CreateProfilePanel createProfilePanel) {
         super(new BorderLayout(0, Theme.GAP_L));
         setBackground(Theme.SURFACE);
         setBorder(BorderFactory.createCompoundBorder(
@@ -49,7 +49,7 @@ public class SidebarView extends JPanel {
 
         tabContent.setOpaque(false);
         tabContent.add(pantryPanel, INGREDIENTS_TAB);
-        tabContent.add(restrictionsPanel, RESTRICTIONS_TAB);
+        tabContent.add(createProfilePanel, PROFILE_TAB);
 
         addIngredientButton = Styles.clickable(Styles.primaryButton(new JButton("+  Add ingredient")));
         addIngredientButton.addActionListener(evt -> pantryPanel.promptAddIngredient());
@@ -80,19 +80,19 @@ public class SidebarView extends JPanel {
 
     private JPanel tabSwitch() {
         final JToggleButton ingredients = Styles.clickable(Styles.segment(new JToggleButton("Ingredients", true)));
-        final JToggleButton restrictions = Styles.clickable(Styles.segment(new JToggleButton("Restrictions")));
+        final JToggleButton profile = Styles.clickable(Styles.segment(new JToggleButton("Profile")));
 
         final ButtonGroup group = new ButtonGroup();
         group.add(ingredients);
-        group.add(restrictions);
+        group.add(profile);
 
         ingredients.addActionListener(evt -> showTab(INGREDIENTS_TAB));
-        restrictions.addActionListener(evt -> showTab(RESTRICTIONS_TAB));
+        profile.addActionListener(evt -> showTab(PROFILE_TAB));
 
         final JPanel track = Styles.segmentTrack(new JPanel(new GridLayout(1, 2, Theme.GAP_XS, 0)));
         track.setBorder(BorderFactory.createEmptyBorder(Theme.GAP_XS, Theme.GAP_XS, Theme.GAP_XS, Theme.GAP_XS));
         track.add(ingredients);
-        track.add(restrictions);
+        track.add(profile);
         track.setMaximumSize(new Dimension(Integer.MAX_VALUE, track.getPreferredSize().height));
         return track;
     }
