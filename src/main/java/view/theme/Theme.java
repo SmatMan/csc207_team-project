@@ -48,6 +48,7 @@ public final class Theme {
     public static final Color HIGHLIGHT_TINT = new Color(0xFBEED7);
 
     public static final Color NEUTRAL_TINT = new Color(0xECEAE6);
+    public static final Color DELFT_TINT = new Color(0xE3E5EF);
 
     // Corner radii (FlatLaf "arc" is the corner diameter in pixels)
     public static final int ARC_CARD = 20;

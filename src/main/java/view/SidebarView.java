@@ -10,7 +10,6 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
@@ -32,14 +31,16 @@ public class SidebarView extends JPanel {
 
     private final CardLayout tabLayout = new CardLayout();
     private final JPanel tabContent = new JPanel(tabLayout);
-    private final JButton addIngredientButton;
+    private final AddIngredientPanel addIngredientPanel;
 
     /**
      * Creates the sidebar.
      * @param pantryPanel the content of the Ingredients tab
      * @param restrictionsPanel the content of the Restrictions tab
+     * @param addIngredientPanel the add-ingredient button and search, pinned at the bottom
      */
-    public SidebarView(PantryPanel pantryPanel, RestrictionsPanel restrictionsPanel) {
+    public SidebarView(PantryPanel pantryPanel, RestrictionsPanel restrictionsPanel,
+                       AddIngredientPanel addIngredientPanel) {
         super(new BorderLayout(0, Theme.GAP_L));
         setBackground(Theme.SURFACE);
         setBorder(BorderFactory.createCompoundBorder(
@@ -51,12 +52,11 @@ public class SidebarView extends JPanel {
         tabContent.add(pantryPanel, INGREDIENTS_TAB);
         tabContent.add(restrictionsPanel, RESTRICTIONS_TAB);
 
-        addIngredientButton = Styles.clickable(Styles.primaryButton(new JButton("+  Add ingredient")));
-        addIngredientButton.addActionListener(evt -> pantryPanel.promptAddIngredient());
+        this.addIngredientPanel = addIngredientPanel;
 
         add(header(), BorderLayout.NORTH);
         add(tabContent, BorderLayout.CENTER);
-        add(addIngredientButton, BorderLayout.SOUTH);
+        add(addIngredientPanel, BorderLayout.SOUTH);
     }
 
     private JPanel header() {
@@ -100,6 +100,7 @@ public class SidebarView extends JPanel {
     private void showTab(String tab) {
         tabLayout.show(tabContent, tab);
         // Adding ingredients only makes sense on the Ingredients tab.
-        addIngredientButton.setVisible(INGREDIENTS_TAB.equals(tab));
+        addIngredientPanel.close();
+        addIngredientPanel.setVisible(INGREDIENTS_TAB.equals(tab));
     }
 }

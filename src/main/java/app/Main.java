@@ -1,10 +1,13 @@
 package app;
 
 import java.awt.Dimension;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
+import API.ApiCall;
+import entity.Ingredient;
 import view.theme.Theme;
 
 /**
@@ -20,10 +23,12 @@ public class Main {
         SwingUtilities.invokeLater(() -> {
             final JFrame application = new AppBuilder()
                     .addPantryView()
+                    .addAddIngredientView()
                     .addRestrictionsView()
                     .addSidebarView()
                     .addRecipesPlaceholderView()
                     .addPantryUseCases()
+                    .addSearchIngredientsUseCase()
                     .addRestrictionsUseCases()
                     .build();
 
@@ -32,5 +37,10 @@ public class Main {
             application.setLocationRelativeTo(null); // centre on screen
             application.setVisible(true);
         });
+
+        Ingredient egg = new Ingredient("egg");
+        ArrayList<Ingredient> ingredientlist = new ArrayList<>();
+        ingredientlist.add(egg);
+        ApiCall.MakeAPICall(ingredientlist);
     }
 }

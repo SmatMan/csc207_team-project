@@ -6,6 +6,9 @@ import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Taskbar;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -13,8 +16,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
+import data_access.FileIngredientCorpusDataAccessObject;
 import data_access.FilePantryDataAccessObject;
 import data_access.FileUserProfileDataAccessObject;
+import entity.KnownIngredient;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.pantry.PantryController;
 import interface_adapter.pantry.PantryPresenter;
@@ -22,6 +27,9 @@ import interface_adapter.pantry.PantryViewModel;
 import interface_adapter.restrictions.RestrictionsController;
 import interface_adapter.restrictions.RestrictionsPresenter;
 import interface_adapter.restrictions.RestrictionsViewModel;
+import interface_adapter.search_ingredients.SearchIngredientsController;
+import interface_adapter.search_ingredients.SearchIngredientsPresenter;
+import interface_adapter.search_ingredients.SearchIngredientsViewModel;
 import use_case.add_ingredient.AddIngredientInputBoundary;
 import use_case.add_ingredient.AddIngredientInteractor;
 import use_case.load_pantry.LoadPantryInputBoundary;
@@ -30,14 +38,19 @@ import use_case.load_profile.LoadProfileInputBoundary;
 import use_case.load_profile.LoadProfileInteractor;
 import use_case.remove_ingredient.RemoveIngredientInputBoundary;
 import use_case.remove_ingredient.RemoveIngredientInteractor;
+import use_case.search_ingredients.SearchIngredientsInputBoundary;
+import use_case.search_ingredients.SearchIngredientsInteractor;
+import use_case.search_ingredients.SearchIngredientsOutputBoundary;
 import use_case.set_diet_preset.SetDietPresetInputBoundary;
 import use_case.set_diet_preset.SetDietPresetInteractor;
 import use_case.toggle_restriction.ToggleRestrictionInputBoundary;
 import use_case.toggle_restriction.ToggleRestrictionInteractor;
+import view.AddIngredientPanel;
 import view.PantryPanel;
 import view.RestrictionsPanel;
 import view.SidebarView;
 import view.ViewManager;
+import view.components.IngredientIcons;
 import view.theme.Theme;
 import view.theme.Theme.Weight;
 
@@ -65,8 +78,17 @@ public class AppBuilder {
     // The user's pantry is saved to pantry.json.
     final FilePantryDataAccessObject pantryDataAccessObject = new FilePantryDataAccessObject("pantry.json");
 
+    // Every ingredient the app knows about (a placeholder until the API's ingredient list is available).
+    final FileIngredientCorpusDataAccessObject ingredientCorpusDataAccessObject =
+            new FileIngredientCorpusDataAccessObject("/ingredients.json");
+
+    // How ingredients are drawn, shared by the pantry list and the add-ingredient search.
+    private final IngredientIcons ingredientIcons = buildIngredientIcons();
+
     private PantryViewModel pantryViewModel;
     private PantryPanel pantryPanel;
+    private SearchIngredientsViewModel searchIngredientsViewModel;
+    private AddIngredientPanel addIngredientPanel;
     private RestrictionsViewModel restrictionsViewModel;
     private RestrictionsPanel restrictionsPanel;
     private SidebarView sidebarView;
@@ -83,7 +105,53 @@ public class AppBuilder {
     public AppBuilder addPantryView() {
         pantryViewModel = new PantryViewModel();
         pantryPanel = new PantryPanel(pantryViewModel);
+        pantryPanel.setIngredientIcons(ingredientIcons);
         return this;
+    }
+
+    /**
+     * Adds the add-ingredient button and search. Must be called after {@link #addPantryView()}
+     * and before {@link #addSidebarView()}.
+     * @return this builder
+     */
+    public AppBuilder addAddIngredientView() {
+        searchIngredientsViewModel = new SearchIngredientsViewModel();
+        addIngredientPanel = new AddIngredientPanel(searchIngredientsViewModel, pantryViewModel, ingredientIcons);
+        return this;
+    }
+
+    /**
+     * Adds the Search Ingredients Use Case, used by the add-ingredient search.
+     * @return this builder
+     */
+    public AppBuilder addSearchIngredientsUseCase() {
+        final SearchIngredientsOutputBoundary searchIngredientsPresenter =
+                new SearchIngredientsPresenter(searchIngredientsViewModel);
+        final SearchIngredientsInputBoundary searchIngredientsInteractor =
+                new SearchIngredientsInteractor(ingredientCorpusDataAccessObject, searchIngredientsPresenter);
+
+        final SearchIngredientsController searchIngredientsController =
+                new SearchIngredientsController(searchIngredientsInteractor);
+        addIngredientPanel.setSearchIngredientsController(searchIngredientsController);
+        return this;
+    }
+
+    /**
+     * Builds the icon lookup for ingredient tiles. The view only gets plain name-to-category
+     * maps from the corpus, so it never depends on entities or data access.
+     * @return the icon lookup
+     */
+    private IngredientIcons buildIngredientIcons() {
+        final Map<String, String> canonicalByTerm = new HashMap<>();
+        final Map<String, String> categoryByName = new HashMap<>();
+        for (KnownIngredient known : ingredientCorpusDataAccessObject.getKnownIngredients()) {
+            categoryByName.put(known.getName(), known.getCategory());
+            canonicalByTerm.put(known.getName().toLowerCase(Locale.ROOT), known.getName());
+            for (String alias : known.getAliases()) {
+                canonicalByTerm.putIfAbsent(alias.toLowerCase(Locale.ROOT), known.getName());
+            }
+        }
+        return new IngredientIcons("/icons/ingredient-icons.json", canonicalByTerm, categoryByName);
     }
 
     /**
@@ -101,7 +169,7 @@ public class AppBuilder {
      * @return this builder
      */
     public AppBuilder addSidebarView() {
-        sidebarView = new SidebarView(pantryPanel, restrictionsPanel);
+        sidebarView = new SidebarView(pantryPanel, restrictionsPanel, addIngredientPanel);
         return this;
     }
 
@@ -123,6 +191,7 @@ public class AppBuilder {
         final PantryController pantryController = new PantryController(
                 loadPantryInteractor, addIngredientInteractor, removeIngredientInteractor);
         pantryPanel.setPantryController(pantryController);
+        addIngredientPanel.setPantryController(pantryController);
 
         pantryController.loadPantry();
         return this;

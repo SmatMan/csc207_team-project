@@ -5,28 +5,37 @@ import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.util.List;
+import java.util.Map;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
+import javax.swing.border.TitledBorder;
+
+import com.formdev.flatlaf.icons.FlatClearIcon;
+import com.formdev.flatlaf.ui.FlatLineBorder;
 
 import interface_adapter.pantry.PantryController;
 import interface_adapter.pantry.PantryState;
 import interface_adapter.pantry.PantryViewModel;
 import interface_adapter.pantry.PantryViewModelListener;
+import view.components.HoverRow;
+import view.components.IngredientIcons;
 import view.theme.Styles;
 import view.theme.Theme;
 import view.theme.Theme.Weight;
 
 /**
- * The Ingredients tab: the ingredients in the user's pantry, each with a remove button,
- * or a hint to add some when the pantry is empty.
+ * The Ingredients tab: the ingredients in the user's pantry, grouped into category
+ * sections (alphabetical within each), each with an icon tile coloured by category and
+ * a remove button shown on hover; or a hint to add some when the pantry is empty.
  */
 public class PantryPanel extends JPanel implements PantryViewModelListener {
 
@@ -35,10 +44,11 @@ public class PantryPanel extends JPanel implements PantryViewModelListener {
 
     private final PantryViewModel pantryViewModel;
     private PantryController pantryController;
+    private IngredientIcons ingredientIcons;
 
     private final CardLayout cardLayout = new CardLayout();
     private final JPanel cards = new JPanel(cardLayout);
-    private final JPanel list = Styles.card(new JPanel());
+    private final JPanel list = new JPanel();
     private final JLabel errorLabel = new JLabel();
 
     public PantryPanel(PantryViewModel pantryViewModel) {
@@ -48,8 +58,9 @@ public class PantryPanel extends JPanel implements PantryViewModelListener {
         setOpaque(false);
 
         list.setLayout(new BoxLayout(list, BoxLayout.Y_AXIS));
+        list.setOpaque(false);
 
-        // Wrap the card so it hugs its rows instead of stretching to fill the tab.
+        // Wrap the sections so they hug their rows instead of stretching to fill the tab.
         final JPanel listHolder = new JPanel(new BorderLayout());
         listHolder.setOpaque(false);
         listHolder.add(list, BorderLayout.NORTH);
@@ -77,15 +88,11 @@ public class PantryPanel extends JPanel implements PantryViewModelListener {
     }
 
     /**
-     * Asks the user for an ingredient name and passes it on to be added.
+     * Sets how ingredients are drawn (icon tiles and categories). Without it, rows show names only.
+     * @param ingredientIcons the icon lookup
      */
-    public void promptAddIngredient() {
-        final String name = JOptionPane.showInputDialog(this, "Ingredient name:", "Add ingredient",
-                JOptionPane.PLAIN_MESSAGE);
-        // null means the user cancelled; anything else, even blank, is for the use case to judge.
-        if (name != null) {
-            pantryController.addIngredient(name);
-        }
+    public void setIngredientIcons(IngredientIcons ingredientIcons) {
+        this.ingredientIcons = ingredientIcons;
     }
 
     @Override
@@ -93,8 +100,16 @@ public class PantryPanel extends JPanel implements PantryViewModelListener {
         final PantryState state = pantryViewModel.getState();
 
         list.removeAll();
-        for (String ingredient : state.getIngredients()) {
-            list.add(row(ingredient));
+        final Map<String, List<String>> sections;
+        if (ingredientIcons == null) {
+            sections = Map.of("Ingredients", state.getIngredients());
+        }
+        else {
+            sections = ingredientIcons.groupByCategory(state.getIngredients());
+        }
+        for (Map.Entry<String, List<String>> section : sections.entrySet()) {
+            list.add(section(section.getKey(), section.getValue()));
+            list.add(Box.createVerticalStrut(Theme.GAP_S));
         }
         list.revalidate();
         list.repaint();
@@ -104,20 +119,52 @@ public class PantryPanel extends JPanel implements PantryViewModelListener {
         errorLabel.setVisible(state.getError() != null);
     }
 
+    /**
+     * A rounded box of one category's rows, with the category name set into its top border.
+     */
+    private JPanel section(String category, List<String> ingredients) {
+        final JPanel section = new JPanel();
+        section.setOpaque(false);
+        section.setLayout(new BoxLayout(section, BoxLayout.Y_AXIS));
+        section.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        final FlatLineBorder outline = new FlatLineBorder(new Insets(Theme.GAP_XS, Theme.GAP_XS + 2,
+                Theme.GAP_S, Theme.GAP_XS + 2), Theme.BORDER, 1f, Theme.ARC_CARD);
+        // TitledBorder breaks the line where the title sits, so the name reads "through" the border.
+        final TitledBorder titled = BorderFactory.createTitledBorder(outline, " " + category.toUpperCase() + " ",
+                TitledBorder.LEADING, TitledBorder.TOP,
+                Theme.font(Weight.MEDIUM, Theme.SIZE_CAPTION), Theme.TEXT_MUTED);
+        section.setBorder(titled);
+
+        for (String ingredient : ingredients) {
+            section.add(row(ingredient));
+        }
+        section.setMaximumSize(new Dimension(Integer.MAX_VALUE, section.getPreferredSize().height));
+        return section;
+    }
+
+    /**
+     * A pantry row: the ingredient's icon tile, its name, and a remove button that only
+     * appears while the mouse is over the row.
+     */
     private JPanel row(String ingredient) {
         final JLabel name = new JLabel(ingredient);
-        name.setFont(Theme.font(Weight.REGULAR, Theme.SIZE_BODY));
+        name.setFont(Theme.font(Weight.MEDIUM, Theme.SIZE_BODY));
         name.setForeground(Theme.TEXT);
 
-        final JButton remove = Styles.clickable(new JButton("×"));
+        final JButton remove = Styles.clickable(new JButton(new FlatClearIcon()));
         remove.putClientProperty("JButton.buttonType", "toolBarButton");
-        remove.setForeground(Theme.TEXT_MUTED);
+        remove.setFocusable(false);
         remove.setToolTipText("Remove " + ingredient);
         remove.addActionListener(evt -> pantryController.removeIngredient(ingredient));
 
-        final JPanel row = new JPanel(new BorderLayout(Theme.GAP_S, 0));
-        row.setOpaque(false);
+        final HoverRow row = new HoverRow(new BorderLayout(Theme.GAP_M, 0), remove);
+        row.setBorder(BorderFactory.createEmptyBorder(Theme.GAP_XS + 2, Theme.GAP_XS + 2,
+                Theme.GAP_XS + 2, Theme.GAP_XS));
         row.setAlignmentX(Component.LEFT_ALIGNMENT);
+        if (ingredientIcons != null) {
+            row.add(ingredientIcons.tile(ingredient), BorderLayout.WEST);
+        }
         row.add(name, BorderLayout.CENTER);
         row.add(remove, BorderLayout.EAST);
         row.setMaximumSize(new Dimension(Integer.MAX_VALUE, row.getPreferredSize().height));

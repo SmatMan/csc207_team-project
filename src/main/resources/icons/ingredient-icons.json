@@ -1,0 +1,61 @@
+{
+  "_note": "How ingredients look in the UI. 'order' is the order category sections appear in on the Ingredients tab (anything else comes after, then 'Other' for unknown ingredients). Each category has a tile tint (a palette colour name from view.theme.Theme) and a fallback icon; ingredients without their own icon use their category's. Icons are files in icons/ingredients/ from Microsoft's Fluent Emoji High Contrast set (MIT, see icons/LICENSE.txt).",
+  "default": { "icon": "pot-of-food", "tint": "neutral" },
+  "order": ["Meat", "Seafood", "Vegetables", "Fruit", "Dairy & eggs", "Grains", "Legumes & nuts",
+            "Herbs & spices", "Condiments", "Baking", "Drinks"],
+  "categories": {
+    "Vegetables":     { "icon": "leafy-green",    "tint": "sage" },
+    "Fruit":          { "icon": "red-apple",      "tint": "terracotta" },
+    "Grains":         { "icon": "sheaf-of-rice",  "tint": "sunset" },
+    "Meat":           { "icon": "cut-of-meat",    "tint": "terracotta" },
+    "Seafood":        { "icon": "fish",           "tint": "delft" },
+    "Dairy & eggs":   { "icon": "glass-of-milk",  "tint": "eggshell" },
+    "Legumes & nuts": { "icon": "beans",          "tint": "sunset" },
+    "Herbs & spices": { "icon": "herb",           "tint": "sage" },
+    "Baking":         { "icon": "cupcake",        "tint": "eggshell" },
+    "Condiments":     { "icon": "jar",            "tint": "sunset" },
+    "Drinks":         { "icon": "cup-with-straw", "tint": "delft" }
+  },
+  "ingredients": {
+    "Tomatoes": "tomato", "Onions": "onion", "Garlic": "garlic", "Green onions": "onion",
+    "Potatoes": "potato", "Sweet potatoes": "roasted-sweet-potato", "Carrots": "carrot",
+    "Celery": "leafy-green", "Bell peppers": "bell-pepper", "Chili peppers": "hot-pepper",
+    "Broccoli": "broccoli", "Cauliflower": "broccoli", "Spinach": "leafy-green", "Lettuce": "leafy-green",
+    "Kale": "leafy-green", "Cabbage": "leafy-green", "Cucumber": "cucumber", "Zucchini": "cucumber",
+    "Eggplant": "eggplant", "Mushrooms": "mushroom", "Corn": "ear-of-corn", "Peas": "pea-pod",
+    "Green beans": "pea-pod", "Asparagus": "seedling", "Avocado": "avocado", "Ginger": "ginger-root",
+
+    "Apples": "red-apple", "Bananas": "banana", "Lemons": "lemon", "Limes": "lemon",
+    "Oranges": "tangerine", "Strawberries": "strawberry", "Blueberries": "blueberries", "Grapes": "grapes",
+    "Pineapple": "pineapple", "Mango": "mango", "Peaches": "peach", "Pears": "pear",
+    "Cherries": "cherries", "Watermelon": "watermelon", "Coconut": "coconut",
+
+    "White rice": "cooked-rice", "Brown rice": "cooked-rice", "Pasta": "spaghetti", "Noodles": "steaming-bowl",
+    "Bread": "bread", "Tortillas": "flatbread", "Wheat flour": "sheaf-of-rice", "Oats": "bowl-with-spoon",
+    "Quinoa": "bowl-with-spoon", "Couscous": "bowl-with-spoon", "Barley": "sheaf-of-rice", "Rye": "sheaf-of-rice",
+    "Breadcrumbs": "bread", "Cereal": "bowl-with-spoon",
+
+    "Beef": "cut-of-meat", "Pork": "cut-of-meat", "Ham": "meat-on-bone", "Bacon": "bacon",
+    "Lamb": "meat-on-bone", "Chicken": "poultry-leg", "Turkey": "turkey", "Duck": "duck",
+
+    "Salmon": "fish", "Tuna": "fish", "Cod": "fish", "Anchovies": "fish", "Shrimp": "shrimp",
+    "Crab": "crab", "Lobster": "lobster", "Mussels": "oyster", "Clams": "oyster", "Oysters": "oyster",
+
+    "Milk": "glass-of-milk", "Butter": "butter", "Cheese": "cheese-wedge", "Cream": "glass-of-milk",
+    "Yogurt": "jar", "Ice cream": "ice-cream", "Eggs": "egg",
+
+    "Black beans": "beans", "Chickpeas": "beans", "Lentils": "beans", "Edamame": "pea-pod",
+    "Peanuts": "peanuts", "Almonds": "chestnut", "Cashews": "chestnut", "Walnuts": "chestnut",
+    "Pecans": "chestnut", "Pistachios": "chestnut", "Hazelnuts": "chestnut", "Sunflower seeds": "seedling",
+
+    "Salt": "salt", "Basil": "herb", "Parsley": "herb", "Cilantro": "herb", "Oregano": "herb",
+    "Thyme": "herb", "Rosemary": "herb", "Mint": "herb", "Dill": "herb", "Paprika": "hot-pepper",
+
+    "Honey": "honey-pot", "Chocolate": "chocolate-bar",
+
+    "Mayonnaise": "jar", "Olive oil": "olive", "Ketchup": "tomato", "Hot sauce": "hot-pepper",
+    "Tomato sauce": "tomato", "Stock": "pot-of-food", "Fish sauce": "fish", "Salsa": "tomato", "Pesto": "herb",
+
+    "Coffee": "hot-beverage", "Tea": "teacup-without-handle", "Wine": "wine-glass", "Beer": "beer-mug"
+  }
+}
