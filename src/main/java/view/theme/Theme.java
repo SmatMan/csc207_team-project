@@ -46,6 +46,8 @@ public final class Theme {
 
     public static final Color HIGHLIGHT = SUNSET;
     public static final Color HIGHLIGHT_TINT = new Color(0xFBEED7);
+    // A deeper sunset, strong enough to read on white (e.g. rating stars).
+    public static final Color HIGHLIGHT_DEEP = new Color(0xE3A857);
 
     public static final Color NEUTRAL_TINT = new Color(0xECEAE6);
     public static final Color DELFT_TINT = new Color(0xE3E5EF);

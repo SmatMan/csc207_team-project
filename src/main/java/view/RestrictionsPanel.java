@@ -7,7 +7,6 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.font.TextAttribute;
@@ -25,7 +24,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JToggleButton;
-import javax.swing.Scrollable;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 
@@ -33,6 +31,7 @@ import interface_adapter.restrictions.RestrictionsController;
 import interface_adapter.restrictions.RestrictionsState;
 import interface_adapter.restrictions.RestrictionsViewModel;
 import interface_adapter.restrictions.RestrictionsViewModelListener;
+import view.components.ScrollablePanel;
 import view.components.WrapLayout;
 import view.theme.Styles;
 import view.theme.Theme;
@@ -241,37 +240,5 @@ public class RestrictionsPanel extends JPanel implements RestrictionsViewModelLi
         // Stretch to the full row; sized to its text, the last glyph gets clipped on HiDPI screens.
         label.setMaximumSize(new Dimension(Integer.MAX_VALUE, label.getPreferredSize().height));
         return label;
-    }
-
-    /**
-     * A panel that always matches the scroll pane's width, so content wraps
-     * instead of scrolling sideways.
-     */
-    private static class ScrollablePanel extends JPanel implements Scrollable {
-
-        @Override
-        public Dimension getPreferredScrollableViewportSize() {
-            return getPreferredSize();
-        }
-
-        @Override
-        public int getScrollableUnitIncrement(Rectangle visibleRect, int orientation, int direction) {
-            return 16;
-        }
-
-        @Override
-        public int getScrollableBlockIncrement(Rectangle visibleRect, int orientation, int direction) {
-            return visibleRect.height - 32;
-        }
-
-        @Override
-        public boolean getScrollableTracksViewportWidth() {
-            return true;
-        }
-
-        @Override
-        public boolean getScrollableTracksViewportHeight() {
-            return false;
-        }
     }
 }

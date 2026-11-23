@@ -161,6 +161,6 @@ Lead: Alex
 
 ### Credits
 
-- Ingredient icons: [Fluent Emoji High Contrast](https://github.com/microsoft/fluentui-emoji) by Microsoft, MIT License (see `src/main/resources/icons/LICENSE.txt`).
+- Icons (ingredients, and the star, heart, timer and servings icons on recipe cards): [Fluent Emoji High Contrast](https://github.com/microsoft/fluentui-emoji) by Microsoft, MIT License (see `src/main/resources/icons/LICENSE.txt`).
 - Font: [Poppins](https://github.com/itfoundry/Poppins), SIL Open Font License (see `src/main/resources/fonts/OFL.txt`).
 Annotations
