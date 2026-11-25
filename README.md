@@ -79,12 +79,14 @@ Lead: Dio
 
 Goal: Creating `UserProfile` entities that save both `Ingredient` and `Intolerance` entities (`Intolerance` entity holds list of `Ingredient`'s that get excluded)
 
+Lead: Saihaan 
 > **Note:** the restriction categories, ingredients and diet presets in `src/main/resources/restrictions.json` are a **placeholder**. More or fewer will be added once Dion's Spoonacular API calls produce the full list of ingredients, so the names match what the API uses.
 
 ### Use Case 4
 
 Goal: Storing/saving/deleting `Recipe` entities in `RecipeList`
 
+Lead: Michael
 ### Use Case 5
 
 Goal: Creating/Deleting `RecipeList` entities
@@ -111,6 +113,8 @@ Lead: Alex
 | ----------- | ---------------------- |
 | Arjun       | Use Case 1, Use Case 6 |
 | Dio         | Use Case 2             |
+| Saihaan        | Use Case 3; )      |
+| Michael     | Use Case 4             |
 | Alex        | Use Case 7; produce a front end independent from the data (theme, sidebar, views) |
 |             |                        |
 |             |                        |

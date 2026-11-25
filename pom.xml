@@ -16,7 +16,6 @@
         <!-- Default class for exec:java; override with -Dexec.mainClass=... -->
         <exec.mainClass>app.Main</exec.mainClass>
     </properties>
-
     <dependencies>
         <!-- Modern look and feel for Swing -->
         <dependency>
