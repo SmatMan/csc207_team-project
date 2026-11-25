@@ -41,4 +41,8 @@ references/
 
 ### Local user data ###
 profile.json
+profiles.json
 pantry.json
+
+### Local project notes ###
+projectinfo.MD

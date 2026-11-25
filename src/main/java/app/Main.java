@@ -24,12 +24,12 @@ public class Main {
             final JFrame application = new AppBuilder()
                     .addPantryView()
                     .addAddIngredientView()
-                    .addRestrictionsView()
+                    .addCreateProfileView()
                     .addSidebarView()
                     .addRecipesPlaceholderView()
                     .addPantryUseCases()
                     .addSearchIngredientsUseCase()
-                    .addRestrictionsUseCases()
+                    .addCreateProfileUseCase()
                     .build();
 
             application.setSize(1100, 720);
