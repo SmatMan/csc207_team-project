@@ -6,21 +6,19 @@ import java.util.List;
 
 /**
  * One recipe found for the pantry, as plain data for the presenter. The details
- * (score, likes, time, servings, diets) are null or empty when the recipe service
- * doesn't provide them.
+ * (score, health score, likes, time, servings, diets) are null or empty when the
+ * recipe service doesn't provide them.
  */
 public class FoundRecipe {
+
+    private static final RecipeDetails NO_DETAILS = RecipeDetails.builder().build();
 
     private final int id;
     private final String title;
     private final String imageUrl;
     private final List<String> usedIngredients;
     private final List<String> missingIngredients;
-    private final Double score;
-    private final Integer likes;
-    private final Integer readyInMinutes;
-    private final Integer servings;
-    private final List<String> diets;
+    private final RecipeDetails details;
 
     /**
      * Creates a found recipe without details.
@@ -32,7 +30,7 @@ public class FoundRecipe {
      */
     public FoundRecipe(int id, String title, String imageUrl,
                        List<String> usedIngredients, List<String> missingIngredients) {
-        this(id, title, imageUrl, usedIngredients, missingIngredients, null, null, null, null, new ArrayList<>());
+        this(id, title, imageUrl, usedIngredients, missingIngredients, null);
     }
 
     /**
@@ -42,26 +40,16 @@ public class FoundRecipe {
      * @param imageUrl the address of the recipe's photo, or "" if it has none
      * @param usedIngredients names of the ingredients the user already has
      * @param missingIngredients names of the ingredients the user would need to buy
-     * @param score the recipe's quality score from 0 to 100, or null
-     * @param likes how many people liked the recipe, or null
-     * @param readyInMinutes how long it takes to make, or null
-     * @param servings how many people it serves, or null
-     * @param diets diets the recipe suits, e.g. "gluten free" (empty if unknown)
+     * @param details extra information from the recipe service, or null if there is none
      */
     public FoundRecipe(int id, String title, String imageUrl,
-                       List<String> usedIngredients, List<String> missingIngredients,
-                       Double score, Integer likes, Integer readyInMinutes, Integer servings,
-                       List<String> diets) {
+                       List<String> usedIngredients, List<String> missingIngredients, RecipeDetails details) {
         this.id = id;
         this.title = title;
         this.imageUrl = imageUrl;
         this.usedIngredients = Collections.unmodifiableList(new ArrayList<>(usedIngredients));
         this.missingIngredients = Collections.unmodifiableList(new ArrayList<>(missingIngredients));
-        this.score = score;
-        this.likes = likes;
-        this.readyInMinutes = readyInMinutes;
-        this.servings = servings;
-        this.diets = Collections.unmodifiableList(new ArrayList<>(diets));
+        this.details = details == null ? NO_DETAILS : details;
     }
 
     public int getId() {
@@ -85,22 +73,42 @@ public class FoundRecipe {
     }
 
     public Double getScore() {
-        return score;
+        return details.getScore();
+    }
+
+    public Double getHealthScore() {
+        return details.getHealthScore();
     }
 
     public Integer getLikes() {
-        return likes;
+        return details.getLikes();
     }
 
     public Integer getReadyInMinutes() {
-        return readyInMinutes;
+        return details.getReadyInMinutes();
     }
 
     public Integer getServings() {
-        return servings;
+        return details.getServings();
     }
 
     public List<String> getDiets() {
-        return diets;
+        return details.getDiets();
+    }
+
+    public Integer getPreparationMinutes() {
+        return details.getPreparationMinutes();
+    }
+
+    /**
+     * Returns the recipe's description: HTML, with bold facts and links.
+     * @return the description, or "" if there is none
+     */
+    public String getSummaryHtml() {
+        return details.getSummaryHtml();
+    }
+
+    public List<String> getSteps() {
+        return details.getSteps();
     }
 }

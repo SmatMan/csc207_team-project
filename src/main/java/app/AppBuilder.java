@@ -28,6 +28,9 @@ import interface_adapter.pantry.PantryController;
 import interface_adapter.pantry.PantryPresenter;
 import interface_adapter.pantry.PantryViewModel;
 import interface_adapter.recipes.RecipesController;
+import interface_adapter.recipe_detail.RecipeDetailController;
+import interface_adapter.recipe_detail.RecipeDetailPresenter;
+import interface_adapter.recipe_detail.RecipeDetailViewModel;
 import interface_adapter.recipes.RecipesPresenter;
 import interface_adapter.recipes.RecipesViewModel;
 import interface_adapter.search_ingredients.SearchIngredientsController;
@@ -38,6 +41,7 @@ import use_case.add_ingredient.AddIngredientInteractor;
 import use_case.create_profile.CreateProfileInputBoundary;
 import use_case.create_profile.CreateProfileInteractor;
 import use_case.create_profile.IntoleranceCatalogue;
+import use_case.find_recipes.FindRecipesDataAccessInterface;
 import use_case.find_recipes.FindRecipesInputBoundary;
 import use_case.find_recipes.FindRecipesInteractor;
 import use_case.find_recipes.FindRecipesOutputBoundary;
@@ -48,9 +52,15 @@ import use_case.remove_ingredient.RemoveIngredientInteractor;
 import use_case.search_ingredients.SearchIngredientsInputBoundary;
 import use_case.search_ingredients.SearchIngredientsInteractor;
 import use_case.search_ingredients.SearchIngredientsOutputBoundary;
+import use_case.view_recipe.ViewRecipeDataAccessInterface;
+import use_case.view_recipe.ViewRecipeInputBoundary;
+import use_case.view_recipe.ViewRecipeInteractor;
+import use_case.view_recipe.ViewRecipeOutputBoundary;
 import view.AddIngredientPanel;
 import view.CreateProfilePanel;
 import view.PantryPanel;
+import view.RecipeDetailView;
+import view.RecipeIngredientsPanel;
 import view.RecipesView;
 import view.SidebarView;
 import view.ViewManager;
@@ -83,14 +93,21 @@ public class AppBuilder {
     final FileIngredientCorpusDataAccessObject ingredientCorpusDataAccessObject =
             new FileIngredientCorpusDataAccessObject("/ingredients.json");
 
-    // Recipes come from Spoonacular through the existing API call (use case 2).
-    final SpoonacularRecipeDataAccessObject recipeDataAccessObject = new SpoonacularRecipeDataAccessObject();
+    // Recipes come from Spoonacular through the existing API call (use case 2), unless another
+    // source is swapped in with useRecipeDataAccessObject (e.g. mock data). The same source both
+    // finds recipes and looks up the ones it found when a recipe is opened.
+    private final SpoonacularRecipeDataAccessObject spoonacularRecipes = new SpoonacularRecipeDataAccessObject();
+    private FindRecipesDataAccessInterface recipeDataAccessObject = spoonacularRecipes;
+    private ViewRecipeDataAccessInterface recipeLookupDataAccessObject = spoonacularRecipes;
 
     // How ingredients are drawn, shared by the pantry list and the add-ingredient search.
     private final IngredientIcons ingredientIcons = buildIngredientIcons();
 
     private RecipesViewModel recipesViewModel;
     private RecipesView recipesView;
+    private RecipeDetailViewModel recipeDetailViewModel;
+    private RecipeDetailView recipeDetailView;
+    private RecipeIngredientsPanel recipeIngredientsPanel;
     private PantryViewModel pantryViewModel;
     private PantryPanel pantryPanel;
     private CreateProfileViewModel createProfileViewModel;
@@ -176,7 +193,8 @@ public class AppBuilder {
      * @return this builder
      */
     public AppBuilder addSidebarView() {
-        sidebarView = new SidebarView(pantryPanel, createProfilePanel, addIngredientPanel);
+        sidebarView = new SidebarView(pantryPanel, createProfilePanel, addIngredientPanel,
+                recipeIngredientsPanel, viewManagerModel);
         return this;
     }
 
@@ -233,7 +251,51 @@ public class AppBuilder {
     }
 
     /**
-     * Adds the Find Recipes Use Case, which searches Spoonacular with the pantry's ingredients.
+     * Uses a different recipe source instead of Spoonacular, e.g. mock data for demos and tests.
+     * Must be called before {@link #addFindRecipesUseCase()}.
+     * @param recipeSource where recipes come from
+     * @return this builder
+     */
+    public <T extends FindRecipesDataAccessInterface & ViewRecipeDataAccessInterface> AppBuilder
+            useRecipeDataAccessObject(T recipeSource) {
+        this.recipeDataAccessObject = recipeSource;
+        this.recipeLookupDataAccessObject = recipeSource;
+        return this;
+    }
+
+    /**
+     * Adds the recipe screen (one recipe in full) to the main area, and the sidebar panel
+     * listing its ingredients. Must be called before {@link #addSidebarView()}.
+     * @return this builder
+     */
+    public AppBuilder addRecipeDetailView() {
+        recipeDetailViewModel = new RecipeDetailViewModel();
+        recipeDetailView = new RecipeDetailView(recipeDetailViewModel);
+        recipeIngredientsPanel = new RecipeIngredientsPanel(recipeDetailViewModel, ingredientIcons);
+        cardPanel.add(recipeDetailView, RecipeDetailViewModel.VIEW_NAME);
+        return this;
+    }
+
+    /**
+     * Adds the View Recipe Use Case: clicking a recipe opens it in full.
+     * Must be called after {@link #addRecipesView()} and {@link #addRecipeDetailView()}.
+     * @return this builder
+     */
+    public AppBuilder addViewRecipeUseCase() {
+        final ViewRecipeOutputBoundary recipeDetailPresenter =
+                new RecipeDetailPresenter(viewManagerModel, recipeDetailViewModel);
+        final ViewRecipeInputBoundary viewRecipeInteractor =
+                new ViewRecipeInteractor(recipeLookupDataAccessObject, recipeDetailPresenter);
+
+        final RecipeDetailController recipeDetailController =
+                new RecipeDetailController(viewRecipeInteractor, viewManagerModel);
+        recipesView.setRecipeDetailController(recipeDetailController);
+        recipeDetailView.setRecipeDetailController(recipeDetailController);
+        return this;
+    }
+
+    /**
+     * Adds the Find Recipes Use Case, which searches for recipes with the pantry's ingredients.
      * @return this builder
      */
     public AppBuilder addFindRecipesUseCase() {

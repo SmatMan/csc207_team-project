@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -16,10 +17,6 @@ import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.geom.Area;
-import java.awt.geom.Rectangle2D;
-import java.awt.geom.RoundRectangle2D;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -33,6 +30,7 @@ import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JViewport;
@@ -41,11 +39,14 @@ import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
 import interface_adapter.pantry.PantryViewModel;
+import interface_adapter.recipe_detail.RecipeDetailController;
 import interface_adapter.recipes.RecipesController;
 import interface_adapter.recipes.RecipesState;
 import interface_adapter.recipes.RecipesViewModel;
 import interface_adapter.recipes.RecipesViewModelListener;
-import view.components.RemoteImages;
+import view.components.FloatingHeaderPanel;
+import view.components.RecipeHtml;
+import view.components.RoundedPhoto;
 import view.components.ScrollablePanel;
 import view.components.UiIcons;
 import view.components.WrapLayout;
@@ -64,13 +65,19 @@ public class RecipesView extends JPanel implements RecipesViewModelListener {
     private static final int SEARCH_DELAY_MS = 1000;
     // Start loading the next page when this close to the bottom.
     private static final int LOAD_MORE_DISTANCE = 200;
+    // How far to scroll before the categories hide or come back, so small jiggles don't toggle them.
+    private static final int SCROLL_THRESHOLD = 12;
+    // How long the mouse rests on a card before its preview appears, and the preview's size.
+    private static final int PREVIEW_DELAY_MS = 450;
+    // Roughly how wide the preview should be; its text wraps to fit.
+    private static final int PREVIEW_WIDTH = 300;
+    private static final int PREVIEW_STEPS = 3;
 
     private static final int CARD_WIDTH = 228;
     private static final int IMAGE_HEIGHT = 150;
     private static final int CARD_PADDING = 14;
     private static final int BASE_TEXT_HEIGHT = 128;
     private static final int DETAILS_ROW_HEIGHT = 24;
-    private static final int DIETS_ROW_HEIGHT = 30;
 
     private static final String GRID_CARD = "grid";
     private static final String MESSAGE_CARD = "message";
@@ -81,6 +88,13 @@ public class RecipesView extends JPanel implements RecipesViewModelListener {
     private final RecipesViewModel recipesViewModel;
     private final PantryViewModel pantryViewModel;
     private RecipesController recipesController;
+    private RecipeDetailController recipeDetailController;
+
+    // Hover preview: shown after the mouse rests on a card for a moment.
+    private final Timer previewTimer = new Timer(PREVIEW_DELAY_MS, evt -> showPreview());
+    private JComponent previewCard;
+    private RecipesState.RecipeCard previewRecipe;
+    private JPanel preview;
 
     private final Timer searchTimer = new Timer(SEARCH_DELAY_MS, evt -> search());
     // Searches go over the network, so run them off the Swing thread, one at a time, in order.
@@ -94,7 +108,11 @@ public class RecipesView extends JPanel implements RecipesViewModelListener {
     private Pending pending = Pending.NOTHING;
     private boolean nextPageFailed;
 
+    private final CategoryBar categoryBar = new CategoryBar();
     private final JLabel subtitle = new JLabel(" ");
+    // The categories float over the top of the recipes and slide away while scrolling down.
+    private final FloatingHeaderPanel floatingHeader;
+    private int lastScrollValue;
     private final CardLayout cardLayout = new CardLayout();
     private final JPanel cards = new JPanel(cardLayout);
     private final JScrollPane scrollPane;
@@ -110,7 +128,7 @@ public class RecipesView extends JPanel implements RecipesViewModelListener {
      * @param pantryViewModel the pantry's view model, watched so recipes follow the pantry
      */
     public RecipesView(RecipesViewModel recipesViewModel, PantryViewModel pantryViewModel) {
-        super(new BorderLayout(0, Theme.GAP_L));
+        super(new BorderLayout());
         this.recipesViewModel = recipesViewModel;
         this.recipesViewModel.addListener(this);
         this.pantryViewModel = pantryViewModel;
@@ -118,6 +136,7 @@ public class RecipesView extends JPanel implements RecipesViewModelListener {
         setOpaque(false);
         setBorder(BorderFactory.createEmptyBorder(Theme.GAP_XL + 4, Theme.GAP_XL + 4, 0, Theme.GAP_XL));
         searchTimer.setRepeats(false);
+        previewTimer.setRepeats(false);
 
         grid.setOpaque(false);
         // Cancel FlowLayout's leading gap so cards line up with the heading.
@@ -135,9 +154,15 @@ public class RecipesView extends JPanel implements RecipesViewModelListener {
             }
         });
 
+        cards.setOpaque(false);
+        final JPanel header = header();
+        floatingHeader = new FloatingHeaderPanel(header, categoryBar, cards);
+
         final JPanel scrollContent = new ScrollablePanel();
         scrollContent.setLayout(new BorderLayout());
         scrollContent.setOpaque(false);
+        // Blank space the height of the header, so the first cards start below it.
+        scrollContent.add(floatingHeader.createSpacer(), BorderLayout.NORTH);
         scrollContent.add(grid, BorderLayout.CENTER);
         scrollContent.add(footer, BorderLayout.SOUTH);
 
@@ -146,24 +171,162 @@ public class RecipesView extends JPanel implements RecipesViewModelListener {
         scrollPane.setOpaque(false);
         scrollPane.getViewport().setOpaque(false);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPane.getVerticalScrollBar().addAdjustmentListener(evt -> loadMoreIfNearBottom());
+        scrollPane.getVerticalScrollBar().addAdjustmentListener(evt -> {
+            hidePreview();
+            collapseCategoriesOnScroll();
+            loadMoreIfNearBottom();
+        });
 
         retryButton.addActionListener(evt -> {
             lastSearched = null;
             search();
         });
 
-        cards.setOpaque(false);
         cards.add(scrollPane, GRID_CARD);
         cards.add(messagePanel(), MESSAGE_CARD);
         showMessage("Add ingredients to see recipes", "Recipes appear here as you fill your pantry.", false);
 
-        add(header(), BorderLayout.NORTH);
-        add(cards, BorderLayout.CENTER);
+        add(floatingHeader, BorderLayout.CENTER);
     }
 
     public void setRecipesController(RecipesController recipesController) {
         this.recipesController = recipesController;
+    }
+
+    public void setRecipeDetailController(RecipeDetailController recipeDetailController) {
+        this.recipeDetailController = recipeDetailController;
+    }
+
+    private void openRecipe(int recipeId) {
+        if (recipeDetailController != null) {
+            recipeDetailController.open(recipeId);
+        }
+    }
+
+    /**
+     * Starts the hover countdown for a card; the preview appears if the mouse stays on it.
+     */
+    private void showPreviewSoon(JComponent card, RecipesState.RecipeCard recipe) {
+        hidePreview();
+        if (!recipe.hasPreview()) {
+            return;
+        }
+        previewCard = card;
+        previewRecipe = recipe;
+        previewTimer.restart();
+    }
+
+    private void hidePreview() {
+        previewTimer.stop();
+        previewCard = null;
+        if (preview != null) {
+            final Container parent = preview.getParent();
+            if (parent != null) {
+                final Rectangle area = preview.getBounds();
+                parent.remove(preview);
+                parent.repaint(area.x, area.y, area.width, area.height);
+            }
+            preview = null;
+        }
+    }
+
+    /**
+     * Shows the preview beside the hovered card: to its right, or its left if there's no room.
+     */
+    private void showPreview() {
+        if (previewCard == null || SwingUtilities.getRootPane(previewCard) == null) {
+            return;
+        }
+        final JLayeredPane layers = SwingUtilities.getRootPane(previewCard).getLayeredPane();
+        preview = buildPreview(previewRecipe);
+        final Dimension size = preview.getPreferredSize();
+        final Rectangle card = SwingUtilities.convertRectangle(previewCard.getParent(), previewCard.getBounds(), layers);
+        final int gap = Theme.GAP_S;
+        int x = card.x + card.width + gap;
+        if (x + size.width > layers.getWidth() - gap) {
+            x = card.x - size.width - gap;
+        }
+        final int y = Math.max(gap, Math.min(card.y, layers.getHeight() - size.height - gap));
+        preview.setBounds(x, y, size.width, size.height);
+        layers.add(preview, JLayeredPane.POPUP_LAYER);
+        preview.revalidate();
+        preview.repaint();
+    }
+
+    /**
+     * The preview: title, times, the start of the description (keeping its bold), and the first steps.
+     */
+    private static JPanel buildPreview(RecipesState.RecipeCard recipe) {
+        final int textWidth = PREVIEW_WIDTH - 2 * Theme.GAP_L - 8;
+        final JPanel panel = Styles.card(new JPanel());
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+        panel.add(htmlLabel("<b>" + RecipeHtml.escape(recipe.getTitle()) + "</b>", textWidth,
+                Theme.font(Weight.SEMIBOLD, Theme.SIZE_BODY + 1), Theme.TEXT));
+        panel.add(Box.createVerticalStrut(Theme.GAP_XS));
+
+        final JPanel facts = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+        facts.setOpaque(false);
+        facts.setAlignmentX(Component.LEFT_ALIGNMENT);
+        final Font factFont = Theme.font(Weight.REGULAR, Theme.SIZE_CAPTION + 1);
+        if (recipe.getTimeText() != null) {
+            facts.add(previewFact(UiIcons.TIMER, "Ready in " + recipe.getTimeText(), factFont));
+        }
+        if (recipe.getPrepText() != null) {
+            facts.add(previewFact(null, "Prep " + recipe.getPrepText(), factFont));
+        }
+        if (recipe.getServingsText() != null) {
+            facts.add(previewFact(UiIcons.SERVINGS, recipe.getServingsText(), factFont));
+        }
+        panel.add(facts);
+
+        if (!recipe.getSummaryHtml().isBlank()) {
+            panel.add(Box.createVerticalStrut(Theme.GAP_S));
+            panel.add(htmlLabel(RecipeHtml.firstSentences(recipe.getSummaryHtml(), 2), textWidth,
+                    Theme.font(Weight.REGULAR, Theme.SIZE_CAPTION + 1), Theme.TEXT));
+        }
+
+        final List<String> steps = recipe.getSteps();
+        if (!steps.isEmpty()) {
+            panel.add(Box.createVerticalStrut(Theme.GAP_S));
+            final StringBuilder list = new StringBuilder("<ol style='margin-left:16px; margin-top:0'>");
+            for (int i = 0; i < Math.min(PREVIEW_STEPS, steps.size()); i++) {
+                list.append("<li>").append(RecipeHtml.escape(steps.get(i))).append("</li>");
+            }
+            list.append("</ol>");
+            panel.add(htmlLabel(list.toString(), textWidth, Theme.font(Weight.REGULAR, Theme.SIZE_CAPTION + 1),
+                    Theme.TEXT));
+        }
+        final int moreSteps = steps.size() - PREVIEW_STEPS;
+        panel.add(Box.createVerticalStrut(Theme.GAP_XS));
+        panel.add(htmlLabel(moreSteps > 0 ? "+ " + moreSteps + " more steps  ·  click to open"
+                : "Click to open the recipe", textWidth, Theme.font(Weight.MEDIUM, Theme.SIZE_CAPTION),
+                Theme.TEXT_MUTED));
+
+        // No fixed panel width: Swing's HTML renders fixed-width text a little wider than asked,
+        // so the panel sizes itself to its labels and nothing gets cut off.
+        return panel;
+    }
+
+    private static JLabel htmlLabel(String html, int width, Font font, Color color) {
+        // A fixed width makes Swing wrap the HTML onto several lines.
+        final JLabel label = new JLabel("<html><div style='width:" + width + "px'>" + html + "</div></html>");
+        label.setFont(font);
+        label.setForeground(color);
+        label.setAlignmentX(Component.LEFT_ALIGNMENT);
+        return label;
+    }
+
+    private static JLabel previewFact(String icon, String text, Font font) {
+        final JLabel label = new JLabel(text);
+        if (icon != null) {
+            label.setIcon(UiIcons.get(icon, 14, Theme.TEXT_MUTED));
+            label.setIconTextGap(Theme.GAP_XS);
+        }
+        label.setFont(font);
+        label.setForeground(Theme.TEXT_MUTED);
+        label.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, Theme.GAP_M));
+        return label;
     }
 
     /**
@@ -190,7 +353,31 @@ public class RecipesView extends JPanel implements RecipesViewModelListener {
         }
         pending = Pending.FIRST_PAGE;
         final List<String> ingredients = lastIngredients;
-        searchThread.submit(() -> recipesController.findRecipes(ingredients));
+        final String dishType = categoryBar.getDishType();
+        final String cuisine = categoryBar.getCuisine();
+        searchThread.submit(() -> recipesController.findRecipes(ingredients, dishType, cuisine));
+    }
+
+    /**
+     * Hides the categories when the user scrolls down, and shows them again when they
+     * scroll up or reach the top.
+     */
+    private void collapseCategoriesOnScroll() {
+        // The categories float over the recipes, so hiding them never moves the scroll position.
+        final int value = scrollPane.getVerticalScrollBar().getValue();
+        final int moved = value - lastScrollValue;
+        if (value <= 0) {
+            floatingHeader.setCollapsed(false);
+        }
+        else if (moved > SCROLL_THRESHOLD) {
+            floatingHeader.setCollapsed(true);
+        }
+        else if (moved < -SCROLL_THRESHOLD) {
+            floatingHeader.setCollapsed(false);
+        }
+        if (Math.abs(moved) > SCROLL_THRESHOLD || value <= 0) {
+            lastScrollValue = value;
+        }
     }
 
     private void loadMoreIfNearBottom() {
@@ -209,7 +396,7 @@ public class RecipesView extends JPanel implements RecipesViewModelListener {
     }
 
     /**
-     * Asks for the page after the recipes already shown, with the same ingredients.
+     * Asks for the page after the recipes already shown, with the same ingredients and categories.
      */
     private void loadMore() {
         if (recipesController == null || pending != Pending.NOTHING) {
@@ -220,8 +407,10 @@ public class RecipesView extends JPanel implements RecipesViewModelListener {
         footer.setText("Loading more recipes…");
         footer.setCursor(Cursor.getDefaultCursor());
         final List<String> ingredients = lastIngredients;
+        final String dishType = categoryBar.getDishType();
+        final String cuisine = categoryBar.getCuisine();
         final int shown = recipesViewModel.getState().getRecipes().size();
-        searchThread.submit(() -> recipesController.loadMore(ingredients, shown));
+        searchThread.submit(() -> recipesController.loadMore(ingredients, dishType, cuisine, shown));
     }
 
     @Override
@@ -255,7 +444,9 @@ public class RecipesView extends JPanel implements RecipesViewModelListener {
         }
         else if (state.getRecipes().isEmpty()) {
             subtitle.setText(basedOn(state.getIngredientCount()));
-            showMessage("No recipes found", "Try adding a few more ingredients.", false);
+            final boolean filtered = categoryBar.getDishType() != null || categoryBar.getCuisine() != null;
+            showMessage("No recipes found",
+                    filtered ? "Try another category." : "Try adding a few more ingredients.", false);
         }
         else {
             subtitle.setText(basedOn(state.getIngredientCount()) + "  ·  fewest missing ingredients first");
@@ -271,17 +462,14 @@ public class RecipesView extends JPanel implements RecipesViewModelListener {
     private void showRecipes(RecipesState state) {
         // Every card the same height, so the grid lines up: make room for details if any recipe has them.
         boolean anyDetails = false;
-        boolean anyDiets = false;
         for (RecipesState.RecipeCard recipe : state.getRecipes()) {
             anyDetails |= recipe.getTimeText() != null || recipe.getServingsText() != null;
-            anyDiets |= !recipe.getDiets().isEmpty();
         }
-        final int cardHeight = IMAGE_HEIGHT + BASE_TEXT_HEIGHT
-                + (anyDetails ? DETAILS_ROW_HEIGHT : 0) + (anyDiets ? DIETS_ROW_HEIGHT : 0);
+        final int cardHeight = IMAGE_HEIGHT + BASE_TEXT_HEIGHT + (anyDetails ? DETAILS_ROW_HEIGHT : 0);
 
         grid.removeAll();
         for (RecipesState.RecipeCard recipe : state.getRecipes()) {
-            grid.add(new RecipeCardPanel(recipe, cardHeight));
+            grid.add(new RecipeCardPanel(recipe, cardHeight, this));
         }
         footer.setText(state.isMoreAvailable() ? " " : "That's every recipe for these ingredients.");
         grid.revalidate();
@@ -290,20 +478,25 @@ public class RecipesView extends JPanel implements RecipesViewModelListener {
     }
 
     private JPanel header() {
-        final JLabel title = new JLabel("Recipes for your pantry");
-        title.setFont(Theme.font(Weight.BOLD, Theme.SIZE_TITLE));
-        title.setForeground(Theme.TEXT);
-        title.setAlignmentX(Component.LEFT_ALIGNMENT);
+        categoryBar.setAlignmentX(Component.LEFT_ALIGNMENT);
+        // A new category means a new search straight away, from the first page.
+        categoryBar.setCategoryListener((dishType, cuisine) -> {
+            searchTimer.stop();
+            search();
+        });
 
-        subtitle.setFont(Theme.font(Weight.REGULAR, Theme.SIZE_BODY));
+        subtitle.setFont(Theme.font(Weight.REGULAR, Theme.SIZE_CAPTION + 1));
         subtitle.setForeground(Theme.TEXT_MUTED);
         subtitle.setAlignmentX(Component.LEFT_ALIGNMENT);
 
+        // Opaque, in the page colour, so recipes scrolling underneath are hidden behind it.
         final JPanel header = new JPanel();
-        header.setOpaque(false);
+        header.setOpaque(true);
+        header.setBackground(Theme.BACKGROUND);
         header.setLayout(new BoxLayout(header, BoxLayout.Y_AXIS));
-        header.add(title);
-        header.add(Box.createVerticalStrut(Theme.GAP_XS));
+        header.setBorder(BorderFactory.createEmptyBorder(0, 0, Theme.GAP_M, 0));
+        header.add(categoryBar);
+        header.add(Box.createVerticalStrut(Theme.GAP_S));
         header.add(subtitle);
         return header;
     }
@@ -340,8 +533,14 @@ public class RecipesView extends JPanel implements RecipesViewModelListener {
         cardLayout.show(cards, MESSAGE_CARD);
     }
 
-    private static String basedOn(int ingredientCount) {
-        return "Based on " + ingredientCount + (ingredientCount == 1 ? " ingredient" : " ingredients");
+    /**
+     * "Based on 9 ingredients", plus the selected categories if any, so they stay visible
+     * while the category bar is collapsed.
+     */
+    private String basedOn(int ingredientCount) {
+        final String selection = categoryBar.describeSelection();
+        return "Based on " + ingredientCount + (ingredientCount == 1 ? " ingredient" : " ingredients")
+                + (selection == null ? "" : "  ·  " + selection);
     }
 
     private static List<String> normalized(List<String> ingredients) {
@@ -354,16 +553,17 @@ public class RecipesView extends JPanel implements RecipesViewModelListener {
     }
 
     /**
-     * One recipe: photo (with rating and likes on it), title (up to two lines), time and
-     * servings, how many of its ingredients you have, what's missing, and diet pills.
+     * One recipe: photo (with its scores on it), title (up to two lines), time and
+     * servings, how many of its ingredients you have, and what's missing. Hovering shows
+     * a preview; clicking opens the recipe.
      */
     private static final class RecipeCardPanel extends JPanel {
 
         private static final int TEXT_WIDTH = CARD_WIDTH - 2 * CARD_PADDING;
-        private static final int MAX_DIETS = 2;
 
-        private RecipeCardPanel(RecipesState.RecipeCard recipe, int height) {
+        private RecipeCardPanel(RecipesState.RecipeCard recipe, int height, RecipesView owner) {
             super(new BorderLayout());
+            setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             putClientProperty("FlatLaf.style", "arc: " + Theme.ARC_CARD
                     + "; background: " + Theme.hex(Theme.SURFACE)
                     + "; border: 0,0,0,0," + Theme.hex(Theme.BORDER) + ",1," + Theme.ARC_CARD);
@@ -393,21 +593,34 @@ public class RecipesView extends JPanel implements RecipesViewModelListener {
             final String missing = recipe.getMissingIngredients().isEmpty()
                     ? "You have everything"
                     : "Missing: " + String.join(", ", recipe.getMissingIngredients());
-            final JLabel missingLabel = label(missing, Theme.font(Weight.REGULAR, Theme.SIZE_CAPTION + 1),
-                    Theme.TEXT_MUTED);
-            // A plain label shortens itself with "..." when too long; the tooltip shows the whole list.
-            missingLabel.setToolTipText(missing);
-            text.add(missingLabel);
+            // A plain label shortens itself with "..." when too long; the preview shows the whole recipe.
+            text.add(label(missing, Theme.font(Weight.REGULAR, Theme.SIZE_CAPTION + 1), Theme.TEXT_MUTED));
 
-            if (!recipe.getDiets().isEmpty()) {
-                text.add(Box.createVerticalStrut(Theme.GAP_S));
-                text.add(dietPills(recipe.getDiets()));
-            }
-
-            add(new RecipePhoto(recipe.getImageUrl(), recipe.getRatingText(), recipe.getLikesText()),
+            add(new RecipePhoto(recipe.getImageUrl(), recipe.getRatingText(), recipe.getHealthText()),
                     BorderLayout.NORTH);
             add(text, BorderLayout.CENTER);
             setPreferredSize(new Dimension(CARD_WIDTH, height));
+
+            addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseEntered(MouseEvent evt) {
+                    owner.showPreviewSoon(RecipeCardPanel.this, recipe);
+                }
+
+                @Override
+                public void mouseExited(MouseEvent evt) {
+                    // Moving onto a child also counts as leaving, so check where the mouse really is.
+                    if (!contains(SwingUtilities.convertPoint(evt.getComponent(), evt.getPoint(), RecipeCardPanel.this))) {
+                        owner.hidePreview();
+                    }
+                }
+
+                @Override
+                public void mouseClicked(MouseEvent evt) {
+                    owner.hidePreview();
+                    owner.openRecipe(recipe.getId());
+                }
+            });
         }
 
         /**
@@ -438,24 +651,6 @@ public class RecipesView extends JPanel implements RecipesViewModelListener {
             label.setFont(font);
             label.setForeground(Theme.TEXT_MUTED);
             return label;
-        }
-
-        private static JPanel dietPills(List<String> diets) {
-            final JPanel row = new JPanel(new FlowLayout(FlowLayout.LEFT, Theme.GAP_XS, 0));
-            row.setOpaque(false);
-            row.setAlignmentX(Component.LEFT_ALIGNMENT);
-            // Cancel FlowLayout's leading gap so the first pill lines up with the text.
-            row.setBorder(BorderFactory.createEmptyBorder(0, -Theme.GAP_XS, 0, 0));
-            for (int i = 0; i < Math.min(MAX_DIETS, diets.size()); i++) {
-                row.add(new Pill(diets.get(i)));
-            }
-            if (diets.size() > MAX_DIETS) {
-                final Pill more = new Pill("+" + (diets.size() - MAX_DIETS));
-                more.setToolTipText(String.join(", ", diets));
-                row.add(more);
-            }
-            row.setMaximumSize(new Dimension(TEXT_WIDTH, row.getPreferredSize().height));
-            return row;
         }
 
         private static JLabel label(String text, Font font, Color color) {
@@ -500,61 +695,37 @@ public class RecipesView extends JPanel implements RecipesViewModelListener {
 
     /**
      * The recipe photo, filling the top of the card with its top corners rounded, with a
-     * small white pill showing the rating and likes when known. Shows a plain tint until
-     * the photo has downloaded.
+     * small white pill showing Spoonacular's score and health score when known.
      */
-    private static final class RecipePhoto extends JComponent {
+    private static final class RecipePhoto extends RoundedPhoto {
 
         private static final int ICON_SIZE = 13;
 
         private final String rating;
-        private final String likes;
-        private BufferedImage image;
+        private final String health;
 
-        private RecipePhoto(String url, String rating, String likes) {
+        private RecipePhoto(String url, String rating, String health) {
+            super(url, new Dimension(CARD_WIDTH, IMAGE_HEIGHT), Theme.ARC_CARD, true);
             this.rating = rating;
-            this.likes = likes;
-            setPreferredSize(new Dimension(CARD_WIDTH, IMAGE_HEIGHT));
-            RemoteImages.load(url, loaded -> {
-                image = loaded;
-                repaint();
-            });
+            this.health = health;
         }
 
         @Override
         protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
             final Graphics2D g2 = (Graphics2D) g.create();
             g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
             g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-
-            // Round the top corners only: a rounded rectangle plus a square block over its bottom half.
-            final Area clip = new Area(new RoundRectangle2D.Float(0, 0, getWidth(), getHeight(),
-                    Theme.ARC_CARD, Theme.ARC_CARD));
-            clip.add(new Area(new Rectangle2D.Float(0, getHeight() / 2f, getWidth(), getHeight() / 2f)));
-            g2.clip(clip);
-
-            if (image == null) {
-                g2.setColor(Theme.NEUTRAL_TINT);
-                g2.fillRect(0, 0, getWidth(), getHeight());
-            }
-            else {
-                // Scale to cover the whole area, cropping whatever overflows.
-                final double scale = Math.max((double) getWidth() / image.getWidth(),
-                        (double) getHeight() / image.getHeight());
-                final int width = (int) Math.ceil(image.getWidth() * scale);
-                final int height = (int) Math.ceil(image.getHeight() * scale);
-                g2.drawImage(image, (getWidth() - width) / 2, (getHeight() - height) / 2, width, height, null);
-            }
             paintBadge(g2);
             g2.dispose();
         }
 
         /**
-         * "★ 3.7   ♥ 1.2k" in a white pill at the top left of the photo.
+         * "★ 88   🌱 30" (Spoonacular's score, then health score) in a white pill at the top
+         * left of the photo.
          */
         private void paintBadge(Graphics2D g2) {
-            if (rating == null && likes == null) {
+            if (rating == null && health == null) {
                 return;
             }
             g2.setFont(Theme.font(Weight.SEMIBOLD, Theme.SIZE_CAPTION + 1));
@@ -566,34 +737,35 @@ public class RecipesView extends JPanel implements RecipesViewModelListener {
             if (rating != null) {
                 width += ICON_SIZE + gap + metrics.stringWidth(rating);
             }
-            if (likes != null) {
-                width += (rating != null ? Theme.GAP_S : 0) + ICON_SIZE + gap + metrics.stringWidth(likes);
+            if (health != null) {
+                width += (rating != null ? Theme.GAP_M : 0) + ICON_SIZE + gap + metrics.stringWidth(health);
             }
             final int height = 24;
             final int left = 10;
             final int top = 10;
-
             g2.setColor(new Color(255, 255, 255, 235));
             g2.fillRoundRect(left, top, width, height, height, height);
 
             int x = left + padding;
-            final int iconY = top + (height - ICON_SIZE) / 2;
-            final int textY = top + (height + metrics.getAscent() - metrics.getDescent()) / 2;
             if (rating != null) {
-                x = paintItem(g2, UiIcons.get(UiIcons.STAR, ICON_SIZE, Theme.HIGHLIGHT_DEEP), rating, x, iconY, textY, gap);
-                x += Theme.GAP_S;
+                x = paintItem(g2, UiIcons.get(UiIcons.STAR, ICON_SIZE, Theme.HIGHLIGHT_DEEP), rating, x, top, height);
+                x += Theme.GAP_M;
             }
-            if (likes != null) {
-                paintItem(g2, UiIcons.get(UiIcons.HEART, ICON_SIZE, Theme.PRIMARY), likes, x, iconY, textY, gap);
+            if (health != null) {
+                paintItem(g2, UiIcons.get(UiIcons.HEALTH, ICON_SIZE, Theme.SAGE), health, x, top, height);
             }
         }
 
-        private int paintItem(Graphics2D g2, Icon icon, String text, int x, int iconY, int textY, int gap) {
-            icon.paintIcon(this, g2, x, iconY);
-            final int textX = x + ICON_SIZE + gap;
+        /**
+         * Paints an icon and its number, returning where the next item can start.
+         */
+        private int paintItem(Graphics2D g2, Icon icon, String text, int x, int top, int height) {
+            final FontMetrics metrics = g2.getFontMetrics();
+            icon.paintIcon(this, g2, x, top + (height - ICON_SIZE) / 2);
+            final int textX = x + ICON_SIZE + Theme.GAP_XS;
             g2.setColor(Theme.TEXT);
-            g2.drawString(text, textX, textY);
-            return textX + g2.getFontMetrics().stringWidth(text);
+            g2.drawString(text, textX, top + (height + metrics.getAscent() - metrics.getDescent()) / 2);
+            return textX + metrics.stringWidth(text);
         }
     }
 
@@ -623,29 +795,6 @@ public class RecipesView extends JPanel implements RecipesViewModelListener {
             g2.setColor(Theme.SAGE);
             g2.fillRoundRect(0, 0, (int) Math.round(getWidth() * fraction), HEIGHT, HEIGHT, HEIGHT);
             g2.dispose();
-        }
-    }
-
-    /**
-     * A small rounded label on a sage tint, for diets such as "Gluten free".
-     */
-    private static final class Pill extends JLabel {
-
-        private Pill(String text) {
-            super(text);
-            setFont(Theme.font(Weight.MEDIUM, Theme.SIZE_CAPTION));
-            setForeground(Theme.TEXT);
-            setBorder(BorderFactory.createEmptyBorder(3, 9, 3, 9));
-        }
-
-        @Override
-        protected void paintComponent(Graphics g) {
-            final Graphics2D g2 = (Graphics2D) g.create();
-            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            g2.setColor(Theme.SUCCESS_TINT);
-            g2.fillRoundRect(0, 0, getWidth(), getHeight(), getHeight(), getHeight());
-            g2.dispose();
-            super.paintComponent(g);
         }
     }
 }

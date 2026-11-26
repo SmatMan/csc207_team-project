@@ -5,6 +5,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import use_case.find_recipes.FindRecipesOutputData;
 import use_case.find_recipes.FoundRecipe;
+import use_case.find_recipes.RecipeDetails;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -40,14 +41,13 @@ class RecipesPresenterTest {
     void detailsAreFormattedForTheCard() {
         presenter.prepareSuccessView(new FindRecipesOutputData(1, List.of(
                 new FoundRecipe(5, "Kappa Maki", "", List.of("White rice"), List.of("Nori"),
-                        73.48, 1234, 75, 8, List.of("gluten free", "dairy free"))), 0, false));
+                        new RecipeDetails(73.48, 19.6, 1234, 75, 8, List.of("gluten free")))), 0, false));
 
         final RecipesState.RecipeCard card = viewModel.getState().getRecipes().get(0);
-        assertEquals("3.7", card.getRatingText());
-        assertEquals("1.2k", card.getLikesText());
+        assertEquals("73", card.getRatingText());
+        assertEquals("20", card.getHealthText());
         assertEquals("1 h 15 min", card.getTimeText());
         assertEquals("Serves 8", card.getServingsText());
-        assertEquals(List.of("Gluten free", "Dairy free"), card.getDiets());
     }
 
     @Test
@@ -56,19 +56,17 @@ class RecipesPresenterTest {
 
         final RecipesState.RecipeCard card = viewModel.getState().getRecipes().get(0);
         assertNull(card.getRatingText());
-        assertNull(card.getLikesText());
+        assertNull(card.getHealthText());
         assertNull(card.getTimeText());
         assertNull(card.getServingsText());
-        assertTrue(card.getDiets().isEmpty());
     }
 
     @Test
     void numberFormatting() {
-        assertEquals("999", RecipesPresenter.likes(999));
-        assertEquals("1k", RecipesPresenter.likes(1000));
-        assertEquals("2.5M", RecipesPresenter.likes(2_500_000));
         assertEquals("45 min", RecipesPresenter.time(45));
         assertEquals("2 h", RecipesPresenter.time(120));
-        assertEquals("5.0", RecipesPresenter.rating(100.0));
+        assertEquals("100", RecipesPresenter.outOf100(100.0));
+        assertEquals("7", RecipesPresenter.outOf100(6.8));
+        assertEquals("0", RecipesPresenter.outOf100(-3.0));
     }
 }

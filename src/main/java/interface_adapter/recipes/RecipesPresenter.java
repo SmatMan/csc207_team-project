@@ -3,7 +3,6 @@ package interface_adapter.recipes;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Locale;
 import java.util.Set;
 
 import use_case.find_recipes.FindRecipesOutputBoundary;
@@ -56,41 +55,22 @@ public class RecipesPresenter implements FindRecipesOutputBoundary {
     }
 
     private static RecipesState.RecipeCard card(FoundRecipe recipe) {
-        final List<String> diets = new ArrayList<>();
-        for (String diet : recipe.getDiets()) {
-            diets.add(capitalise(diet));
-        }
         return new RecipesState.RecipeCard(recipe.getId(), recipe.getTitle(), recipe.getImageUrl(),
                 recipe.getUsedIngredients().size(), recipe.getMissingIngredients(),
-                rating(recipe.getScore()), likes(recipe.getLikes()), time(recipe.getReadyInMinutes()),
-                servings(recipe.getServings()), diets);
+                outOf100(recipe.getScore()), outOf100(recipe.getHealthScore()),
+                time(recipe.getReadyInMinutes()), servings(recipe.getServings()),
+                recipe.getSummaryHtml(), recipe.getSteps(), time(recipe.getPreparationMinutes()));
     }
 
     /**
-     * A 0-100 score as a rating out of 5 with one decimal, e.g. 73.5 to "3.7".
+     * One of Spoonacular's 0-100 scores (its overall score or health score) as a whole
+     * number, e.g. 73.5 to "74". These are computed by Spoonacular, not user ratings.
      */
-    static String rating(Double score) {
+    static String outOf100(Double score) {
         if (score == null) {
             return null;
         }
-        return String.format(Locale.ROOT, "%.1f", Math.max(0, Math.min(100, score)) / 20);
-    }
-
-    /**
-     * A like count, shortened past a thousand, e.g. 1234 to "1.2k".
-     */
-    static String likes(Integer likes) {
-        if (likes == null) {
-            return null;
-        }
-        if (likes < 1000) {
-            return String.valueOf(likes);
-        }
-        final double thousands = likes / 1000.0;
-        if (thousands < 1000) {
-            return trimZero(String.format(Locale.ROOT, "%.1f", thousands)) + "k";
-        }
-        return trimZero(String.format(Locale.ROOT, "%.1f", thousands / 1000)) + "M";
+        return String.valueOf(Math.round(Math.max(0, Math.min(100, score))));
     }
 
     /**
@@ -113,13 +93,5 @@ public class RecipesPresenter implements FindRecipesOutputBoundary {
             return null;
         }
         return "Serves " + servings;
-    }
-
-    private static String capitalise(String text) {
-        return text.isEmpty() ? text : text.substring(0, 1).toUpperCase(Locale.ROOT) + text.substring(1);
-    }
-
-    private static String trimZero(String number) {
-        return number.endsWith(".0") ? number.substring(0, number.length() - 2) : number;
     }
 }

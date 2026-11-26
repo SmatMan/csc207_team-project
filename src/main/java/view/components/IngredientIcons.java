@@ -166,7 +166,7 @@ public class IngredientIcons {
         final FlatSVGIcon icon = new FlatSVGIcon(ICON_FOLDER + name + ".svg", ICON_SIZE, ICON_SIZE);
         // The icons are single-colour, so recolour every pixel to the text colour.
         icon.setColorFilter(new FlatSVGIcon.ColorFilter(color -> Theme.TEXT));
-        return icon;
+        return new CachedIcon(icon);
     }
 
     private static Color tint(String name) {

@@ -14,6 +14,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
+import interface_adapter.ViewManagerModel;
+import interface_adapter.ViewManagerModelListener;
+import interface_adapter.recipe_detail.RecipeDetailViewModel;
 import view.theme.Styles;
 import view.theme.Theme;
 import view.theme.Theme.Weight;
@@ -21,26 +24,35 @@ import view.theme.Theme.Weight;
 /**
  * The left sidebar: a switch between the Ingredients and Profile tabs,
  * the content of the selected tab, and the Add ingredient button pinned at the bottom.
+ * While a recipe is open, it shows that recipe's ingredients instead.
  */
-public class SidebarView extends JPanel {
+public class SidebarView extends JPanel implements ViewManagerModelListener {
 
     public static final int SIDEBAR_WIDTH = 300;
 
     private static final String INGREDIENTS_TAB = "ingredients";
     private static final String PROFILE_TAB = "profile";
+    private static final String RECIPE_TAB = "recipe";
 
     private final CardLayout tabLayout = new CardLayout();
     private final JPanel tabContent = new JPanel(tabLayout);
     private final AddIngredientPanel addIngredientPanel;
+    private final ViewManagerModel viewManagerModel;
+    private JPanel tabSwitch;
+    // The tab to return to when the recipe is closed.
+    private String currentTab = INGREDIENTS_TAB;
 
     /**
      * Creates the sidebar.
      * @param pantryPanel the content of the Ingredients tab
      * @param createProfilePanel the content of the Profile tab
      * @param addIngredientPanel the add-ingredient button and search, pinned at the bottom
+     * @param recipeIngredientsPanel the open recipe's ingredients, shown while a recipe is open
+     * @param viewManagerModel which screen the main area shows, so the sidebar can follow it
      */
     public SidebarView(PantryPanel pantryPanel, CreateProfilePanel createProfilePanel,
-                       AddIngredientPanel addIngredientPanel) {
+                       AddIngredientPanel addIngredientPanel, RecipeIngredientsPanel recipeIngredientsPanel,
+                       ViewManagerModel viewManagerModel) {
         super(new BorderLayout(0, Theme.GAP_L));
         setBackground(Theme.SURFACE);
         setBorder(BorderFactory.createCompoundBorder(
@@ -51,8 +63,11 @@ public class SidebarView extends JPanel {
         tabContent.setOpaque(false);
         tabContent.add(pantryPanel, INGREDIENTS_TAB);
         tabContent.add(createProfilePanel, PROFILE_TAB);
+        tabContent.add(recipeIngredientsPanel, RECIPE_TAB);
 
         this.addIngredientPanel = addIngredientPanel;
+        this.viewManagerModel = viewManagerModel;
+        viewManagerModel.addListener(this);
 
         add(header(), BorderLayout.NORTH);
         add(tabContent, BorderLayout.CENTER);
@@ -69,7 +84,7 @@ public class SidebarView extends JPanel {
         title.setForeground(Theme.TEXT);
         title.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        final JPanel tabSwitch = tabSwitch();
+        tabSwitch = tabSwitch();
         tabSwitch.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         header.add(title);
@@ -98,9 +113,27 @@ public class SidebarView extends JPanel {
     }
 
     private void showTab(String tab) {
+        currentTab = tab;
         tabLayout.show(tabContent, tab);
         // Adding ingredients only makes sense on the Ingredients tab.
         addIngredientPanel.close();
         addIngredientPanel.setVisible(INGREDIENTS_TAB.equals(tab));
+    }
+
+    /**
+     * Follows the main area: while a recipe is open, show its ingredients instead of the tabs.
+     */
+    @Override
+    public void viewChanged() {
+        final boolean recipeOpen = RecipeDetailViewModel.VIEW_NAME.equals(viewManagerModel.getCurrentViewName());
+        tabSwitch.setVisible(!recipeOpen);
+        if (recipeOpen) {
+            addIngredientPanel.close();
+            addIngredientPanel.setVisible(false);
+            tabLayout.show(tabContent, RECIPE_TAB);
+        }
+        else {
+            showTab(currentTab);
+        }
     }
 }

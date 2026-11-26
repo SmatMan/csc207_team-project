@@ -42,7 +42,7 @@ public class FindRecipesInteractor implements FindRecipesInputBoundary {
         final int offset = Math.max(0, findRecipesInputData.getOffset());
         final RecipeSearchResult result;
         try {
-            result = recipeDataAccessObject.findRecipes(ingredients, offset, PAGE_SIZE);
+            result = recipeDataAccessObject.findRecipes(ingredients, findRecipesInputData.getFilter(), offset, PAGE_SIZE);
         }
         catch (RecipeSearchException ex) {
             recipesPresenter.prepareFailView(ex.getMessage());
@@ -56,9 +56,9 @@ public class FindRecipesInteractor implements FindRecipesInputBoundary {
 
         final List<FoundRecipe> found = new ArrayList<>();
         for (Recipe recipe : recipes) {
-            // Score, likes, time, servings and diets join here once Recipe carries them (complexSearch).
             found.add(new FoundRecipe(recipe.getId(), recipe.getName(), recipe.getImage(),
-                    names(recipe.getUsedIngredients()), names(recipe.getMissingIngredients())));
+                    names(recipe.getUsedIngredients()), names(recipe.getMissingIngredients()),
+                    result.getDetails(recipe.getId())));
         }
         final boolean moreAvailable = !recipes.isEmpty() && offset + recipes.size() < result.getTotalResults();
         recipesPresenter.prepareSuccessView(new FindRecipesOutputData(ingredients.size(), found, offset, moreAvailable));

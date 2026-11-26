@@ -67,10 +67,12 @@ public class RecipesState {
         private final int usedCount;
         private final List<String> missingIngredients;
         private final String ratingText;
-        private final String likesText;
+        private final String healthText;
         private final String timeText;
         private final String servingsText;
-        private final List<String> diets;
+        private final String summaryHtml;
+        private final List<String> steps;
+        private final String prepText;
 
         /**
          * Creates a recipe card without details.
@@ -80,7 +82,16 @@ public class RecipesState {
          * @param missingIngredients names of the ingredients still needed
          */
         public RecipeCard(String title, String imageUrl, int usedCount, List<String> missingIngredients) {
-            this(0, title, imageUrl, usedCount, missingIngredients, null, null, null, null, new ArrayList<>());
+            this(0, title, imageUrl, usedCount, missingIngredients, null, null, null, null);
+        }
+
+        /**
+         * Creates a recipe card without a preview (description, steps and prep time).
+         */
+        public RecipeCard(int id, String title, String imageUrl, int usedCount, List<String> missingIngredients,
+                          String ratingText, String healthText, String timeText, String servingsText) {
+            this(id, title, imageUrl, usedCount, missingIngredients, ratingText, healthText, timeText, servingsText,
+                    "", new ArrayList<>(), null);
         }
 
         /**
@@ -90,25 +101,49 @@ public class RecipesState {
          * @param imageUrl the address of its photo, or "" if it has none
          * @param usedCount how many of its ingredients are in the pantry
          * @param missingIngredients names of the ingredients still needed
-         * @param ratingText the rating out of 5, e.g. "3.7", or null
-         * @param likesText the number of likes, e.g. "1.2k", or null
+         * @param ratingText Spoonacular's score out of 100, e.g. "83", or null
+         * @param healthText Spoonacular's health score out of 100, e.g. "30", or null
          * @param timeText how long it takes, e.g. "1 h 15 min", or null
          * @param servingsText how many it serves, e.g. "Serves 4", or null
-         * @param diets diets it suits, e.g. "Gluten free"
+         * @param summaryHtml the description, as HTML (bold facts, links), or ""
+         * @param steps the method, one step per entry (empty if unknown)
+         * @param prepText the preparation time, e.g. "10 min", or null
          */
         public RecipeCard(int id, String title, String imageUrl, int usedCount, List<String> missingIngredients,
-                          String ratingText, String likesText, String timeText, String servingsText,
-                          List<String> diets) {
+                          String ratingText, String healthText, String timeText, String servingsText,
+                          String summaryHtml, List<String> steps, String prepText) {
             this.id = id;
             this.title = title;
             this.imageUrl = imageUrl;
             this.usedCount = usedCount;
             this.missingIngredients = Collections.unmodifiableList(new ArrayList<>(missingIngredients));
             this.ratingText = ratingText;
-            this.likesText = likesText;
+            this.healthText = healthText;
             this.timeText = timeText;
             this.servingsText = servingsText;
-            this.diets = Collections.unmodifiableList(new ArrayList<>(diets));
+            this.summaryHtml = summaryHtml == null ? "" : summaryHtml;
+            this.steps = Collections.unmodifiableList(new ArrayList<>(steps));
+            this.prepText = prepText;
+        }
+
+        public String getSummaryHtml() {
+            return summaryHtml;
+        }
+
+        public List<String> getSteps() {
+            return steps;
+        }
+
+        public String getPrepText() {
+            return prepText;
+        }
+
+        /**
+         * Returns whether there's anything to show in a hover preview.
+         * @return true if there's a description or steps
+         */
+        public boolean hasPreview() {
+            return !summaryHtml.isBlank() || !steps.isEmpty();
         }
 
         public int getId() {
@@ -139,8 +174,8 @@ public class RecipesState {
             return ratingText;
         }
 
-        public String getLikesText() {
-            return likesText;
+        public String getHealthText() {
+            return healthText;
         }
 
         public String getTimeText() {
@@ -149,10 +184,6 @@ public class RecipesState {
 
         public String getServingsText() {
             return servingsText;
-        }
-
-        public List<String> getDiets() {
-            return diets;
         }
     }
 }
