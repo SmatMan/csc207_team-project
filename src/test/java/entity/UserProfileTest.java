@@ -1,136 +1,63 @@
 package entity;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.List;
-import java.util.Set;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class UserProfileTest {
 
-    private final Ingredient beef = new Ingredient("Beef");
-    private final Ingredient chicken = new Ingredient("Chicken");
-    private final Ingredient shrimp = new Ingredient("Shrimp");
-    private final Ingredient salmon = new Ingredient("Salmon");
-    private final Ingredient milk = new Ingredient("Milk");
-    private final Ingredient cheese = new Ingredient("Cheese");
+    // One shared category for every test below.
+    private final Intolerance dairy = new Intolerance("Dairy", List.of(new Ingredient("Milk"), new Ingredient("Butter")));
 
-    private final DietPreset vegan = new DietPreset("Vegan",
-            Set.of(beef, chicken, shrimp, salmon, milk, cheese));
-    private final DietPreset pescatarian = new DietPreset("Pescatarian", Set.of(beef, chicken));
-    private final DietPreset lactoseIntolerant = new DietPreset("Lactose intolerant", Set.of(milk, cheese));
+    // "  Home  " comes back as "Home".
+    @Test
+    void storesTrimmedNameAndIntolerances() {
+        final UserProfile profile = new UserProfile("  Home  ", List.of(dairy));
 
-    private UserProfile profile;
-
-    @BeforeEach
-    void setUp() {
-        profile = new UserProfile(List.of(
-                new Intolerance("Meat", List.of(beef, chicken)),
-                new Intolerance("Seafood", List.of(shrimp, salmon)),
-                new Intolerance("Dairy", List.of(milk, cheese))));
+        assertEquals("Home", profile.getName());
+        assertEquals(List.of(dairy), profile.getIntolerances());
     }
 
     @Test
-    void newProfileExcludesNothing() {
-        assertTrue(profile.getExcludedIngredients().isEmpty());
-        assertTrue(profile.getActivePresets().isEmpty());
+    void rejectsBlankName() {
+        assertThrows(IllegalArgumentException.class, () -> new UserProfile(" ", List.of(dairy)));
     }
 
+    // A profile with no categories is valid. The user can save one with nothing ticked.
     @Test
-    void excludeAndAllowByHand() {
-        profile.exclude(beef);
-        assertTrue(profile.isExcluded(beef));
-        assertFalse(profile.isExcluded(chicken));
+    void allowsNoIntolerances() {
+        final UserProfile profile = new UserProfile("Home", List.of());
 
-        profile.allow(beef);
-        assertFalse(profile.isExcluded(beef));
+        assertEquals(List.of(), profile.getIntolerances());
     }
 
+    // exclude() marks the ingredient, and isExcluded() ignores case when it checks.
     @Test
-    void ingredientsCompareIgnoringCase() {
-        profile.exclude(new Ingredient("shrimp"));
-        assertTrue(profile.isExcluded(shrimp));
+    void excludeMarksIngredientExcluded() {
+        final UserProfile profile = new UserProfile("Home", List.of(dairy));
+
+        profile.exclude(new Ingredient("Milk"));
+
+        assertTrue(profile.isExcluded(new Ingredient("milk")));
     }
 
+    // Putting Milk in a category does not exclude it. Only exclude() does.
     @Test
-    void applyingPresetExcludesItsIngredients() {
-        profile.applyPreset(pescatarian);
-        assertTrue(profile.isPresetActive(pescatarian));
-        assertEquals(List.of(beef, chicken), profile.getExcludedIngredients());
+    void buildingIntoleranceDoesNotAutoExclude() {
+        final UserProfile profile = new UserProfile("Home", List.of(dairy));
+
+        assertEquals(false, profile.isExcluded(new Ingredient("Milk")));
     }
 
+    // Beef isn't in Dairy, so the profile refuses to exclude it.
     @Test
-    void removingPresetKeepsManualExclusions() {
-        // The shrimp scenario: manual untick survives a preset being turned on and off.
-        profile.exclude(shrimp);
-        profile.applyPreset(vegan);
-        profile.removePreset(vegan);
+    void excludeRejectsIngredientNotInAnyIntolerance() {
+        final UserProfile profile = new UserProfile("Home", List.of(dairy));
 
-        assertTrue(profile.isExcluded(shrimp));
-        assertFalse(profile.isExcluded(beef));
-        assertEquals(List.of(shrimp), profile.getExcludedIngredients());
-    }
-
-    @Test
-    void stackedPresetsKeepSharedExclusions() {
-        profile.applyPreset(vegan);
-        profile.applyPreset(lactoseIntolerant);
-        profile.removePreset(vegan);
-
-        assertTrue(profile.isExcluded(milk));
-        assertTrue(profile.isExcluded(cheese));
-        assertFalse(profile.isExcluded(beef));
-        assertFalse(profile.isExcluded(shrimp));
-    }
-
-    @Test
-    void allowingOverridesActivePresetAndMarksItModified() {
-        profile.applyPreset(pescatarian);
-        assertFalse(profile.isPresetModified(pescatarian));
-
-        profile.allow(chicken);
-
-        assertFalse(profile.isExcluded(chicken));
-        assertTrue(profile.isExcluded(beef));
-        assertTrue(profile.isPresetModified(pescatarian));
-    }
-
-    @Test
-    void reapplyingPresetClearsOverrides() {
-        profile.applyPreset(pescatarian);
-        profile.allow(chicken);
-        profile.removePreset(pescatarian);
-        profile.applyPreset(pescatarian);
-
-        assertTrue(profile.isExcluded(chicken));
-        assertFalse(profile.isPresetModified(pescatarian));
-    }
-
-    @Test
-    void overrideIsForgottenWhenNoPresetExcludesIt() {
-        profile.applyPreset(pescatarian);
-        profile.allow(chicken);
-        profile.removePreset(pescatarian);
-        profile.applyPreset(vegan);
-
-        // Vegan was turned on after the override, so chicken is excluded again.
-        assertTrue(profile.isExcluded(chicken));
-    }
-
-    @Test
-    void unknownIngredientIsRejected() {
-        final Ingredient tofu = new Ingredient("Tofu");
-        assertThrows(IllegalArgumentException.class, () -> profile.exclude(tofu));
-        assertThrows(IllegalArgumentException.class, () -> profile.allow(tofu));
-    }
-
-    @Test
-    void entitiesRejectBlankNames() {
-        assertThrows(IllegalArgumentException.class, () -> new Ingredient(" "));
-        assertThrows(IllegalArgumentException.class, () -> new Intolerance("", List.of(beef)));
-        assertThrows(IllegalArgumentException.class, () -> new Intolerance("Meat", List.of()));
-        assertThrows(IllegalArgumentException.class, () -> new DietPreset("Vegan", Set.of()));
+        assertThrows(IllegalArgumentException.class, () -> profile.exclude(new Ingredient("Beef")));
     }
 }

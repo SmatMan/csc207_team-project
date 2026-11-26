@@ -14,46 +14,44 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
+import data_access.FileCreateProfileDataAccessObject;
 import data_access.FileIngredientCorpusDataAccessObject;
+import data_access.FileIntoleranceCatalogue;
 import data_access.FilePantryDataAccessObject;
-import data_access.FileUserProfileDataAccessObject;
 import data_access.SpoonacularRecipeDataAccessObject;
 import entity.KnownIngredient;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.create_profile.CreateProfileController;
+import interface_adapter.create_profile.CreateProfilePresenter;
+import interface_adapter.create_profile.CreateProfileViewModel;
 import interface_adapter.pantry.PantryController;
 import interface_adapter.pantry.PantryPresenter;
 import interface_adapter.pantry.PantryViewModel;
 import interface_adapter.recipes.RecipesController;
 import interface_adapter.recipes.RecipesPresenter;
 import interface_adapter.recipes.RecipesViewModel;
-import interface_adapter.restrictions.RestrictionsController;
-import interface_adapter.restrictions.RestrictionsPresenter;
-import interface_adapter.restrictions.RestrictionsViewModel;
 import interface_adapter.search_ingredients.SearchIngredientsController;
 import interface_adapter.search_ingredients.SearchIngredientsPresenter;
 import interface_adapter.search_ingredients.SearchIngredientsViewModel;
 import use_case.add_ingredient.AddIngredientInputBoundary;
 import use_case.add_ingredient.AddIngredientInteractor;
+import use_case.create_profile.CreateProfileInputBoundary;
+import use_case.create_profile.CreateProfileInteractor;
+import use_case.create_profile.IntoleranceCatalogue;
 import use_case.find_recipes.FindRecipesInputBoundary;
 import use_case.find_recipes.FindRecipesInteractor;
 import use_case.find_recipes.FindRecipesOutputBoundary;
 import use_case.load_pantry.LoadPantryInputBoundary;
 import use_case.load_pantry.LoadPantryInteractor;
-import use_case.load_profile.LoadProfileInputBoundary;
-import use_case.load_profile.LoadProfileInteractor;
 import use_case.remove_ingredient.RemoveIngredientInputBoundary;
 import use_case.remove_ingredient.RemoveIngredientInteractor;
 import use_case.search_ingredients.SearchIngredientsInputBoundary;
 import use_case.search_ingredients.SearchIngredientsInteractor;
 import use_case.search_ingredients.SearchIngredientsOutputBoundary;
-import use_case.set_diet_preset.SetDietPresetInputBoundary;
-import use_case.set_diet_preset.SetDietPresetInteractor;
-import use_case.toggle_restriction.ToggleRestrictionInputBoundary;
-import use_case.toggle_restriction.ToggleRestrictionInteractor;
 import view.AddIngredientPanel;
+import view.CreateProfilePanel;
 import view.PantryPanel;
 import view.RecipesView;
-import view.RestrictionsPanel;
 import view.SidebarView;
 import view.ViewManager;
 import view.components.IngredientIcons;
@@ -72,10 +70,11 @@ public class AppBuilder {
     final ViewManagerModel viewManagerModel = new ViewManagerModel();
     ViewManager viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
 
-    // Restriction catalogue bundled with the app (a placeholder until the API's ingredient
-    // list is available); the user's choices are saved to profile.json.
-    final FileUserProfileDataAccessObject userProfileDataAccessObject =
-            new FileUserProfileDataAccessObject("/restrictions.json", "profile.json");
+    // Intolerance catalogue bundled with the app (a placeholder until the API's ingredient
+    // list is available); created profiles are saved to profiles.json.
+    final IntoleranceCatalogue intoleranceCatalogue = new FileIntoleranceCatalogue("/restrictions.json");
+    final FileCreateProfileDataAccessObject createProfileDataAccessObject =
+            new FileCreateProfileDataAccessObject("profiles.json");
 
     // The user's pantry is saved to pantry.json.
     final FilePantryDataAccessObject pantryDataAccessObject = new FilePantryDataAccessObject("pantry.json");
@@ -94,10 +93,10 @@ public class AppBuilder {
     private RecipesView recipesView;
     private PantryViewModel pantryViewModel;
     private PantryPanel pantryPanel;
+    private CreateProfileViewModel createProfileViewModel;
+    private CreateProfilePanel createProfilePanel;
     private SearchIngredientsViewModel searchIngredientsViewModel;
     private AddIngredientPanel addIngredientPanel;
-    private RestrictionsViewModel restrictionsViewModel;
-    private RestrictionsPanel restrictionsPanel;
     private SidebarView sidebarView;
 
     public AppBuilder() {
@@ -162,21 +161,22 @@ public class AppBuilder {
     }
 
     /**
-     * Adds the Restrictions tab. Must be called before {@link #addSidebarView()}.
+     * Adds the Profile tab. Must be called before {@link #addSidebarView()}.
      * @return this builder
      */
-    public AppBuilder addRestrictionsView() {
-        restrictionsViewModel = new RestrictionsViewModel();
-        restrictionsPanel = new RestrictionsPanel(restrictionsViewModel);
+    public AppBuilder addCreateProfileView() {
+        createProfileViewModel = new CreateProfileViewModel();
+        createProfilePanel = new CreateProfilePanel(createProfileViewModel);
         return this;
     }
 
     /**
-     * Adds the sidebar (Ingredients and Restrictions tabs) to the application.
+     * Adds the sidebar (Ingredients and Profile tabs, plus the add-ingredient search
+     * pinned at the bottom) to the application.
      * @return this builder
      */
     public AppBuilder addSidebarView() {
-        sidebarView = new SidebarView(pantryPanel, restrictionsPanel, addIngredientPanel);
+        sidebarView = new SidebarView(pantryPanel, createProfilePanel, addIngredientPanel);
         return this;
     }
 
@@ -205,25 +205,18 @@ public class AppBuilder {
     }
 
     /**
-     * Adds the dietary profile use cases (load profile, toggle restriction and
-     * set diet preset), then loads the saved profile into the Restrictions tab.
+     * Adds the create profile use case to the Profile tab.
      * @return this builder
      */
-    public AppBuilder addRestrictionsUseCases() {
-        final RestrictionsPresenter restrictionsPresenter = new RestrictionsPresenter(restrictionsViewModel);
+    public AppBuilder addCreateProfileUseCase() {
+        final CreateProfilePresenter createProfilePresenter = new CreateProfilePresenter(createProfileViewModel);
 
-        final LoadProfileInputBoundary loadProfileInteractor =
-                new LoadProfileInteractor(userProfileDataAccessObject, restrictionsPresenter);
-        final ToggleRestrictionInputBoundary toggleRestrictionInteractor =
-                new ToggleRestrictionInteractor(userProfileDataAccessObject, restrictionsPresenter);
-        final SetDietPresetInputBoundary setDietPresetInteractor =
-                new SetDietPresetInteractor(userProfileDataAccessObject, restrictionsPresenter);
+        final CreateProfileInputBoundary createProfileInteractor =
+                new CreateProfileInteractor(intoleranceCatalogue, createProfileDataAccessObject, createProfilePresenter);
 
-        final RestrictionsController restrictionsController = new RestrictionsController(
-                loadProfileInteractor, toggleRestrictionInteractor, setDietPresetInteractor);
-        restrictionsPanel.setRestrictionsController(restrictionsController);
-
-        restrictionsController.loadProfile();
+        final CreateProfileController createProfileController =
+                new CreateProfileController(createProfileInteractor, intoleranceCatalogue);
+        createProfilePanel.setCreateProfileController(createProfileController);
         return this;
     }
 
