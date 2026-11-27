@@ -1,0 +1,1796 @@
+{
+ "_note": "MOCK recipe data for the dev demo (app.MockRecipesDemo) and tests. Captured once from a real Spoonacular complexSearch (addRecipeInformation, addRecipeInstructions, fillIngredients), trimmed to the fields the app uses.",
+ "results": [
+  {
+   "id": 648729,
+   "title": "Kale With Red Onion",
+   "image": "https://img.spoonacular.com/recipes/648729-312x231.jpg",
+   "usedIngredients": [
+    {
+     "name": "onion",
+     "amount": 0.5,
+     "unit": "",
+     "original": "1/2 red onion, sliced thinly"
+    },
+    {
+     "name": "garlic",
+     "amount": 2.0,
+     "unit": "cloves",
+     "original": "2 cloves garlic, minced"
+    }
+   ],
+   "missedIngredients": [
+    {
+     "name": "kale",
+     "amount": 1.0,
+     "unit": "large bunch",
+     "original": "1 large bunch of kale, washed and trimmed, chopped into bite sized pieces"
+    }
+   ],
+   "summary": "Kale With Red Onion is a side dish that serves 8. One portion of this dish contains about <b>1g of protein</b>, <b>2g of fat</b>, and a total of <b>25 calories</b>. For <b>13 cents per serving</b>, this recipe <b>covers 6%</b> of your daily requirements of vitamins and minerals. 1 person found this recipe to be scrumptious and satisfying. Head to the store and pick up kale, onion, garlic, and a few other things to make it today. It is a good option if you're following a <b>gluten free, dairy free, paleolithic, and lacto ovo vegetarian</b> diet. From preparation to the plate, this recipe takes approximately <b>45 minutes</b>. It is brought to you by Foodista. Taking all factors into account, this recipe <b>earns a spoonacular score of 90%</b>, which is excellent. If you like this recipe, take a look at these similar recipes: <a href=\"https://spoonacular.com/recipes/kale-mushroom-and-red-onion-pizza-490561\">Kale, Mushroom and Red Onion Pizza</a>, <a href=\"https://spoonacular.com/recipes/red-onion-kale-and-cheese-strata-14961\">Red Onion, Kale And Cheese Strata</a>, and <a href=\"https://spoonacular.com/recipes/parsnip-red-onion-kale-and-gouda-frittata-15105\">Parsnip, Red Onion, Kale And Gouda Frittata</a>.",
+   "steps": [
+    "In a cast iron pan, over medium low heat, heat olive oil, garlic and onion until vegetables are soft",
+    "Add washed, chopped kale (keeping water clinging to leaves to create steam)",
+    "Cover immediately and allow to steam for 3-5 minutes",
+    "Remove cover, stir and turn off heat",
+    "Serve with Balsamic vinegar"
+   ],
+   "spoonacularScore": 88.24161529541016,
+   "healthScore": 30.0,
+   "aggregateLikes": 1,
+   "readyInMinutes": 45,
+   "preparationMinutes": null,
+   "cookingMinutes": null,
+   "servings": 8,
+   "diets": [
+    "gluten free",
+    "dairy free",
+    "paleolithic",
+    "lacto ovo vegetarian",
+    "primal",
+    "whole 30",
+    "vegan"
+   ],
+   "dishTypes": [
+    "side dish"
+   ],
+   "cuisines": [],
+   "sourceName": "Foodista",
+   "sourceUrl": "https://www.foodista.com/recipe/XM62FP2Y/kale-with-red-onion"
+  },
+  {
+   "id": 1674265,
+   "title": "Easy Tomato Soup",
+   "image": "https://img.spoonacular.com/recipes/1674265-312x231.jpg",
+   "usedIngredients": [
+    {
+     "name": "tomatoes",
+     "amount": 28.0,
+     "unit": "oz",
+     "original": "28 ounces canned whole tomatoes"
+    },
+    {
+     "name": "onion",
+     "amount": 1.0,
+     "unit": "",
+     "original": "1 onion"
+    }
+   ],
+   "missedIngredients": [
+    {
+     "name": "butter",
+     "amount": 4.0,
+     "unit": "Tbsp",
+     "original": "4 tablespoons butter"
+    },
+    {
+     "name": "vegetable broth",
+     "amount": 1.5,
+     "unit": "cup",
+     "original": "1.5 cups vegetable broth"
+    }
+   ],
+   "summary": "Easy Tomato Soup might be a good recipe to expand your hor d'oeuvre recipe box. This recipe serves 2 and costs $2.09 per serving. Watching your figure? This gluten free, lacto ovo vegetarian, and primal recipe has <b>299 calories</b>, <b>4g of protein</b>, and <b>23g of fat</b> per serving. This recipe from spoonacular user <a href=\"/profile/coffeebean\">coffeebean</a> requires tomatoes, butter, onion, and vegetable broth. From preparation to the plate, this recipe takes roughly <b>45 minutes</b>. It is perfect for <b>Autumn</b>. Try <a href=\"https://spoonacular.com/recipes/tomato-soup-easy-vegan-soup-s-564679\">Tomato Soup | Easy Vegan Soup s</a>, <a href=\"https://spoonacular.com/recipes/tomato-soup-easy-vegan-soup-s-1359295\">Tomato Soup | Easy Vegan Soup s</a>, and <a href=\"https://spoonacular.com/recipes/easy-tomato-soup-1133111\">Easy Tomato Soup</a> for similar recipes.",
+   "steps": [
+    "In a medium pot, melt butter over medium heat.",
+    "Cut onion into 4 wedges and add to the pot along with the canned tomatoes and vegetable broth. Bring to a simmer. Simmer, uncovered, for about 40 minutes. Stir occasionally.Blend the soup with an immersion blender and season to taste.If you happen to have fresh basil on hand, throw in a handful before blending."
+   ],
+   "spoonacularScore": 44.55570983886719,
+   "healthScore": 5.0,
+   "aggregateLikes": 0,
+   "readyInMinutes": 45,
+   "preparationMinutes": null,
+   "cookingMinutes": null,
+   "servings": 2,
+   "diets": [
+    "lacto ovo vegetarian",
+    "primal"
+   ],
+   "dishTypes": [
+    "antipasti",
+    "soup",
+    "starter",
+    "snack",
+    "appetizer",
+    "antipasto",
+    "hor d'oeuvre"
+   ],
+   "cuisines": [],
+   "sourceName": "spoonacular",
+   "sourceUrl": "https://spoonacular.com/site-1634294482382"
+  },
+  {
+   "id": 650684,
+   "title": "Malaysian Sambal Kangkong (Water Spinach)",
+   "image": "https://img.spoonacular.com/recipes/650684-312x231.jpg",
+   "usedIngredients": [
+    {
+     "name": "shallots",
+     "amount": 2.0,
+     "unit": "",
+     "original": "2 shallots, peeled and roughly diced"
+    },
+    {
+     "name": "garlic clove",
+     "amount": 1.0,
+     "unit": "",
+     "original": "1 garlic clove, peeled and rougly diced"
+    }
+   ],
+   "missedIngredients": [
+    {
+     "name": "kangkong",
+     "amount": 1.0,
+     "unit": "bunch",
+     "original": "1 bunch of kangkong, trimmed and chopped into shorter pieces"
+    },
+    {
+     "name": "sambal paste",
+     "amount": 1.0,
+     "unit": "Tbsp",
+     "original": "1 tablespoon sambal paste (store-bought or home made)"
+    }
+   ],
+   "summary": "Malaysian Sambal Kangkong (Water Spinach) might be just the side dish you are searching for. This recipe makes 4 servings with <b>21 calories</b>, <b>1g of protein</b>, and <b>0g of fat</b> each. For <b>24 cents per serving</b>, this recipe <b>covers 3%</b> of your daily requirements of vitamins and minerals. It is brought to you by Foodista. 1 person were impressed by this recipe. If you have kangkong, shallots, garlic clove, and a few other ingredients on hand, you can make it. It is a good option if you're following a <b>gluten free, dairy free, lacto ovo vegetarian, and vegan</b> diet. From preparation to the plate, this recipe takes approximately <b>45 minutes</b>. Overall, this recipe earns a <b>solid spoonacular score of 65%</b>. Users who liked this recipe also liked <a href=\"https://spoonacular.com/recipes/mushroom-balls-and-kangkong-water-spinach-stir-fry-521223\">Mushroom balls and kangkong (water spinach) stir fry</a>, <a href=\"https://spoonacular.com/recipes/sweet-and-tangy-pork-water-spinach-kangkong-and-pineapple-spring-rolls-478413\">Sweet and tangy pork, water spinach (kangkong) and pineapple spring rolls</a>, and <a href=\"https://spoonacular.com/recipes/sambal-kangkong-565154\">Sambal Kangkong</a>.",
+   "steps": [
+    "Pound the diced shallots and garlic into paste form using mortar and pestle.",
+    "Heat up pan with a drizzle of vegetable oil and saute the paste form shallots and garlic on low to medium heat till aromatic.",
+    "Then add in the sambal paste and saute until aromatic.",
+    "Lastly, add the kangkong and mix well with the mixture. Cook until the kangkong is slightly wilted. I prefer the kangkong stalks to remain a bit crunchy."
+   ],
+   "spoonacularScore": 16.531293869018555,
+   "healthScore": 5.0,
+   "aggregateLikes": 1,
+   "readyInMinutes": 45,
+   "preparationMinutes": null,
+   "cookingMinutes": null,
+   "servings": 4,
+   "diets": [
+    "gluten free",
+    "dairy free",
+    "lacto ovo vegetarian",
+    "vegan"
+   ],
+   "dishTypes": [
+    "side dish"
+   ],
+   "cuisines": [],
+   "sourceName": "Foodista",
+   "sourceUrl": "https://www.foodista.com/recipe/6554VDH8/malaysian-sambal-kangkong-water-spinach"
+  },
+  {
+   "id": 769775,
+   "title": "Simple Spinach and Tomato Frittata",
+   "image": "https://img.spoonacular.com/recipes/769775-312x231.jpg",
+   "usedIngredients": [
+    {
+     "name": "cherry tomatoes",
+     "amount": 1.0,
+     "unit": "serving",
+     "original": "cherry tomatoes, halved"
+    },
+    {
+     "name": "eggs",
+     "amount": 2.0,
+     "unit": "",
+     "original": "2-3 lightly beaten eggs"
+    }
+   ],
+   "missedIngredients": [
+    {
+     "name": "personal skillet",
+     "amount": 1.0,
+     "unit": "small",
+     "original": "small personal skillet"
+    },
+    {
+     "name": "spinach leaves",
+     "amount": 1.0,
+     "unit": "serving",
+     "original": "spinach leaves"
+    }
+   ],
+   "summary": "Simple Spinach and Tomato Frittata might be a good recipe to expand your main course recipe box. One portion of this dish contains around <b>13g of protein</b>, <b>9g of fat</b>, and a total of <b>163 calories</b>. This recipe serves 1 and costs $2.08 per serving. 7 people have made this recipe and would make it again. A mixture of personal skillet, spinach leaves, eggs, and a handful of other ingredients are all it takes to make this recipe so tasty. It is brought to you by Pink When. From preparation to the plate, this recipe takes around <b>45 minutes</b>. All things considered, we decided this recipe <b>deserves a spoonacular score of 50%</b>. This score is pretty good. <a href=\"https://spoonacular.com/recipes/simple-spinach-ricotta-frittata-19504\">Simple Spinach & Ricotta Frittata</a>, <a href=\"https://spoonacular.com/recipes/spinach-and-tomato-frittata-1242723\">Spinach and Tomato Frittata</a>, and <a href=\"https://spoonacular.com/recipes/spinach-and-tomato-frittata-169326\">Spinach and Tomato Frittata</a> are very similar to this recipe.",
+   "steps": [],
+   "spoonacularScore": 73.50191497802734,
+   "healthScore": 18.0,
+   "aggregateLikes": 7,
+   "readyInMinutes": 45,
+   "preparationMinutes": null,
+   "cookingMinutes": null,
+   "servings": 1,
+   "diets": [],
+   "dishTypes": [
+    "lunch",
+    "main course",
+    "morning meal",
+    "brunch",
+    "main dish",
+    "breakfast",
+    "dinner"
+   ],
+   "cuisines": [],
+   "sourceName": "Pink When",
+   "sourceUrl": "https://www.pinkwhen.com/spinach-and-tomato-frittata/"
+  },
+  {
+   "id": 648742,
+   "title": "Kappa Maki",
+   "image": "https://img.spoonacular.com/recipes/648742-312x231.jpg",
+   "usedIngredients": [
+    {
+     "name": "sushi rice",
+     "amount": 4.0,
+     "unit": "cup",
+     "original": "4 cups sushi rice"
+    }
+   ],
+   "missedIngredients": [
+    {
+     "name": "japanese cucumber",
+     "amount": 2.0,
+     "unit": "",
+     "original": "2 Japanese cucumber, cut into long sticks"
+    },
+    {
+     "name": "of nori",
+     "amount": 4.0,
+     "unit": "inches sheets",
+     "original": "4 inches sheets of nori (dried seaweed), cut half"
+    }
+   ],
+   "summary": "If you have around <b>45 minutes</b> to spend in the kitchen, Kappa Maki might be an awesome <b>gluten free, dairy free, lacto ovo vegetarian, and fodmap friendly</b> recipe to try. This recipe makes 8 servings with <b>352 calories</b>, <b>7g of protein</b>, and <b>1g of fat</b> each. For <b>73 cents per serving</b>, this recipe <b>covers 8%</b> of your daily requirements of vitamins and minerals. 1 person found this recipe to be scrumptious and satisfying. It works well as a side dish. A mixture of japanese cucumber, of nori, sushi rice, and a handful of other ingredients are all it takes to make this recipe so delicious. It is brought to you by Foodista. Overall, this recipe earns a <b>solid spoonacular score of 69%</b>. If you like this recipe, you might also like recipes such as <a href=\"https://spoonacular.com/recipes/kappa-maki-cucumber-sushi-roll-565133\">Kappa Maki (Cucumber Sushi Roll)</a>, <a href=\"https://spoonacular.com/recipes/live-sigma-kappa-texas-caviar-508442\">Live Sigma Kappa – Texas Caviar</a>, and <a href=\"https://spoonacular.com/recipes/live-sigma-kappa-elvis-cookies-508466\">Live Sigma Kappa – Elvis Cookies</a>.",
+   "steps": [
+    "Put a half-size nori on top of a bamboo mat (makisu).",
+    "Spread a half cup of sushi rice on top.",
+    "Place cucumber sticks lengthwise on the rice.",
+    "Roll up the bamboo mat, pressing forward to shape the sushi into a cylinder. Press the bamboo mat firmly with hands.Unwrap the bamboo mat.",
+    "Cut the sushi roll into bite-size pieces."
+   ],
+   "spoonacularScore": 73.48381042480469,
+   "healthScore": 19.0,
+   "aggregateLikes": 1,
+   "readyInMinutes": 45,
+   "preparationMinutes": null,
+   "cookingMinutes": null,
+   "servings": 8,
+   "diets": [
+    "gluten free",
+    "dairy free",
+    "fodmap friendly"
+   ],
+   "dishTypes": [
+    "side dish"
+   ],
+   "cuisines": [],
+   "sourceName": "Foodista",
+   "sourceUrl": "https://www.foodista.com/recipe/VJ3JTZWL/kappa-maki"
+  },
+  {
+   "id": 1697653,
+   "title": "Butter Baked Onion - Pure Hygge Food",
+   "image": "https://img.spoonacular.com/recipes/1697653-312x231.jpg",
+   "usedIngredients": [
+    {
+     "name": "onion",
+     "amount": 1.0,
+     "unit": "",
+     "original": "1 whole onion, Vidalia or any sweet, mild type"
+    }
+   ],
+   "missedIngredients": [
+    {
+     "name": "butter",
+     "amount": 1.0,
+     "unit": "Tbsp",
+     "original": "1 Tbsp butter"
+    },
+    {
+     "name": "bouillon cube",
+     "amount": 0.5,
+     "unit": "",
+     "original": "1/2 bouillon cube or 1 Tbsp soy sauce or Worcestershire sauce"
+    }
+   ],
+   "summary": "Need a <b>gluten free hor d'oeuvre</b>? Butter Baked Onion - Pure Hygge Food could be a super recipe to try. One portion of this dish contains around <b>0g of protein</b>, <b>0g of fat</b>, and a total of <b>3 calories</b>. For <b>1 cents per serving</b>, this recipe <b>covers 0%</b> of your daily requirements of vitamins and minerals. This recipe serves 75. Head to the store and pick up onion, butter, bouillon cube, and a few other things to make it today. From preparation to the plate, this recipe takes approximately <b>1 hour and 5 minutes</b>. It is brought to you by spoonacular user <a href=\"/profile/maplewoodroad\">maplewoodroad</a>. Similar recipes include <a href=\"https://spoonacular.com/recipes/pure-comfort-food-braised-pork-belly-kimchi-stew-1200611\">Pure Comfort Food: Braised Pork Belly Kimchi Stew</a>, <a href=\"https://spoonacular.com/recipes/pure-comfort-food-braised-pork-belly-kimchi-stew-666272\">Pure Comfort Food: Braised Pork Belly Kimchi Stew</a>, and <a href=\"https://spoonacular.com/recipes/baked-avocado-and-egg-with-miso-butter-power-food-473943\">Baked Avocado and Egg with Miso “Butter” (Power Food)</a>.",
+   "steps": [
+    "Cut the bottom off the onion and save for stock",
+    "Peel off the papery skin and scoop out the top",
+    "Fill the scooped-out part with butter and bouillon/soy/Worcestershire",
+    "Wrap in aluminum foil",
+    "Bake at 350°F for about 60 minutes or until fork tender",
+    "Remove from the oven and serve by itself or as a side dish"
+   ],
+   "spoonacularScore": 7.976735591888428,
+   "healthScore": 0.0,
+   "aggregateLikes": 0,
+   "readyInMinutes": 65,
+   "preparationMinutes": 5,
+   "cookingMinutes": 60,
+   "servings": 75,
+   "diets": [],
+   "dishTypes": [
+    "antipasti",
+    "starter",
+    "snack",
+    "appetizer",
+    "antipasto",
+    "hor d'oeuvre"
+   ],
+   "cuisines": [],
+   "sourceName": "Maplewood Road",
+   "sourceUrl": "https://maplewoodroad.com/butter-baked-onion/"
+  },
+  {
+   "id": 659581,
+   "title": "Scotch Eggs",
+   "image": "https://img.spoonacular.com/recipes/659581-312x231.jpg",
+   "usedIngredients": [
+    {
+     "name": "eggs",
+     "amount": 9.0,
+     "unit": "",
+     "original": "9 eggs"
+    }
+   ],
+   "missedIngredients": [
+    {
+     "name": "bulk sausage",
+     "amount": 1.0,
+     "unit": "lb",
+     "original": "1 pound bulk sausage"
+    },
+    {
+     "name": "corn meal",
+     "amount": 1.0,
+     "unit": "cup",
+     "original": "1 cup bread crumbs or corn meal"
+    }
+   ],
+   "summary": "The recipe Scotch Eggs can be made <b>in approximately 45 minutes</b>. This recipe serves 8. One serving contains <b>296 calories</b>, <b>17g of protein</b>, and <b>20g of fat</b>. For <b>83 cents per serving</b>, this recipe <b>covers 11%</b> of your daily requirements of vitamins and minerals. It works well as a very reasonably priced hor d'oeuvre. It is brought to you by Foodista. Head to the store and pick up bulk sausage, corn meal, eggs, and a few other things to make it today. 2 people were impressed by this recipe. It is a good option if you're following a <b>dairy free</b> diet. Overall, this recipe earns a <b>not so awesome spoonacular score of 37%</b>. If you like this recipe, you might also like recipes such as <a href=\"https://spoonacular.com/recipes/scotch-eggs-503166\">Scotch Eggs</a>, <a href=\"https://spoonacular.com/recipes/scotch-eggs-77580\">Scotch Eggs</a>, and <a href=\"https://spoonacular.com/recipes/scotch-eggs-78607\">Scotch Eggs</a>.",
+   "steps": [
+    "Divide sausage into 8 portions. On a lightly crumb sprinkled surface, pat out each portion to about 1/8 inch thickness. Wrap 1 sausage portion completely around 1 hard boiled egg, pressing edges together to seal. Repeat with remaining sausage and hard boiled eggs.Dip sausage-covered eggs in 1 beaten egg and then roll in breadcrumbs.Deep fry or place on baking sheet and bake in a 375 degree oven for 20 minutes until lightly browned."
+   ],
+   "spoonacularScore": 41.39079666137695,
+   "healthScore": 3.0,
+   "aggregateLikes": 2,
+   "readyInMinutes": 45,
+   "preparationMinutes": null,
+   "cookingMinutes": null,
+   "servings": 8,
+   "diets": [],
+   "dishTypes": [
+    "antipasti",
+    "starter",
+    "snack",
+    "appetizer",
+    "antipasto",
+    "hor d'oeuvre"
+   ],
+   "cuisines": [],
+   "sourceName": "Foodista",
+   "sourceUrl": "https://www.foodista.com/recipe/SD57XNHR/scotch-eggs"
+  },
+  {
+   "id": 660158,
+   "title": "Simple Vinaigrette",
+   "image": "https://img.spoonacular.com/recipes/660158-312x231.jpg",
+   "usedIngredients": [
+    {
+     "name": "garlic",
+     "amount": 2.0,
+     "unit": "cloves",
+     "original": "2 cloves Garlic, Minced"
+    }
+   ],
+   "missedIngredients": [
+    {
+     "name": "dijon mustard",
+     "amount": 1.0,
+     "unit": "tsp",
+     "original": "1 teaspoon stoneground mustard to 2 tsp or Dijon mustard"
+    },
+    {
+     "name": "seasoned rice vinegar",
+     "amount": 1.0,
+     "unit": "cup",
+     "original": "cup seasoned rice vinegar"
+    }
+   ],
+   "summary": "Simple Vinaigrette is a side dish that serves 4. One serving contains <b>14 calories</b>, <b>0g of protein</b>, and <b>0g of fat</b>. For <b>31 cents per serving</b>, this recipe <b>covers 0%</b> of your daily requirements of vitamins and minerals. 1 person found this recipe to be scrumptious and satisfying. Head to the store and pick up dijon mustard, garlic, seasoned rice vinegar, and a few other things to make it today. From preparation to the plate, this recipe takes approximately <b>45 minutes</b>. It is a good option if you're following a <b>gluten free, dairy free, paleolithic, and lacto ovo vegetarian</b> diet. It is brought to you by Foodista. Overall, this recipe earns a <b>rather bad spoonacular score of 15%</b>. Similar recipes include <a href=\"https://spoonacular.com/recipes/simple-vinaigrette-40422\">Simple Vinaigrette</a>, <a href=\"https://spoonacular.com/recipes/simple-vinaigrette-1365921\">Simple Vinaigrette</a>, and <a href=\"https://spoonacular.com/recipes/real-simple-vinaigrette-17084\">Real Simple Vinaigrette</a>.",
+   "steps": [
+    "Makes 1/2 cup.Seasoned rice vinegar makes a delicious salad dressing all by itself or with mustard and garlic.",
+    "Whisk all ingredients together. use as a dressing for salads and steamed vegetables.NOTES : This is from Dr. Barnard's new books, with recipes by Jennifer Raymond. This is a very delicious topping on both cold or warm veggies. Depending on your seasoned rice vinegar, it can be quite sweet. So I like to use 1/2 seasoned rice vinegar and 1/2 regular rice vinegar. Alternatively, you can use regular rice vinegar and add salt and sweetener to taste.This makes a 1/2 cup, which means it could serve 4-8, depending on whether you want 2 or 4 tbsp per person."
+   ],
+   "spoonacularScore": 16.527782440185547,
+   "healthScore": 0.0,
+   "aggregateLikes": 1,
+   "readyInMinutes": 45,
+   "preparationMinutes": null,
+   "cookingMinutes": null,
+   "servings": 4,
+   "diets": [
+    "gluten free",
+    "dairy free",
+    "paleolithic",
+    "lacto ovo vegetarian",
+    "primal",
+    "vegan"
+   ],
+   "dishTypes": [
+    "side dish"
+   ],
+   "cuisines": [],
+   "sourceName": "Foodista",
+   "sourceUrl": "https://www.foodista.com/recipe/N7X457RJ/simple-vinaigrette"
+  },
+  {
+   "id": 661447,
+   "title": "Square Deviled Eggs",
+   "image": "https://img.spoonacular.com/recipes/661447-312x231.jpg",
+   "usedIngredients": [
+    {
+     "name": "eggs",
+     "amount": 6.0,
+     "unit": "servings",
+     "original": "Hard boiled eggs"
+    }
+   ],
+   "missedIngredients": [
+    {
+     "name": "cream cheese",
+     "amount": 6.0,
+     "unit": "servings",
+     "original": "Cream cheese"
+    },
+    {
+     "name": "ham",
+     "amount": 6.0,
+     "unit": "servings",
+     "original": "Ham"
+    }
+   ],
+   "summary": "If you have around <b>45 minutes</b> to spend in the kitchen, Square Deviled Eggs might be an outstanding <b>gluten free and primal</b> recipe to try. One serving contains <b>212 calories</b>, <b>19g of protein</b>, and <b>15g of fat</b>. This recipe serves 6. For <b>30 cents per serving</b>, this recipe <b>covers 9%</b> of your daily requirements of vitamins and minerals. 25 people found this recipe to be scrumptious and satisfying. It works well as a very reasonably priced hor d'oeuvre. It is brought to you by Foodista. A couple people really liked this American dish. If you have eggs, cream cheese, ham, and a few other ingredients on hand, you can make it. Taking all factors into account, this recipe <b>earns a spoonacular score of 22%</b>, which is not so tremendous. If you like this recipe, you might also like recipes such as <a href=\"https://spoonacular.com/recipes/square-deviled-eggs-772132\">Square Deviled Eggs</a>, <a href=\"https://spoonacular.com/recipes/deviled-potatoes-like-vegan-deviled-eggs-1127758\">Deviled Potatoes (like Vegan Deviled Eggs!)</a>, and <a href=\"https://spoonacular.com/recipes/instant-pot-hard-boiled-eggs-and-easy-deviled-eggs-960857\">Instant Pot Hard Boiled Eggs (And Easy Deviled Eggs!)</a>.",
+   "steps": [
+    "To make square hard boiled eggs, you'll need an Egg cuber or Square Egg Press. (See note in About section on where to purchase)",
+    "First boil your eggs, then slide the egg inside the press and screw the top down so it pushes the egg into the corners.",
+    "Let the egg cool and remove it from the mold. For better results use medium size eggs.",
+    "If you intend to prepare this for a party, I suggest you buy several cubers, this way you can boil and chill several eggs at a time, or it will take you a lot of time.",
+    "To prepare hard boiled eggs, place eggs in a saucepan, cover with cold water and bring to a boil over medium heat. As soon as the water comes to a full boil, let the eggs boil for 5 minutes, and then remove from heat and let stand covered in hot water 10 minutes .",
+    "Filling is made with cream cheese, ham and egg yolk, it tastes very soft, it is ideal for kids."
+   ],
+   "spoonacularScore": 13.706424713134766,
+   "healthScore": 6.0,
+   "aggregateLikes": 25,
+   "readyInMinutes": 45,
+   "preparationMinutes": null,
+   "cookingMinutes": null,
+   "servings": 6,
+   "diets": [
+    "gluten free",
+    "primal"
+   ],
+   "dishTypes": [
+    "antipasti",
+    "starter",
+    "snack",
+    "appetizer",
+    "antipasto",
+    "hor d'oeuvre"
+   ],
+   "cuisines": [
+    "American"
+   ],
+   "sourceName": "Foodista",
+   "sourceUrl": "https://www.foodista.com/recipe/2Y8X7NKY/square-deviled-eggs"
+  },
+  {
+   "id": 647572,
+   "title": "How To Make Basic Marinara Sauce",
+   "image": "https://img.spoonacular.com/recipes/647572-312x231.jpg",
+   "usedIngredients": [
+    {
+     "name": "tomatoes",
+     "amount": 12.0,
+     "unit": "cup",
+     "original": "12 cups peeled and seeded fresh ripe tomatoes**"
+    },
+    {
+     "name": "onions",
+     "amount": 2.0,
+     "unit": "large",
+     "original": "2 large yellow onions, peeled and diced"
+    }
+   ],
+   "missedIngredients": [
+    {
+     "name": "garlic",
+     "amount": 2.0,
+     "unit": "Tbsp",
+     "original": "6 cloves of garlic, minced (about 2 Tbsp)"
+    },
+    {
+     "name": "herbs",
+     "amount": 2.0,
+     "unit": "Tbsp",
+     "original": "2 tablespoons dried herbs (basil, oregano, rosemary, 1/2 cup red wine"
+    }
+   ],
+   "summary": "You can never have too many sauce recipes, so give How To Make Basic Marinara Sauce a try. Watching your figure? This gluten free, dairy free, paleolithic, and lacto ovo vegetarian recipe has <b>40 calories</b>, <b>2g of protein</b>, and <b>0g of fat</b> per serving. This recipe serves 12. For <b>83 cents per serving</b>, this recipe <b>covers 8%</b> of your daily requirements of vitamins and minerals. 1 person has made this recipe and would make it again. It is brought to you by Foodista. A mixture of garlic, herbs, tomatoes, and a handful of other ingredients are all it takes to make this recipe so tasty. From preparation to the plate, this recipe takes approximately <b>45 minutes</b>. All things considered, we decided this recipe <b>deserves a spoonacular score of 62%</b>. This score is good. Try <a href=\"https://spoonacular.com/recipes/basic-marinara-sauce-634391\">Basic Marinara Sauce</a>, <a href=\"https://spoonacular.com/recipes/how-to-make-the-best-easy-marinara-sauce-1486997\">How to make the best Easy Marinara Sauce</a>, and <a href=\"https://spoonacular.com/recipes/how-to-make-homemade-roasted-tomato-basil-marinara-sauce-no-sugar-added-915383\">How to Make Homemade Roasted Tomato Basil Marinara Sauce (no sugar added!)</a> for similar recipes.",
+   "steps": [
+    "In a large soup pot, heat up the olive oil.",
+    "Add the onions and cook slowly, on medium heat until they start to caramelize. They should be evenly brown and soft. Cooking them this way brings out the natural sweetness in the onions.",
+    "Add the garlic and dried herbs and cook for 5 minutes. Deglaze the pan with the 1/2 cup of red wine and cook for 2 minutes more.",
+    "Add the tomatoes and their juice and stir to combine. Bring to a simmer and cook on low, stirring occasionally for about 2 hours.",
+    "Add salt and pepper to taste.Dried herbs hold their flavor much longer than fresh herbs so when slow cooking. If you want to use fresh herbs, add them at then end of the cooking process, just before serving.If you dont have fresh tomatoes, you can use 2 (28 oz) cans of crushed tomatoes, 1 (28 oz) can of whole tomatoes and 1 (6 oz) can of tomato paste. When I use canned tomatoes, I always add a couple tablespoons of sugar to counteract the acidity of the canned tomatoes. I find I dont have to add any sugar with the ripe tomatoes from my garden."
+   ],
+   "spoonacularScore": 62.73611831665039,
+   "healthScore": 15.0,
+   "aggregateLikes": 1,
+   "readyInMinutes": 45,
+   "preparationMinutes": null,
+   "cookingMinutes": null,
+   "servings": 12,
+   "diets": [
+    "gluten free",
+    "dairy free",
+    "paleolithic",
+    "lacto ovo vegetarian",
+    "primal",
+    "whole 30",
+    "vegan"
+   ],
+   "dishTypes": [
+    "sauce"
+   ],
+   "cuisines": [],
+   "sourceName": "Foodista",
+   "sourceUrl": "https://www.foodista.com/recipe/FKHGCHYV/how-to-make-basic-marinara-sauce"
+  },
+  {
+   "id": 984198,
+   "title": "BBQ Gochujang Cauliflower Fried Rice",
+   "image": "https://img.spoonacular.com/recipes/984198-312x231.png",
+   "usedIngredients": [
+    {
+     "name": "scallion",
+     "amount": 1.0,
+     "unit": "large",
+     "original": "1 large scallion, chopped, whites and greens divided"
+    },
+    {
+     "name": "egg",
+     "amount": 1.0,
+     "unit": "",
+     "original": "1 egg"
+    }
+   ],
+   "missedIngredients": [
+    {
+     "name": "cauliflower rice",
+     "amount": 1.0,
+     "unit": "cup",
+     "original": "1 cup cauliflower rice"
+    },
+    {
+     "name": "bibigo go-chu-jang barbecue sauce",
+     "amount": 1.0,
+     "unit": "serving",
+     "original": "Bibigo Go-Chu-Jang Barbecue Sauce"
+    }
+   ],
+   "summary": "BBQ Gochujang Cauliflower Fried Rice is a Chinese hor d'oeuvre. For <b>$1.37 per serving</b>, this recipe <b>covers 18%</b> of your daily requirements of vitamins and minerals. This recipe makes 1 servings with <b>179 calories</b>, <b>9g of protein</b>, and <b>13g of fat</b> each. 1 person has tried and liked this recipe. It is brought to you by fullbellysisters.blogspot.com. If you have cauliflower rice, scallion, coconut oil, and a few other ingredients on hand, you can make it. It is a good option if you're following a <b>gluten free, dairy free, and lacto ovo vegetarian</b> diet. From preparation to the plate, this recipe takes about <b>about 45 minutes</b>. Taking all factors into account, this recipe <b>earns a spoonacular score of 0%</b>, which is improvable. Users who liked this recipe also liked <a href=\"https://spoonacular.com/recipes/cauliflower-brown-rice-and-vegetable-fried-rice-716426\">Cauliflower, Brown Rice, and Vegetable Fried Rice</a>, <a href=\"https://spoonacular.com/recipes/baked-fried-chicken-with-cauliflower-mash-633624\">Baked Fried Chicken With Cauliflower Mash</a>, and <a href=\"https://spoonacular.com/recipes/curried-pork-chops-and-cauliflower-with-basmati-rice-641093\">Curried Pork Chops and Cauliflower With Basmati Rice</a>.",
+   "steps": [],
+   "spoonacularScore": 20.705659866333008,
+   "healthScore": 11.0,
+   "aggregateLikes": 0,
+   "readyInMinutes": 45,
+   "preparationMinutes": null,
+   "cookingMinutes": null,
+   "servings": 1,
+   "diets": [
+    "gluten free",
+    "dairy free",
+    "lacto ovo vegetarian"
+   ],
+   "dishTypes": [
+    "side dish",
+    "antipasti",
+    "starter",
+    "snack",
+    "appetizer",
+    "antipasto",
+    "hor d'oeuvre"
+   ],
+   "cuisines": [
+    "Chinese",
+    "Asian"
+   ],
+   "sourceName": "Full Belly Sisters",
+   "sourceUrl": "https://fullbellysisters.blogspot.com/2017/06/bbq-gochujang-cauliflower-fried-rice.html"
+  },
+  {
+   "id": 648439,
+   "title": "Jamie's Guacamole",
+   "image": "https://img.spoonacular.com/recipes/648439-312x231.jpg",
+   "usedIngredients": [
+    {
+     "name": "onion",
+     "amount": 0.25,
+     "unit": "large",
+     "original": "1/4 large white onion"
+    },
+    {
+     "name": "roma tomato",
+     "amount": 0.25,
+     "unit": "medium",
+     "original": "1/4 medium roma tomato"
+    }
+   ],
+   "missedIngredients": [
+    {
+     "name": "avocado",
+     "amount": 1.0,
+     "unit": "",
+     "original": "1 avocado"
+    },
+    {
+     "name": "lime",
+     "amount": 0.5,
+     "unit": "",
+     "original": "1/2 lime"
+    }
+   ],
+   "summary": "The recipe Jamie's Guacamole is ready <b>in around 45 minutes</b> and is definitely an excellent <b>gluten free, dairy free, paleolithic, and lacto ovo vegetarian</b> option for lovers of Mexican food. This recipe serves 4 and costs 44 cents per serving. This hor d'oeuvre has <b>87 calories</b>, <b>1g of protein</b>, and <b>7g of fat</b> per serving. Head to the store and pick up salt and pepper, lime, roma tomato, and a few other things to make it today. 1 person has tried and liked this recipe. It is brought to you by Foodista. All things considered, we decided this recipe <b>deserves a spoonacular score of 57%</b>. This score is solid. Similar recipes are <a href=\"https://spoonacular.com/recipes/guacamole-how-to-make-guacamole-mexican-guacamole-486710\">guacamole , how to make guacamole | mexican guacamole</a>, <a href=\"https://spoonacular.com/recipes/fried-green-plantain-with-guacamole-and-shrimp-tostada-de-pltano-con-camarones-y-guacamole-226105\">Fried Green Plantain with Guacamole and Shrimp (Tostada de Plátano con Camarones y Guacamole)</a>, and <a href=\"https://spoonacular.com/recipes/fried-green-plantain-with-guacamole-and-shrimp-tostada-de-pltano-con-camarones-y-guacamole-1213029\">Fried Green Plantain with Guacamole and Shrimp (Tostada de Plátano con Camarones y Guacamole)</a>.",
+   "steps": [
+    "Cut open avocado lengthwise cutting around the seed. Separate the two sides. With your knife, strike the seed with the blade and pull the seed out. Hollow out the two avocado halves with a spoon and place into a small mixing bowl. With a potato masher or fork, mash avocado. Dice up the onion and tomato to your liking. (I like them diced very finely.)",
+    "Mix into avocado. Squeeze lime into mixture.",
+    "Add salt and pepper to taste. For best results, allow to sit 10 minutes before serving.",
+    "Serve alongside tortilla chips."
+   ],
+   "spoonacularScore": 16.533153533935547,
+   "healthScore": 9.0,
+   "aggregateLikes": 1,
+   "readyInMinutes": 45,
+   "preparationMinutes": null,
+   "cookingMinutes": null,
+   "servings": 4,
+   "diets": [
+    "gluten free",
+    "dairy free",
+    "paleolithic",
+    "lacto ovo vegetarian",
+    "primal",
+    "whole 30",
+    "vegan"
+   ],
+   "dishTypes": [
+    "antipasti",
+    "condiment",
+    "starter",
+    "snack",
+    "appetizer",
+    "dip",
+    "antipasto",
+    "hor d'oeuvre",
+    "spread"
+   ],
+   "cuisines": [
+    "Mexican"
+   ],
+   "sourceName": "Foodista",
+   "sourceUrl": "https://www.foodista.com/recipe/3HZTSB8H/jamies-guacamole"
+  },
+  {
+   "id": 652966,
+   "title": "Nasturtium Pesto",
+   "image": "https://img.spoonacular.com/recipes/652966-312x231.jpg",
+   "usedIngredients": [
+    {
+     "name": "shallot",
+     "amount": 1.0,
+     "unit": "Tbsp",
+     "original": "1 tablespoon diced shallot"
+    },
+    {
+     "name": "garlic",
+     "amount": 1.0,
+     "unit": "tsp",
+     "original": "1 teaspoon garlic minced"
+    }
+   ],
+   "missedIngredients": [
+    {
+     "name": "nasturtium flowers and leaves",
+     "amount": 2.0,
+     "unit": "cup",
+     "original": "2 cups nasturtium flowers and leaves"
+    },
+    {
+     "name": "walnuts",
+     "amount": 0.5,
+     "unit": "cup",
+     "original": "1/2 cup toasted walnuts"
+    }
+   ],
+   "summary": "Nasturtium Pesto requires roughly <b>45 minutes</b> from start to finish. This gluten free, dairy free, paleolithic, and lacto ovo vegetarian recipe serves 4 and costs <b>$23.71 per serving</b>. One serving contains <b>564 calories</b>, <b>11g of protein</b>, and <b>30g of fat</b>. This recipe from Foodista has 1 fans. A mixture of nasturtium flowers and leaves, walnuts, olive oil, and a handful of other ingredients are all it takes to make this recipe so yummy. It works well as a pricey condiment. Taking all factors into account, this recipe <b>earns a spoonacular score of 51%</b>, which is solid. Similar recipes include <a href=\"https://spoonacular.com/recipes/nasturtium-pizza-149309\">Nasturtium Pizza</a>, <a href=\"https://spoonacular.com/recipes/nasturtium-butter-77737\">Nasturtium Butter</a>, and <a href=\"https://spoonacular.com/recipes/nasturtium-pizza-188052\">Nasturtium Pizza</a>.",
+   "steps": [
+    "Process all ingredients together.",
+    "Season to taste"
+   ],
+   "spoonacularScore": 82.26368713378906,
+   "healthScore": 100.0,
+   "aggregateLikes": 1,
+   "readyInMinutes": 45,
+   "preparationMinutes": null,
+   "cookingMinutes": null,
+   "servings": 4,
+   "diets": [
+    "paleolithic",
+    "primal",
+    "whole 30"
+   ],
+   "dishTypes": [
+    "condiment",
+    "dip",
+    "sauce",
+    "spread"
+   ],
+   "cuisines": [],
+   "sourceName": "Foodista",
+   "sourceUrl": "https://www.foodista.com/recipe/TBGJFLLX/nasturtium-pesto"
+  },
+  {
+   "id": 662276,
+   "title": "Sun Dried Tomato and Herb Baked Eggs",
+   "image": "https://img.spoonacular.com/recipes/662276-312x231.jpg",
+   "usedIngredients": [
+    {
+     "name": "eggs",
+     "amount": 2.0,
+     "unit": "",
+     "original": "2 eggs"
+    },
+    {
+     "name": "sundried tomatoes",
+     "amount": 1.0,
+     "unit": "Tbsp",
+     "original": "1 Tbsp. sundried tomatoes"
+    }
+   ],
+   "missedIngredients": [
+    {
+     "name": "basil",
+     "amount": 0.5,
+     "unit": "tsp",
+     "original": "½ Tsp. fresh basil"
+    },
+    {
+     "name": "parsley",
+     "amount": 0.5,
+     "unit": "tsp",
+     "original": "½ Tsp. fresh parsley"
+    }
+   ],
+   "summary": "If you want to add more <b>gluten free, dairy free, paleolithic, and lacto ovo vegetarian</b> recipes to your recipe box, Sun Dried Tomato and Herb Baked Eggs might be a recipe you should try. One serving contains <b>179 calories</b>, <b>12g of protein</b>, and <b>13g of fat</b>. This recipe serves 1. For <b>90 cents per serving</b>, this recipe <b>covers 10%</b> of your daily requirements of vitamins and minerals. This recipe from Foodista requires eggs, basil, sundried tomatoes, and olive oil. 13 people found this recipe to be flavorful and satisfying. It works best as a hor d'oeuvre, and is done in around <b>25 minutes</b>. Taking all factors into account, this recipe <b>earns a spoonacular score of 37%</b>, which is not so super. Similar recipes include <a href=\"https://spoonacular.com/recipes/sun-dried-tomato-and-herb-baked-eggs-1365689\">Sun Dried Tomato and Herb Baked Eggs</a>, <a href=\"https://spoonacular.com/recipes/baked-eggs-with-spinach-mushrooms-and-sun-dried-tomato-530601\">Baked Eggs with Spinach, Mushrooms and Sun Dried Tomato</a>, and <a href=\"https://spoonacular.com/recipes/herb-sun-dried-tomato-muffins-462519\">Herb & Sun-Dried Tomato Muffins</a>.",
+   "steps": [
+    "Preheat oven to 350 F.Cover the inside of one ramekin or oven safe dish with olive oil.Line the bottom of the dish with sundried tomatoes and break two eggs on top.",
+    "Sprinkle with fresh herbs.",
+    "Bake uncovered for 15-20 minutes until egg whites are firm.",
+    "Serve immediately."
+   ],
+   "spoonacularScore": 42.687339782714844,
+   "healthScore": 3.0,
+   "aggregateLikes": 13,
+   "readyInMinutes": 25,
+   "preparationMinutes": null,
+   "cookingMinutes": null,
+   "servings": 1,
+   "diets": [
+    "gluten free",
+    "dairy free",
+    "paleolithic",
+    "lacto ovo vegetarian",
+    "primal",
+    "whole 30",
+    "ketogenic"
+   ],
+   "dishTypes": [
+    "antipasti",
+    "starter",
+    "morning meal",
+    "snack",
+    "brunch",
+    "appetizer",
+    "antipasto",
+    "breakfast",
+    "hor d'oeuvre"
+   ],
+   "cuisines": [],
+   "sourceName": "Foodista",
+   "sourceUrl": "https://www.foodista.com/recipe/V4LG5KBB/sundried-tomato-and-herb-baked-eggs"
+  },
+  {
+   "id": 991625,
+   "title": "Nutella Buttercream Cupcakes with Hidden Cadbury Egg",
+   "image": "https://img.spoonacular.com/recipes/991625-312x231.jpg",
+   "usedIngredients": [
+    {
+     "name": "eggs",
+     "amount": 4.0,
+     "unit": "",
+     "original": "4 eggs"
+    }
+   ],
+   "missedIngredients": [
+    {
+     "name": "milk",
+     "amount": 1.0,
+     "unit": "cup",
+     "original": "1 cup of milk,"
+    },
+    {
+     "name": "vanilla",
+     "amount": 1.0,
+     "unit": "tsp",
+     "original": "1 tsp of vanilla,"
+    }
+   ],
+   "summary": "The recipe Nutella Buttercream Cupcakes with Hidden Cadbury Egg can be made <b>in about 35 minutes</b>. Watching your figure? This gluten free, lacto ovo vegetarian, and ketogenic recipe has <b>241 calories</b>, <b>11g of protein</b>, and <b>21g of fat</b> per serving. This recipe serves 6. For <b>54 cents per serving</b>, this recipe <b>covers 9%</b> of your daily requirements of vitamins and minerals. 14 people have tried and liked this recipe. This recipe from Pink When requires vanilla, cadbury eggs, milk, and oil. This recipe is typical of American cuisine. Taking all factors into account, this recipe <b>earns a spoonacular score of 35%</b>, which is not so super. If you like this recipe, take a look at these similar recipes: <a href=\"https://spoonacular.com/recipes/egg-nog-hazelnut-cupcakes-with-nutella-buttercream-frosting-63942\">Egg Nog-hazelnut Cupcakes With Nutella Buttercream Frosting</a>, <a href=\"https://spoonacular.com/recipes/cadbury-creme-egg-cupcakes-554644\">Cadbury Creme Egg Cupcakes</a>, and <a href=\"https://spoonacular.com/recipes/cadbury-mini-egg-cupcakes-992953\">Cadbury Mini Egg Cupcakes</a>.",
+   "steps": [
+    "Preheat oven to 350 degrees.",
+    "Grease 6 jumbo muffin tin.",
+    "Combine cake mix milk, vanilla and oil.",
+    "Mix till combined.",
+    "Add eggs beat till mixed well.",
+    "Bake for 18- 21 min",
+    "After cooking cupcakes use a spoon and cut out enough area to insert Cadbury egg.",
+    "Making sure the smaller part of the egg is facing up.",
+    "Frost the cupcake hiding the Cadbury egg."
+   ],
+   "spoonacularScore": 38.54864501953125,
+   "healthScore": 2.0,
+   "aggregateLikes": 14,
+   "readyInMinutes": 35,
+   "preparationMinutes": 10,
+   "cookingMinutes": 25,
+   "servings": 6,
+   "diets": [
+    "gluten free",
+    "lacto ovo vegetarian",
+    "ketogenic"
+   ],
+   "dishTypes": [],
+   "cuisines": [
+    "American"
+   ],
+   "sourceName": "Pink When",
+   "sourceUrl": "https://www.pinkwhen.com/nutella-buttercream-cupcakes-with-hidden-cadbury-egg/"
+  },
+  {
+   "id": 633338,
+   "title": "Bacon Wrapped Filet Mignon",
+   "image": "https://img.spoonacular.com/recipes/633338-312x231.jpg",
+   "usedIngredients": [
+    {
+     "name": "garlic",
+     "amount": 2.0,
+     "unit": "large cloves",
+     "original": "2 large cloves garlic"
+    }
+   ],
+   "missedIngredients": [
+    {
+     "name": "beef tenderloin steaks",
+     "amount": 4.0,
+     "unit": "inches",
+     "original": "4 inches beef tenderloin steaks, about 2 thick"
+    },
+    {
+     "name": "bacon",
+     "amount": 4.0,
+     "unit": "slice",
+     "original": "4 slices of smoked bacon"
+    }
+   ],
+   "summary": "You can never have too many side dish recipes, so give Bacon Wrapped Filet Mignon a try. This recipe serves 4 and costs 39 cents per serving. Watching your figure? This gluten free, dairy free, paleolithic, and primal recipe has <b>98 calories</b>, <b>3g of protein</b>, and <b>9g of fat</b> per serving. Head to the store and pick up salt& pepper, bacon, garlic, and a few other things to make it today. 61 person have made this recipe and would make it again. From preparation to the plate, this recipe takes about <b>45 minutes</b>. It is brought to you by Foodista. Taking all factors into account, this recipe <b>earns a spoonacular score of 13%</b>, which is not so outstanding. Users who liked this recipe also liked <a href=\"https://spoonacular.com/recipes/bacon-wrapped-filet-mignon-1148007\">Bacon Wrapped Filet Mignon</a>, <a href=\"https://spoonacular.com/recipes/bacon-wrapped-filet-mignon-580733\">Bacon Wrapped Filet Mignon</a>, and <a href=\"https://spoonacular.com/recipes/bacon-wrapped-filet-mignon-81768\">Bacon Wrapped Filet Mignon</a>.",
+   "steps": [
+    "Place the tenderloins on a large dish and wrap a slice of room temperature bacon around each filet, gently stretching the bacon if needed. Secure the ends of the bacon with a toothpick.",
+    "Cut the garlic cloves in half and rub both sides of each filet with the cut ends of the garlic. Season well with salt and pepper on both sides.",
+    "Pre-heat grill to very hot. With tongs, place each steak on the grill and for medium-rare cook for 3-4 minutes, rotating the steaks halfway through 90 degrees for nice grill marks.",
+    "Turn the steaks over and cook another 3-4 minutes.",
+    "Remove from the grill and let rest loosely covered for 5 minutes before removing toothpicks and serving.",
+    "Serve as is or with sauted garlic mushrooms"
+   ],
+   "spoonacularScore": 16.538524627685547,
+   "healthScore": 0.0,
+   "aggregateLikes": 61,
+   "readyInMinutes": 45,
+   "preparationMinutes": null,
+   "cookingMinutes": null,
+   "servings": 4,
+   "diets": [
+    "gluten free",
+    "dairy free",
+    "paleolithic",
+    "primal",
+    "whole 30"
+   ],
+   "dishTypes": [
+    "side dish"
+   ],
+   "cuisines": [],
+   "sourceName": "Foodista",
+   "sourceUrl": "https://www.foodista.com/recipe/XL2YFTWY/bacon-wrapped-filet-mignon"
+  },
+  {
+   "id": 633574,
+   "title": "Baked Custard",
+   "image": "https://img.spoonacular.com/recipes/633574-312x231.jpg",
+   "usedIngredients": [
+    {
+     "name": "eggs",
+     "amount": 4.0,
+     "unit": "",
+     "original": "4 eggs"
+    }
+   ],
+   "missedIngredients": [
+    {
+     "name": "milk",
+     "amount": 2.0,
+     "unit": "cup",
+     "original": "2 cups milk, scalded"
+    },
+    {
+     "name": "vanilla",
+     "amount": 0.5,
+     "unit": "tsp",
+     "original": "1/2 teaspoon vanilla"
+    }
+   ],
+   "summary": "The recipe Baked Custard can be made <b>in roughly 45 minutes</b>. This gluten free and lacto ovo vegetarian recipe serves 6 and costs <b>35 cents per serving</b>. One portion of this dish contains about <b>6g of protein</b>, <b>5g of fat</b>, and a total of <b>161 calories</b>. If you have brown sugar, eggs, vanilla, and a few other ingredients on hand, you can make it. Only a few people made this recipe, and 1 would say it hit the spot. It is brought to you by Foodista. It works well as a dessert. Taking all factors into account, this recipe <b>earns a spoonacular score of 22%</b>, which is rather bad. If you like this recipe, take a look at these similar recipes: <a href=\"https://spoonacular.com/recipes/baked-custard-175892\">Baked Custard</a>, <a href=\"https://spoonacular.com/recipes/baked-custard-1237227\">Baked Custard</a>, and <a href=\"https://spoonacular.com/recipes/baked-custard-443683\">Baked Custard</a>.",
+   "steps": [
+    "Combine eggs, sugar and 1/4 teaspoon salt. Slowly stir in slightly cooled milk and vanilla. Fill six 5-ounce custard cups; set in shallow pan on oven rack.",
+    "Pour hot water into pan, 1 inch deep.",
+    "Bake at 325 degrees for 40 to 45 minutes, or until knife inserted off- center comes out clean.",
+    "Serve warm or chilled. To unmold chilled custard, first loosen edge; then slip point of knife down side to let air in. Invert.For one large custard, bake in 1 quart casserole about 60 minutes."
+   ],
+   "spoonacularScore": 30.716449737548828,
+   "healthScore": 1.0,
+   "aggregateLikes": 1,
+   "readyInMinutes": 45,
+   "preparationMinutes": null,
+   "cookingMinutes": null,
+   "servings": 6,
+   "diets": [
+    "gluten free",
+    "lacto ovo vegetarian"
+   ],
+   "dishTypes": [
+    "dessert"
+   ],
+   "cuisines": [],
+   "sourceName": "Foodista",
+   "sourceUrl": "https://www.foodista.com/recipe/JWYN44XL/baked-custard"
+  },
+  {
+   "id": 641890,
+   "title": "Easy Cheesy Scrambled Eggs",
+   "image": "https://img.spoonacular.com/recipes/641890-312x231.jpg",
+   "usedIngredients": [
+    {
+     "name": "eggs",
+     "amount": 8.0,
+     "unit": "large",
+     "original": "8 large eggs"
+    }
+   ],
+   "missedIngredients": [
+    {
+     "name": "milk",
+     "amount": 0.25,
+     "unit": "cup",
+     "original": "1/4 cup milk or cream"
+    },
+    {
+     "name": "jack cheese",
+     "amount": 0.5,
+     "unit": "cup",
+     "original": "1/2 cup shredded jack cheese"
+    }
+   ],
+   "summary": "Easy Cheesy Scrambled Eggs is a <b>gluten free, lacto ovo vegetarian, primal, and ketogenic</b> breakfast. One serving contains <b>246 calories</b>, <b>16g of protein</b>, and <b>19g of fat</b>. This recipe serves 4 and costs 78 cents per serving. 3 people were glad they tried this recipe. Head to the store and pick up jack cheese, milk, salt and pepper, and a few other things to make it today. From preparation to the plate, this recipe takes approximately <b>45 minutes</b>. It is brought to you by Foodista. With a spoonacular <b>score of 42%</b>, this dish is solid. Similar recipes are <a href=\"https://spoonacular.com/recipes/easy-cheesy-scrambled-eggs-1328151\">Easy Cheesy Scrambled Eggs</a>, <a href=\"https://spoonacular.com/recipes/easy-cheesy-scrambled-eggs-1384909\">Easy Cheesy Scrambled Eggs</a>, and <a href=\"https://spoonacular.com/recipes/easy-cheesy-scrambled-eggs-1401645\">Easy Cheesy Scrambled Eggs</a>.",
+   "steps": [
+    "Scramble eggs with milk or cream and some salt and pepper.",
+    "Cook in a nonstick skillet over medium heat, stirring to lift the cooked eggs from the bottom of the pan as they cook.",
+    "When the eggs are just about cooked, toss in jack cheese and cook for about 1-2 minutes more just to melt the cheese.",
+    "Serve as is, over toast, or in a tortilla."
+   ],
+   "spoonacularScore": 42.30866241455078,
+   "healthScore": 3.0,
+   "aggregateLikes": 3,
+   "readyInMinutes": 45,
+   "preparationMinutes": null,
+   "cookingMinutes": null,
+   "servings": 4,
+   "diets": [
+    "gluten free",
+    "lacto ovo vegetarian",
+    "primal",
+    "ketogenic"
+   ],
+   "dishTypes": [
+    "morning meal",
+    "brunch",
+    "breakfast"
+   ],
+   "cuisines": [],
+   "sourceName": "Foodista",
+   "sourceUrl": "https://www.foodista.com/recipe/X5JCHLYL/easy-cheesy-scrambled-eggs"
+  },
+  {
+   "id": 716422,
+   "title": "Caramelized Onion Dip",
+   "image": "https://img.spoonacular.com/recipes/716422-312x231.jpg",
+   "usedIngredients": [
+    {
+     "name": "caramelized onions",
+     "amount": 0.6666667,
+     "unit": "cup",
+     "original": "2/3c caramelized onions"
+    }
+   ],
+   "missedIngredients": [
+    {
+     "name": "chives",
+     "amount": 2.0,
+     "unit": "Tbsp",
+     "original": "about 2T chopped fresh chives"
+    },
+    {
+     "name": "greek yogurt",
+     "amount": 1.0,
+     "unit": "cup",
+     "original": "1c plain greek yogurt"
+    }
+   ],
+   "summary": "Caramelized Onion Dip is a hor d'oeuvre that serves 2. One serving contains <b>93 calories</b>, <b>11g of protein</b>, and <b>0g of fat</b>. For <b>$1.13 per serving</b>, this recipe <b>covers 7%</b> of your daily requirements of vitamins and minerals. It is brought to you by fullbellysisters.blogspot.com. 95 people have made this recipe and would make it again. It is perfect for <b>The Super Bowl</b>. A mixture of caramelized onions, salt, greek yogurt, and a handful of other ingredients are all it takes to make this recipe so yummy. It is a good option if you're following a <b>gluten free, lacto ovo vegetarian, and primal</b> diet. From preparation to the plate, this recipe takes around <b>45 minutes</b>. All things considered, we decided this recipe <b>deserves a spoonacular score of 51%</b>. This score is solid. Users who liked this recipe also liked <a href=\"https://spoonacular.com/recipes/caramelized-onion-dip-1062080\">Caramelized Onion Dip</a>, <a href=\"https://spoonacular.com/recipes/caramelized-onion-dip-720390\">Caramelized Onion Dip</a>, and <a href=\"https://spoonacular.com/recipes/caramelized-onion-dip-246008\">Caramelized Onion Dip</a>.",
+   "steps": [],
+   "spoonacularScore": 43.24560546875,
+   "healthScore": 4.0,
+   "aggregateLikes": 95,
+   "readyInMinutes": 45,
+   "preparationMinutes": null,
+   "cookingMinutes": null,
+   "servings": 2,
+   "diets": [
+    "gluten free",
+    "lacto ovo vegetarian",
+    "primal"
+   ],
+   "dishTypes": [
+    "antipasti",
+    "condiment",
+    "starter",
+    "snack",
+    "appetizer",
+    "dip",
+    "antipasto",
+    "hor d'oeuvre",
+    "spread"
+   ],
+   "cuisines": [],
+   "sourceName": "Full Belly Sisters",
+   "sourceUrl": "https://fullbellysisters.blogspot.com/2011/06/caramelized-onion-dip.html"
+  },
+  {
+   "id": 655620,
+   "title": "Peperonata - Bell Peppers In Tomato Sauce",
+   "image": "https://img.spoonacular.com/recipes/655620-312x231.jpg",
+   "usedIngredients": [
+    {
+     "name": "canned tomatoes",
+     "amount": 6.0,
+     "unit": "",
+     "original": "6 sweet peppers, preferably a combination of red, 14 ounces can chopped tomatoes, or about a pound of fresh diced salt and pepper to taste"
+    },
+    {
+     "name": "garlic",
+     "amount": 2.0,
+     "unit": "cloves",
+     "original": "2 cloves of garlic, minced"
+    },
+    {
+     "name": "onion",
+     "amount": 1.0,
+     "unit": "medium",
+     "original": "1 medium onion, diced"
+    }
+   ],
+   "missedIngredients": [],
+   "summary": "Peperonata - Bell Peppers In Tomato Sauce requires approximately <b>45 minutes</b> from start to finish. This recipe makes 4 servings with <b>604 calories</b>, <b>0g of protein</b>, and <b>67g of fat</b> each. For <b>100 cents per serving</b>, this recipe <b>covers 6%</b> of your daily requirements of vitamins and minerals. Not a lot of people really liked this sauce. Head to the store and pick up onion, canned tomatoes, heat the oil in a pot, and a few other things to make it today. 1 person has made this recipe and would make it again. It is brought to you by Foodista. It is a good option if you're following a <b>gluten free, dairy free, lacto ovo vegetarian, and whole 30</b> diet. With a spoonacular <b>score of 77%</b>, this dish is solid. Similar recipes include <a href=\"https://spoonacular.com/recipes/vegetarian-stuffed-bell-peppers-with-fresh-tomato-sauce-621733\">Vegetarian stuffed bell peppers with fresh tomato sauce</a>, <a href=\"https://spoonacular.com/recipes/tomato-soup-with-roasted-bell-peppers-and-gorgonzola-cream-624552\">Tomato soup with roasted bell peppers and gorgonzola cream</a>, and <a href=\"https://spoonacular.com/recipes/peperonata-sauted-peppers-and-onions-245313\">Peperonata (Sautéed Peppers and Onions)</a>.",
+   "steps": [
+    "Heat the oil in a large pot, and then add the onion and garlic.",
+    "Saute them until they get a nice golden color.",
+    "Add the peppers, and cook over a medium high heat for about 10-15 minutes, stirring occasionally. Next, add the canned or fresh tomatoes to the peppers. Season with salt and pepper to taste.Reduce the heat a little, and let the pepper and onion  mixture continue to cook until the liquid is reduced to a thick sauce.  This will probably take about another 10 minutes more.The peperonata can be served immediately, or can be reheated later. It is a fresh, simple classic. Enjoy!"
+   ],
+   "spoonacularScore": 16.529090881347656,
+   "healthScore": 1.0,
+   "aggregateLikes": 1,
+   "readyInMinutes": 45,
+   "preparationMinutes": null,
+   "cookingMinutes": null,
+   "servings": 4,
+   "diets": [
+    "whole 30"
+   ],
+   "dishTypes": [
+    "sauce"
+   ],
+   "cuisines": [],
+   "sourceName": "Foodista",
+   "sourceUrl": "https://www.foodista.com/recipe/4L6H6MGL/peperonata-bell-peppers-in-tomato-sauce"
+  },
+  {
+   "id": 640513,
+   "title": "Cream Cheese with Sun Dried Tomatoes and Pesto Pastry",
+   "image": "https://img.spoonacular.com/recipes/640513-312x231.jpg",
+   "usedIngredients": [
+    {
+     "name": "sundried tomatoes",
+     "amount": 2.0,
+     "unit": "Tbsp",
+     "original": "2 Tbs sundried tomatoes packed in oil, minced."
+    },
+    {
+     "name": "egg - beat",
+     "amount": 1.0,
+     "unit": "",
+     "original": "1 egg – beat well"
+    }
+   ],
+   "missedIngredients": [
+    {
+     "name": "block of cream cheese",
+     "amount": 1.0,
+     "unit": "",
+     "original": "1 block of cream cheese"
+    },
+    {
+     "name": "regular crescents from the section of the grocery",
+     "amount": 0.5,
+     "unit": "can",
+     "original": "½ can regular canned crescents from the refrigerated section of the grocery"
+    },
+    {
+     "name": "pesto",
+     "amount": 2.0,
+     "unit": "Tbsp",
+     "original": "2 Tbs pesto"
+    }
+   ],
+   "summary": "Cream Cheese with Sun Dried Tomatoes and Pesto Pastry takes roughly <b>45 minutes</b> from beginning to end. This recipe serves 10 and costs 33 cents per serving. One serving contains <b>64 calories</b>, <b>1g of protein</b>, and <b>4g of fat</b>. 1 person were glad they tried this recipe. It works well as a side dish. It is brought to you by Foodista. If you have block of cream cheese, egg - beat, sundried tomatoes, and a few other ingredients on hand, you can make it. All things considered, we decided this recipe <b>deserves a spoonacular score of 19%</b>. This score is not so tremendous. Similar recipes include <a href=\"https://spoonacular.com/recipes/pasta-with-pesto-fresh-tomatoes-sun-dried-tomatoes-chicken-and-mozzarella-cheese-607983\">Pasta with Pesto, Fresh Tomatoes, Sun-Dried Tomatoes, Chicken and Mozzarella Cheese</a>, <a href=\"https://spoonacular.com/recipes/cheese-tortellini-with-pesto-and-sun-dried-tomatoes-567507\">Cheese Tortellini with Pesto and Sun Dried Tomatoes</a>, and <a href=\"https://spoonacular.com/recipes/pesto-grilled-cheese-with-sun-dried-tomatoes-1135380\">Pesto Grilled Cheese with Sun Dried Tomatoes</a>.",
+   "steps": [
+    "Preheat the oven to 350",
+    "Cut the block of cream cheese in half like a book",
+    "Spread the sundried tomatoes around on the top of one half",
+    "Spread the pesto around on top of the tomatoes.",
+    "Put the other half of the cream cheese back on top of the bottom half that is spread with pesto and tomatoes.",
+    "Open the can of crescents. Unroll the crescents rolls. Pinch together 2 triangles in order to make a square. Repeat with another two triangles.",
+    "Spread one square out onto a baking sheet that has been prepared with baking non stick spray. Do not push it down into the pan.",
+    "Lay the cream cheese block on top of the square.",
+    "Lay the other square of crescent rolls on top of the cream cheese. Pinch the edges of the crescents together to seal the edges. You may use the remaining crescents for decoration pieces.",
+    "Paint the top of the crescent with the beaten egg",
+    "Bake at 350 for 20 mins. (Start checking at about 18 mins).",
+    "Remove when pastry is rich golden color.",
+    "Serve hot."
+   ],
+   "spoonacularScore": 6.7611775398254395,
+   "healthScore": 0.0,
+   "aggregateLikes": 1,
+   "readyInMinutes": 45,
+   "preparationMinutes": null,
+   "cookingMinutes": null,
+   "servings": 10,
+   "diets": [
+    "lacto ovo vegetarian"
+   ],
+   "dishTypes": [
+    "side dish"
+   ],
+   "cuisines": [],
+   "sourceName": "Foodista",
+   "sourceUrl": "https://www.foodista.com/recipe/RS3Y8ZV5/cream-cheese-with-sun-dried-tomatoes-and-pesto-pastry"
+  },
+  {
+   "id": 665344,
+   "title": "Wild Rice With Bacon, Mushrooms & Green Onions",
+   "image": "https://img.spoonacular.com/recipes/665344-312x231.jpg",
+   "usedIngredients": [
+    {
+     "name": "zataran's rice",
+     "amount": 2.0,
+     "unit": "box",
+     "original": "2 boxes Uncle Ben's or Zataran's Wild Rice"
+    },
+    {
+     "name": "green onions",
+     "amount": 4.0,
+     "unit": "",
+     "original": "4 green onions, sliced"
+    }
+   ],
+   "missedIngredients": [
+    {
+     "name": "button mushrooms",
+     "amount": 1.0,
+     "unit": "pkg",
+     "original": "1 package regular size Fresh sliced Cremini or button mushrooms"
+    },
+    {
+     "name": "butter",
+     "amount": 0.5,
+     "unit": "stick",
+     "original": "1/2 stick butter"
+    },
+    {
+     "name": "real bacon bits pieces",
+     "amount": 1.0,
+     "unit": "pkg",
+     "original": "1 package small real bacon bits pieces"
+    }
+   ],
+   "summary": "Wild Rice With Bacon, Mushrooms & Green Onions could be just the <b>gluten free and ketogenic</b> recipe you've been looking for. For <b>80 cents per serving</b>, you get a side dish that serves 6. One portion of this dish contains around <b>7g of protein</b>, <b>11g of fat</b>, and a total of <b>130 calories</b>. Head to the store and pick up real bacon bits pieces, button mushrooms, butter, and a few other things to make it today. 1 person found this recipe to be delicious and satisfying. From preparation to the plate, this recipe takes about <b>45 minutes</b>. It is brought to you by Foodista. All things considered, we decided this recipe <b>deserves a spoonacular score of 15%</b>. This score is rather bad. <a href=\"https://spoonacular.com/recipes/braised-monkfish-with-wild-mushrooms-and-cipollini-onions-1809\">Braised Monkfish with Wild Mushrooms and Cipollini Onions</a>, <a href=\"https://spoonacular.com/recipes/wild-rice-stuffing-with-wild-mushrooms-187868\">Wild Rice Stuffing with Wild Mushrooms</a>, and <a href=\"https://spoonacular.com/recipes/spinach-salad-with-bacon-caramelized-onions-mushrooms-and-blue-cheese-in-a-bacon-pan-sauce-dressing-topped-with-a-hard-boiled-egg-1229109\">Spinach Salad with Bacon, Caramelized Onions, Mushrooms and Blue Cheese in a Bacon Pan Sauce Dressing Topped with a Hard Boiled Egg</a> are very similar to this recipe.",
+   "steps": [
+    "In a large sauce pot, saut mushrooms in butter until golden brown.",
+    "Add bacon and 1/2 of the green onions and saute just 1 minute.",
+    "Add all of the water that the box mix calls for.",
+    "Combine wild rice mix into the water and follow box instructions.",
+    "When rice is done, stir in remaining green onions and serve immediately."
+   ],
+   "spoonacularScore": 13.705116271972656,
+   "healthScore": 0.0,
+   "aggregateLikes": 1,
+   "readyInMinutes": 45,
+   "preparationMinutes": null,
+   "cookingMinutes": null,
+   "servings": 6,
+   "diets": [
+    "gluten free",
+    "ketogenic"
+   ],
+   "dishTypes": [
+    "side dish"
+   ],
+   "cuisines": [],
+   "sourceName": "Foodista",
+   "sourceUrl": "https://www.foodista.com/recipe/H4TVGTQM/wild-rice-with-bacon-mushrooms-green-onions"
+  },
+  {
+   "id": 665348,
+   "title": "Wild Salmon Cakes",
+   "image": "https://img.spoonacular.com/recipes/665348-312x231.jpg",
+   "usedIngredients": [
+    {
+     "name": "onion",
+     "amount": 0.25,
+     "unit": "",
+     "original": "1/4 red onion, diced"
+    },
+    {
+     "name": "egg",
+     "amount": 1.0,
+     "unit": "",
+     "original": "1 egg"
+    }
+   ],
+   "missedIngredients": [
+    {
+     "name": "salmon fillet",
+     "amount": 1.0,
+     "unit": "lb",
+     "original": "1 pound wild salmon fillet, boneless and skinless, minced"
+    },
+    {
+     "name": "capers",
+     "amount": 1.0,
+     "unit": "tsp",
+     "original": "1 teaspoon capers"
+    },
+    {
+     "name": "panko",
+     "amount": 0.5,
+     "unit": "cup",
+     "original": "1/2 cup panko"
+    }
+   ],
+   "summary": "Wild Salmon Cakes might be just the main course you are searching for. This dairy free and pescatarian recipe serves 4 and costs <b>$2.69 per serving</b>. One serving contains <b>209 calories</b>, <b>25g of protein</b>, and <b>9g of fat</b>. Head to the store and pick up panko, onion, egg, and a few other things to make it today. This recipe is liked by 4 foodies and cooks. From preparation to the plate, this recipe takes roughly <b>45 minutes</b>. It is brought to you by Foodista. Overall, this recipe earns a <b>solid spoonacular score of 77%</b>. Try <a href=\"https://spoonacular.com/recipes/wild-salmon-cakes-1632267\">Wild Salmon Cakes</a>, <a href=\"https://spoonacular.com/recipes/potato-and-wild-salmon-cakes-with-ginger-and-scallions-317330\">Potato-and-Wild-Salmon Cakes with Ginger and Scallions</a>, and <a href=\"https://spoonacular.com/recipes/potato-and-wild-salmon-cakes-with-ginger-and-scallions-702583\">Potato-and-Wild-Salmon Cakes with Ginger and Scallions</a> for similar recipes.",
+   "steps": [
+    "Mince the salmon.",
+    "In a bowl, whip the egg; add the diced onion, capers and salmon until ingredients are incorporated",
+    "Add the panko bread crumbs until combined.",
+    "Form into 4 patties and place on a hot grill for about 2-3 minutes on each side, or in a 350 degree oven for 15-20 minutes."
+   ],
+   "spoonacularScore": 80.20056915283203,
+   "healthScore": 28.0,
+   "aggregateLikes": 4,
+   "readyInMinutes": 45,
+   "preparationMinutes": null,
+   "cookingMinutes": null,
+   "servings": 4,
+   "diets": [
+    "dairy free",
+    "pescatarian"
+   ],
+   "dishTypes": [
+    "lunch",
+    "main course",
+    "main dish",
+    "dinner"
+   ],
+   "cuisines": [],
+   "sourceName": "Foodista",
+   "sourceUrl": "https://www.foodista.com/recipe/TQ7FYHL4/wild-salmon-cakes"
+  },
+  {
+   "id": 653008,
+   "title": "Neoguri (Spicy Seafood Ramen)",
+   "image": "https://img.spoonacular.com/recipes/653008-312x231.jpg",
+   "usedIngredients": [
+    {
+     "name": "egg",
+     "amount": 1.0,
+     "unit": "",
+     "original": "•1 egg, beaten"
+    },
+    {
+     "name": "scallion",
+     "amount": 1.0,
+     "unit": "",
+     "original": "•1 scallion, thinly sliced green only"
+    }
+   ],
+   "missedIngredients": [
+    {
+     "name": "mussels",
+     "amount": 6.0,
+     "unit": "",
+     "original": "•6 mussels, cleaned & debearded"
+    },
+    {
+     "name": "neoguri ramen",
+     "amount": 1.0,
+     "unit": "pkg",
+     "original": "•package 1 Neoguri ramen"
+    },
+    {
+     "name": "seaweed",
+     "amount": 1.0,
+     "unit": "sheet",
+     "original": "•1 sheet seaweed, cut into strips"
+    }
+   ],
+   "summary": "If you have approximately <b>45 minutes</b> to spend in the kitchen, Neoguri (Spicy Seafood Ramen) might be an awesome <b>dairy free and pescatarian</b> recipe to try. For <b>$1.04 per serving</b>, this recipe <b>covers 27%</b> of your daily requirements of vitamins and minerals. One portion of this dish contains approximately <b>21g of protein</b>, <b>19g of fat</b>, and a total of <b>481 calories</b>. This recipe serves 1. 2 people found this recipe to be yummy and satisfying. It is brought to you by Foodista. It is an <b>affordable</b> recipe for fans of Japanese food. If you have scallion, seaweed, neoguri ramen, and a few other ingredients on hand, you can make it. It works well as a main course. All things considered, we decided this recipe <b>deserves a spoonacular score of 62%</b>. This score is pretty good. Users who liked this recipe also liked <a href=\"https://spoonacular.com/recipes/neoguri-spicy-seafood-ramen-1371711\">Neoguri (Spicy Seafood Ramen)</a>, <a href=\"https://spoonacular.com/recipes/spicy-chicken-ramen-1615627\">Spicy Chicken Ramen</a>, and <a href=\"https://spoonacular.com/recipes/spicy-ramen-cup-of-noodles-1323355\">Spicy Ramen Cup of Noodles</a>.",
+   "steps": [
+    "Add mussels and sauce packets into boiling water.",
+    "Let boil with mussels about 5 minutes to cook and deepen the broth. If using fresh mussels, wait until they open and discard closed mussels.",
+    "Include the noodles and cook for a 2, 3 minutes.",
+    "Add the beaten egg while stirring noodles in a circular motion for even, flaky egg drops. If wanting a poached egg, carefully add the egg off to the side of the pot.",
+    "Meanwhile, cut scallion into thin pieces along with gim (seaweed) sheet.",
+    "Transfer to a serving bowl and add the scallions and gim (seaweed)."
+   ],
+   "spoonacularScore": 68.20633697509766,
+   "healthScore": 18.0,
+   "aggregateLikes": 2,
+   "readyInMinutes": 45,
+   "preparationMinutes": null,
+   "cookingMinutes": null,
+   "servings": 1,
+   "diets": [
+    "dairy free",
+    "pescatarian"
+   ],
+   "dishTypes": [
+    "lunch",
+    "main course",
+    "main dish",
+    "dinner"
+   ],
+   "cuisines": [
+    "Asian",
+    "Japanese"
+   ],
+   "sourceName": "Foodista",
+   "sourceUrl": "https://www.foodista.com/recipe/77PG3GGF/neoguri-spicy-seafood-ramen"
+  },
+  {
+   "id": 664547,
+   "title": "Vegetable Dip",
+   "image": "https://img.spoonacular.com/recipes/664547-312x231.jpg",
+   "usedIngredients": [
+    {
+     "name": "onion",
+     "amount": 1.0,
+     "unit": "cup",
+     "original": "cup fresh onion, minced"
+    }
+   ],
+   "missedIngredients": [
+    {
+     "name": "spinach",
+     "amount": 10.0,
+     "unit": "oz",
+     "original": "1 package frozen chopped spinach, thawed & drained (10 oz)"
+    },
+    {
+     "name": "lowfat yogurt",
+     "amount": 2.0,
+     "unit": "cup",
+     "original": "2 cups plain lowfat yogurt"
+    },
+    {
+     "name": "vegetables",
+     "amount": 3.0,
+     "unit": "servings",
+     "original": "Assorted raw vegetables for dipping"
+    }
+   ],
+   "summary": "Vegetable Dip might be just the hor d'oeuvre you are searching for. This recipe serves 3. Watching your figure? This gluten free, lacto ovo vegetarian, and primal recipe has <b>210 calories</b>, <b>16g of protein</b>, and <b>4g of fat</b> per serving. For <b>$1.84 per serving</b>, this recipe <b>covers 29%</b> of your daily requirements of vitamins and minerals. Only a few people made this recipe, and 1 would say it hit the spot. It is brought to you by Foodista. From preparation to the plate, this recipe takes around <b>45 minutes</b>. It will be a hit at your <b>The Super Bowl</b> event. If you have vegetables, onion, lowfat yogurt, and a few other ingredients on hand, you can make it. Overall, this recipe earns a <b>spectacular spoonacular score of 96%</b>. <a href=\"https://spoonacular.com/recipes/vegetable-dip-407029\">Vegetable Dip</a>, <a href=\"https://spoonacular.com/recipes/italian-vegetable-dip-268772\">Italian Vegetable Dip</a>, and <a href=\"https://spoonacular.com/recipes/roasted-vegetable-dip-444123\">Roasted Vegetable Dip</a> are very similar to this recipe.",
+   "steps": [
+    "In a medium bowl combine all ingredients (except raw vegetables for dipping). Cover and refrigerate until ready to serve.",
+    "Serve as a dip for raw vegetables. Makes approximately 3 cups."
+   ],
+   "spoonacularScore": 96.66452026367188,
+   "healthScore": 100.0,
+   "aggregateLikes": 1,
+   "readyInMinutes": 45,
+   "preparationMinutes": null,
+   "cookingMinutes": null,
+   "servings": 3,
+   "diets": [
+    "gluten free",
+    "lacto ovo vegetarian",
+    "primal"
+   ],
+   "dishTypes": [
+    "antipasti",
+    "condiment",
+    "starter",
+    "snack",
+    "appetizer",
+    "dip",
+    "antipasto",
+    "hor d'oeuvre",
+    "spread"
+   ],
+   "cuisines": [],
+   "sourceName": "Foodista",
+   "sourceUrl": "https://www.foodista.com/recipe/WMHFXKKF/vegetable-dip"
+  },
+  {
+   "id": 648368,
+   "title": "Jalapeno Queso With Goat Cheese",
+   "image": "https://img.spoonacular.com/recipes/648368-312x231.jpg",
+   "usedIngredients": [
+    {
+     "name": "canned tomatoes",
+     "amount": 8.0,
+     "unit": "oz",
+     "original": "8 oz. can diced tomatoes, drained"
+    }
+   ],
+   "missedIngredients": [
+    {
+     "name": "goat cheese",
+     "amount": 5.3,
+     "unit": "oz",
+     "original": "1 package (5.3 oz) Fresh Goat Cheese, such as Chavrie"
+    },
+    {
+     "name": "ea. jalapeno pepper",
+     "amount": 1.0,
+     "unit": "",
+     "original": "1 ea. jalapeno pepper diced"
+    },
+    {
+     "name": "hot sauce",
+     "amount": 2.0,
+     "unit": "tsp",
+     "original": "2 teaspoons hot sauce"
+    }
+   ],
+   "summary": "Jalapeno Queso With Goat Cheese might be a good recipe to expand your main course recipe box. This recipe serves 1. For <b>$5.63 per serving</b>, this recipe <b>covers 26%</b> of your daily requirements of vitamins and minerals. One portion of this dish contains approximately <b>32g of protein</b>, <b>32g of fat</b>, and a total of <b>474 calories</b>. This recipe is liked by 1 foodies and cooks. It is a good option if you're following a <b>gluten free and lacto ovo vegetarian</b> diet. This recipe from Foodista requires goat cheese, canned tomatoes, ea. jalapeno pepper, and hot sauce. From preparation to the plate, this recipe takes about <b>45 minutes</b>. All things considered, we decided this recipe <b>deserves a spoonacular score of 77%</b>. This score is pretty good. <a href=\"https://spoonacular.com/recipes/smokey-roasted-chicken-tacos-with-spicy-goat-cheese-queso-525564\">Smokey Roasted Chicken Tacos with Spicy Goat Cheese Queso</a>, <a href=\"https://spoonacular.com/recipes/queso-de-cabra-con-tomate-goat-cheese-baked-in-tomato-sauce-108554\">Queso De Cabra Con Tomate (Goat Cheese Baked in Tomato Sauce)</a>, and <a href=\"https://spoonacular.com/recipes/jalapeo-poppers-with-goat-cheese-and-bacon-83424\">Jalapeño Poppers With Goat Cheese And Bacon</a> are very similar to this recipe.",
+   "steps": [
+    "Mix all ingredients in a glass bowl and slowly heat in the microwave until piping hot.",
+    "Salt and freshly ground black pepper to taste."
+   ],
+   "spoonacularScore": 80.0896987915039,
+   "healthScore": 28.0,
+   "aggregateLikes": 1,
+   "readyInMinutes": 45,
+   "preparationMinutes": null,
+   "cookingMinutes": null,
+   "servings": 1,
+   "diets": [
+    "gluten free",
+    "lacto ovo vegetarian"
+   ],
+   "dishTypes": [
+    "lunch",
+    "main course",
+    "main dish",
+    "dinner"
+   ],
+   "cuisines": [],
+   "sourceName": "Foodista",
+   "sourceUrl": "https://www.foodista.com/recipe/H6XM7BBC/jalapeno-queso-with-goat-cheese"
+  },
+  {
+   "id": 715494,
+   "title": "Guinness and Brats",
+   "image": "https://img.spoonacular.com/recipes/715494-312x231.jpg",
+   "usedIngredients": [
+    {
+     "name": "onions",
+     "amount": 2.0,
+     "unit": "",
+     "original": "2 onions (quartered)"
+    }
+   ],
+   "missedIngredients": [
+    {
+     "name": "bratwurst",
+     "amount": 4.0,
+     "unit": "servings",
+     "original": "bratwurst (I like the SPICY with this recipe)"
+    },
+    {
+     "name": "hotdog buns",
+     "amount": 4.0,
+     "unit": "servings",
+     "original": "hotdog buns"
+    },
+    {
+     "name": "guinness s out beer",
+     "amount": 1.0,
+     "unit": "Tbsp",
+     "original": "Guinness STOUT beer"
+    }
+   ],
+   "summary": "Guinness and Brats takes about <b>55 minutes</b> from beginning to end. One portion of this dish contains about <b>14g of protein</b>, <b>21g of fat</b>, and a total of <b>362 calories</b>. This recipe serves 4 and costs $1.28 per serving. It works well as a side dish. 86 people found this recipe to be flavorful and satisfying. A mixture of bratwurst, hotdog buns, onions, and a handful of other ingredients are all it takes to make this recipe so tasty. It is a good option if you're following a <b>dairy free</b> diet. It will be a hit at your <b>st. patrick day</b> event. It is brought to you by Pink When. All things considered, we decided this recipe <b>deserves a spoonacular score of 70%</b>. This score is solid. If you like this recipe, you might also like recipes such as <a href=\"https://spoonacular.com/recipes/guinness-fudge-bundt-cake-with-guinness-ganache-no-beer-goggles-needed-572705\">Guinness Fudge Bundt Cake with Guinness Ganache – No Beer Goggles Needed</a>, <a href=\"https://spoonacular.com/recipes/guinness-week-stout-and-chocolate-mousse-with-guinness-oatmeal-cookies-206974\">Guinness Week: Stout and Chocolate Mousse with Guinness Oatmeal Cookies</a>, and <a href=\"https://spoonacular.com/recipes/mile-high-guinness-brownies-with-guinness-buttercream-frosting-730287\">Mile High Guinness Brownies with Guinness Buttercream Frosting</a>.",
+   "steps": [
+    "We like to make this on the grill. While you can make these in the oven or on the stove, making them on the grill has always been the best option and the one we like the best.Take a large cast iron skillet and add the bratwurst links, quartered onions, and then pour a bottle of Guinness Stout over the ingredients.",
+    "Place on the grill with a temperature of about 400 and then close the lid.About every 5-10 minutes lift the lid and toss the onions and brats in the Guinness. After about 45 minutes to an hour, you are done.Take a grilled brat and some caramelized onions onto a hotdog bun.",
+    "Serve immediately."
+   ],
+   "spoonacularScore": 72.96251678466797,
+   "healthScore": 12.0,
+   "aggregateLikes": 86,
+   "readyInMinutes": 55,
+   "preparationMinutes": 5,
+   "cookingMinutes": 50,
+   "servings": 4,
+   "diets": [],
+   "dishTypes": [
+    "side dish"
+   ],
+   "cuisines": [],
+   "sourceName": "Pink When",
+   "sourceUrl": "https://www.pinkwhen.com/guinness-and-brats-recipe/"
+  },
+  {
+   "id": 1747693,
+   "title": "Your Basic Low Carb Breakfast",
+   "image": "https://img.spoonacular.com/recipes/1747693-312x231.jpg",
+   "usedIngredients": [
+    {
+     "name": "eggs",
+     "amount": 2.0,
+     "unit": "large",
+     "original": "2 large eggs"
+    }
+   ],
+   "missedIngredients": [
+    {
+     "name": "kirkland signature bacon",
+     "amount": 2.0,
+     "unit": "strips",
+     "original": "2 strips Kirkland Signature Fully-Cooked Bacon"
+    },
+    {
+     "name": "avocado",
+     "amount": 0.5,
+     "unit": "",
+     "original": "1/2 avocado"
+    },
+    {
+     "name": "strawberries",
+     "amount": 0.5,
+     "unit": "cup",
+     "original": "1/2 cup strawberries"
+    }
+   ],
+   "summary": "The recipe Your Basic Low Carb Breakfast can be made <b>in around 7 minutes</b>. This breakfast has <b>510 calories</b>, <b>21g of protein</b>, and <b>42g of fat</b> per serving. This recipe serves 1 and costs $2.5 per serving. If you have strawberries, kirkland signature bacon, avocado, and a few other ingredients on hand, you can make it. It is brought to you by spoonacular user <a href=\"/profile/supersimplelowcarb\">supersimplelowcarb</a>. It is a good option if you're following a <b>gluten free, dairy free, paleolithic, and primal</b> diet. If you like this recipe, you might also like recipes such as <a href=\"https://spoonacular.com/recipes/mediterannean-breakfast-egg-muffins-with-ham-low-carb-low-fat-high-protein-low-calorie-gf-509496\">Mediterannean Breakfast Egg Muffins with Ham {Low Carb, Low Fat, High Protein, Low Calorie & GF}</a>, <a href=\"https://spoonacular.com/recipes/mediterannean-breakfast-egg-muffins-with-ham-low-carb-low-fat-high-protein-low-calorie-gf-1236667\">Mediterannean Breakfast Egg Muffins with Ham {Low Carb, Low Fat, High Protein, Low Calorie & GF}</a>, and <a href=\"https://spoonacular.com/recipes/mediterannean-breakfast-egg-muffins-with-ham-low-carb-low-fat-high-protein-low-calorie-gf-1324619\">Mediterannean Breakfast Egg Muffins with Ham {Low Carb, Low Fat, High Protein, Low Calorie & GF}</a>.",
+   "steps": [
+    "Cook 2 eggs to any style of your liking Microwave 2 strips of Kirkland Signature Fully-Cooked Bacon to your desired level of crispiness",
+    "Slice the avocado in half and scoop out the insides Slice strawberries into 1/2 measuring cup Enjoy!"
+   ],
+   "spoonacularScore": 63.45628356933594,
+   "healthScore": 15.0,
+   "aggregateLikes": 0,
+   "readyInMinutes": 7,
+   "preparationMinutes": 2,
+   "cookingMinutes": 5,
+   "servings": 1,
+   "diets": [
+    "gluten free",
+    "dairy free",
+    "paleolithic",
+    "primal",
+    "whole 30",
+    "ketogenic"
+   ],
+   "dishTypes": [
+    "morning meal",
+    "brunch",
+    "breakfast"
+   ],
+   "cuisines": [],
+   "sourceName": "Super Simple Low Carb",
+   "sourceUrl": "https://supersimplelowcarb.com/blogs/low-carb-recipes/your-basic-low-carb-breakfast"
+  },
+  {
+   "id": 642303,
+   "title": "Eggplant pizzette",
+   "image": "https://img.spoonacular.com/recipes/642303-312x231.jpg",
+   "usedIngredients": [
+    {
+     "name": "tomatoes",
+     "amount": 10.0,
+     "unit": "Tbsp",
+     "original": "10 Tbs chopped tomatoes"
+    }
+   ],
+   "missedIngredients": [
+    {
+     "name": "round eggplant",
+     "amount": 1.0,
+     "unit": "large",
+     "original": "1 large round eggplant, washed, sliced into rounds"
+    },
+    {
+     "name": "swiss cheese",
+     "amount": 100.0,
+     "unit": "g",
+     "original": "100g Swiss cheese, coarsely grated"
+    },
+    {
+     "name": "basil and oregano leaves",
+     "amount": 3.0,
+     "unit": "servings",
+     "original": "Basil and oregano leaves, fresh or dried"
+    }
+   ],
+   "summary": "Eggplant pizzette takes around <b>45 minutes</b> from beginning to end. One portion of this dish contains about <b>11g of protein</b>, <b>11g of fat</b>, and a total of <b>178 calories</b>. For <b>$1.2 per serving</b>, you get a side dish that serves 3. This recipe is liked by 5 foodies and cooks. It is a good option if you're following a <b>gluten free, lacto ovo vegetarian, and primal</b> diet. Head to the store and pick up round eggplant, tomatoes, swiss cheese, and a few other things to make it today. It is brought to you by Foodista. With a spoonacular <b>score of 70%</b>, this dish is good. Similar recipes are <a href=\"https://spoonacular.com/recipes/margherita-pizzette-516272\">Margherita Pizzette</a>, <a href=\"https://spoonacular.com/recipes/nicoise-salad-pizzette-338453\">Nicoise Salad Pizzette</a>, and <a href=\"https://spoonacular.com/recipes/pizzette-with-gorgonzola-tomato-and-basil-369720\">Pizzette with Gorgonzola, Tomato and Basil</a>.",
+   "steps": [
+    "Place eggplant rounds in a non-stick pan greased with olive oil and bake in the oven for 10 minutes at 230C.",
+    "Remove the pan from oven, but leave baked eggplant inside.",
+    "Cover each eggplant round with one spoon of chopped tomatoes, sprinkle with oregano and basil leaves.",
+    "Top with grated cheese and bake an additional 5 minutes in the oven at the same temperature, until cheese is melted and golden brown.",
+    "Serve pizzette warm or cooled as an appetizer or as a stand-alone small meal."
+   ],
+   "spoonacularScore": 77.138671875,
+   "healthScore": 18.0,
+   "aggregateLikes": 5,
+   "readyInMinutes": 45,
+   "preparationMinutes": null,
+   "cookingMinutes": null,
+   "servings": 3,
+   "diets": [
+    "gluten free",
+    "lacto ovo vegetarian",
+    "primal"
+   ],
+   "dishTypes": [
+    "side dish"
+   ],
+   "cuisines": [],
+   "sourceName": "Foodista",
+   "sourceUrl": "https://www.foodista.com/recipe/Z8BW2C8N/eggplant-pizzette"
+  },
+  {
+   "id": 641904,
+   "title": "Easy Chicken Tandoori",
+   "image": "https://img.spoonacular.com/recipes/641904-312x231.jpg",
+   "usedIngredients": [
+    {
+     "name": "onions",
+     "amount": 12.0,
+     "unit": "servings",
+     "original": "Onions"
+    },
+    {
+     "name": "tomatoes",
+     "amount": 12.0,
+     "unit": "servings",
+     "original": "Fresh tomatoes"
+    }
+   ],
+   "missedIngredients": [
+    {
+     "name": "chicken",
+     "amount": 2.0,
+     "unit": "lb",
+     "original": "2 pounds chicken"
+    },
+    {
+     "name": "tikka tandoori paste",
+     "amount": 2.0,
+     "unit": "cup",
+     "original": "2 cups tikka tandoori paste*"
+    },
+    {
+     "name": "coriander leaves",
+     "amount": 12.0,
+     "unit": "servings",
+     "original": "coriander leaves"
+    },
+    {
+     "name": "greek yogurt",
+     "amount": 1.0,
+     "unit": "cup",
+     "original": "1 cup greek yogurt"
+    }
+   ],
+   "summary": "Easy Chicken Tandoori is an Indian recipe that serves 12. One serving contains <b>236 calories</b>, <b>17g of protein</b>, and <b>9g of fat</b>. For <b>$2.3 per serving</b>, this recipe <b>covers 18%</b> of your daily requirements of vitamins and minerals. Only a few people made this recipe, and 7 would say it hit the spot. It is a good option if you're following a <b>gluten free</b> diet. It works best as a main course, and is done in roughly <b>45 minutes</b>. This recipe from Foodista requires chicken, tikka tandoori paste, onions, and tomatoes. Overall, this recipe earns a <b>solid spoonacular score of 58%</b>. Users who liked this recipe also liked <a href=\"https://spoonacular.com/recipes/easy-chicken-tandoori-1377395\">Easy Chicken Tandoori</a>, <a href=\"https://spoonacular.com/recipes/aartis-easy-tandoori-chicken-288364\">Aarti's Easy Tandoori Chicken</a>, and <a href=\"https://spoonacular.com/recipes/easy-homemade-tandoori-chicken-670403\">Easy Homemade Tandoori Chicken</a>.",
+   "steps": [
+    "Mix the tandoori paste and yogurt well. Marinate the chicken pieces well for about 30 minutes",
+    "Place the chicken pieces along with the marinate into a baking pan and bake until golden brown and then turn over  until chicken is done. Keep turning the chicken pieces a few times while baking.",
+    "Serve with in a bed of rice. Then lay the chicken fillets on the rice and put a bit of greek yogurt"
+   ],
+   "spoonacularScore": 60.990047454833984,
+   "healthScore": 11.0,
+   "aggregateLikes": 7,
+   "readyInMinutes": 45,
+   "preparationMinutes": null,
+   "cookingMinutes": null,
+   "servings": 12,
+   "diets": [
+    "gluten free"
+   ],
+   "dishTypes": [
+    "lunch",
+    "main course",
+    "main dish",
+    "dinner"
+   ],
+   "cuisines": [
+    "Indian",
+    "Asian"
+   ],
+   "sourceName": "Foodista",
+   "sourceUrl": "https://www.foodista.com/recipe/X8BXB6WT/easy-chicken-tandoori"
+  }
+ ]
+}

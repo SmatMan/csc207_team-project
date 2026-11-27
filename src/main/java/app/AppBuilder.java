@@ -2,7 +2,6 @@ package app;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
-import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Taskbar;
 import java.net.URL;
@@ -12,7 +11,6 @@ import java.util.Map;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
@@ -20,6 +18,7 @@ import data_access.FileCreateProfileDataAccessObject;
 import data_access.FileIngredientCorpusDataAccessObject;
 import data_access.FileIntoleranceCatalogue;
 import data_access.FilePantryDataAccessObject;
+import data_access.SpoonacularRecipeDataAccessObject;
 import entity.KnownIngredient;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.create_profile.CreateProfileController;
@@ -28,6 +27,12 @@ import interface_adapter.create_profile.CreateProfileViewModel;
 import interface_adapter.pantry.PantryController;
 import interface_adapter.pantry.PantryPresenter;
 import interface_adapter.pantry.PantryViewModel;
+import interface_adapter.recipes.RecipesController;
+import interface_adapter.recipe_detail.RecipeDetailController;
+import interface_adapter.recipe_detail.RecipeDetailPresenter;
+import interface_adapter.recipe_detail.RecipeDetailViewModel;
+import interface_adapter.recipes.RecipesPresenter;
+import interface_adapter.recipes.RecipesViewModel;
 import interface_adapter.search_ingredients.SearchIngredientsController;
 import interface_adapter.search_ingredients.SearchIngredientsPresenter;
 import interface_adapter.search_ingredients.SearchIngredientsViewModel;
@@ -36,6 +41,10 @@ import use_case.add_ingredient.AddIngredientInteractor;
 import use_case.create_profile.CreateProfileInputBoundary;
 import use_case.create_profile.CreateProfileInteractor;
 import use_case.create_profile.IntoleranceCatalogue;
+import use_case.find_recipes.FindRecipesDataAccessInterface;
+import use_case.find_recipes.FindRecipesInputBoundary;
+import use_case.find_recipes.FindRecipesInteractor;
+import use_case.find_recipes.FindRecipesOutputBoundary;
 import use_case.load_pantry.LoadPantryInputBoundary;
 import use_case.load_pantry.LoadPantryInteractor;
 import use_case.remove_ingredient.RemoveIngredientInputBoundary;
@@ -43,23 +52,26 @@ import use_case.remove_ingredient.RemoveIngredientInteractor;
 import use_case.search_ingredients.SearchIngredientsInputBoundary;
 import use_case.search_ingredients.SearchIngredientsInteractor;
 import use_case.search_ingredients.SearchIngredientsOutputBoundary;
+import use_case.view_recipe.ViewRecipeDataAccessInterface;
+import use_case.view_recipe.ViewRecipeInputBoundary;
+import use_case.view_recipe.ViewRecipeInteractor;
+import use_case.view_recipe.ViewRecipeOutputBoundary;
 import view.AddIngredientPanel;
 import view.CreateProfilePanel;
 import view.PantryPanel;
+import view.RecipeDetailView;
+import view.RecipeIngredientsPanel;
+import view.RecipesView;
 import view.SidebarView;
 import view.ViewManager;
 import view.components.IngredientIcons;
 import view.theme.Theme;
-import view.theme.Theme.Weight;
 
 /**
  * Builds the application: creates the views and wires each use case's
  * controller, interactor and presenter together.
  */
 public class AppBuilder {
-
-    // Temporary main-area card until the recipe views exist.
-    private static final String RECIPES_PLACEHOLDER = "recipes placeholder";
 
     private static final String LOGO_RESOURCE = "/logo.png";
 
@@ -81,9 +93,21 @@ public class AppBuilder {
     final FileIngredientCorpusDataAccessObject ingredientCorpusDataAccessObject =
             new FileIngredientCorpusDataAccessObject("/ingredients.json");
 
+    // Recipes come from Spoonacular through the existing API call (use case 2), unless another
+    // source is swapped in with useRecipeDataAccessObject (e.g. mock data). The same source both
+    // finds recipes and looks up the ones it found when a recipe is opened.
+    private final SpoonacularRecipeDataAccessObject spoonacularRecipes = new SpoonacularRecipeDataAccessObject();
+    private FindRecipesDataAccessInterface recipeDataAccessObject = spoonacularRecipes;
+    private ViewRecipeDataAccessInterface recipeLookupDataAccessObject = spoonacularRecipes;
+
     // How ingredients are drawn, shared by the pantry list and the add-ingredient search.
     private final IngredientIcons ingredientIcons = buildIngredientIcons();
 
+    private RecipesViewModel recipesViewModel;
+    private RecipesView recipesView;
+    private RecipeDetailViewModel recipeDetailViewModel;
+    private RecipeDetailView recipeDetailView;
+    private RecipeIngredientsPanel recipeIngredientsPanel;
     private PantryViewModel pantryViewModel;
     private PantryPanel pantryPanel;
     private CreateProfileViewModel createProfileViewModel;
@@ -169,7 +193,8 @@ public class AppBuilder {
      * @return this builder
      */
     public AppBuilder addSidebarView() {
-        sidebarView = new SidebarView(pantryPanel, createProfilePanel, addIngredientPanel);
+        sidebarView = new SidebarView(pantryPanel, createProfilePanel, addIngredientPanel,
+                recipeIngredientsPanel, viewManagerModel);
         return this;
     }
 
@@ -214,18 +239,72 @@ public class AppBuilder {
     }
 
     /**
-     * Adds a placeholder for the main area. Remove once the recipe views are added.
+     * Adds the recipe results to the main area. Must be called after {@link #addPantryView()},
+     * since the recipes follow the pantry.
      * @return this builder
      */
-    public AppBuilder addRecipesPlaceholderView() {
-        final JLabel label = new JLabel("Recipes will appear here");
-        label.setFont(Theme.font(Weight.MEDIUM, Theme.SIZE_HEADING));
-        label.setForeground(Theme.TEXT_MUTED);
+    public AppBuilder addRecipesView() {
+        recipesViewModel = new RecipesViewModel();
+        recipesView = new RecipesView(recipesViewModel, pantryViewModel);
+        cardPanel.add(recipesView, RecipesViewModel.VIEW_NAME);
+        return this;
+    }
 
-        final JPanel placeholder = new JPanel(new GridBagLayout());
-        placeholder.setOpaque(false);
-        placeholder.add(label);
-        cardPanel.add(placeholder, RECIPES_PLACEHOLDER);
+    /**
+     * Uses a different recipe source instead of Spoonacular, e.g. mock data for demos and tests.
+     * Must be called before {@link #addFindRecipesUseCase()}.
+     * @param recipeSource where recipes come from
+     * @return this builder
+     */
+    public <T extends FindRecipesDataAccessInterface & ViewRecipeDataAccessInterface> AppBuilder
+            useRecipeDataAccessObject(T recipeSource) {
+        this.recipeDataAccessObject = recipeSource;
+        this.recipeLookupDataAccessObject = recipeSource;
+        return this;
+    }
+
+    /**
+     * Adds the recipe screen (one recipe in full) to the main area, and the sidebar panel
+     * listing its ingredients. Must be called before {@link #addSidebarView()}.
+     * @return this builder
+     */
+    public AppBuilder addRecipeDetailView() {
+        recipeDetailViewModel = new RecipeDetailViewModel();
+        recipeDetailView = new RecipeDetailView(recipeDetailViewModel);
+        recipeIngredientsPanel = new RecipeIngredientsPanel(recipeDetailViewModel, ingredientIcons);
+        cardPanel.add(recipeDetailView, RecipeDetailViewModel.VIEW_NAME);
+        return this;
+    }
+
+    /**
+     * Adds the View Recipe Use Case: clicking a recipe opens it in full.
+     * Must be called after {@link #addRecipesView()} and {@link #addRecipeDetailView()}.
+     * @return this builder
+     */
+    public AppBuilder addViewRecipeUseCase() {
+        final ViewRecipeOutputBoundary recipeDetailPresenter =
+                new RecipeDetailPresenter(viewManagerModel, recipeDetailViewModel);
+        final ViewRecipeInputBoundary viewRecipeInteractor =
+                new ViewRecipeInteractor(recipeLookupDataAccessObject, recipeDetailPresenter);
+
+        final RecipeDetailController recipeDetailController =
+                new RecipeDetailController(viewRecipeInteractor, viewManagerModel);
+        recipesView.setRecipeDetailController(recipeDetailController);
+        recipeDetailView.setRecipeDetailController(recipeDetailController);
+        return this;
+    }
+
+    /**
+     * Adds the Find Recipes Use Case, which searches for recipes with the pantry's ingredients.
+     * @return this builder
+     */
+    public AppBuilder addFindRecipesUseCase() {
+        final FindRecipesOutputBoundary recipesPresenter = new RecipesPresenter(recipesViewModel);
+        final FindRecipesInputBoundary findRecipesInteractor =
+                new FindRecipesInteractor(recipeDataAccessObject, recipesPresenter);
+
+        final RecipesController recipesController = new RecipesController(findRecipesInteractor);
+        recipesView.setRecipesController(recipesController);
         return this;
     }
 
@@ -244,7 +323,7 @@ public class AppBuilder {
         root.add(cardPanel, BorderLayout.CENTER);
         application.setContentPane(root);
 
-        viewManagerModel.setState(RECIPES_PLACEHOLDER);
+        viewManagerModel.setState(RecipesViewModel.VIEW_NAME);
         viewManagerModel.notifyViewChanged();
 
         return application;
